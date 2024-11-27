@@ -3,13 +3,17 @@
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
 import SwiperCard from "./SwiperCard";
-import './styles.css'
+import "./styles.css";
 
 function SwiperComponent() {
   const items = [
     <SwiperCard title="Home Decor" baseText="HomeDecor" key={"HomeDecor"} />,
-    <SwiperCard title="Celebrities" baseText="HomeDecor" key={"Celebrities"} />,
-    <SwiperCard title="Fashion" baseText="HomeDecor" key={"Fashion"} />,
+    <SwiperCard
+      title="Women Fashion"
+      baseText="womenFashion"
+      key={"womenFashion"}
+    />,
+    <SwiperCard title="Men Fashion" baseText="menfashion" key={"menfashion"} />,
     <SwiperCard title="Car" baseText="HomeDecor" key={"Car"} />,
   ];
 
@@ -26,12 +30,12 @@ function SwiperComponent() {
           mouseTracking
           items={items}
           autoPlay
-          autoPlayInterval={2000}
+          autoPlayInterval={6000}
           //   fadeOutAnimation
           disableButtonsControls
           infinite
           animationType="fadeout"
-          animationDuration={2000}
+          animationDuration={1000}
           activeIndex={1}
         />
       </section>

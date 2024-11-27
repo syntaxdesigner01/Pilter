@@ -9,8 +9,8 @@ export default function SwiperCard({ title, baseText }: { title: string; baseTex
           return (
             <Image
               src={`/Ideas/${baseText}${img}.png`}
-              width={"200"}
-              height={"200"}
+              width={300}
+              height={300}
               alt="Image 1"
               className="w-[250px] h-[250px]"
               key={img}
