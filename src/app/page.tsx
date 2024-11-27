@@ -1,6 +1,7 @@
 import NavBar from "@/components/GeneralComponents/NavBar";
 import HomeBodyComponent from "@/components/HomeComponents/HomeBodyComponent";
 import SwiperComponent from "@/components/SwiperComponents/SwiperComponent";
+import TestmoniesComponent from "@/components/TestmoniesComponents/TestmoniesComponent";
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
     <NavBar/>
     <SwiperComponent/>
     <HomeBodyComponent/>
+    <TestmoniesComponent/>
   </>
   );
 }

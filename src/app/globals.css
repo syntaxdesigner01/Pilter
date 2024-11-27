@@ -9,28 +9,7 @@ body {
     padding: 0;
     background-color: white;
     color: black;
+    scroll-behavior: smooth;
 
 }
 
-
-.custom-dots {
-  display: flex;
-  justify-content: center;
-  position: absolute;
-  top: 10px; /* Adjust this value to position the dots */
-  width: 100%;
-  z-index: 10; /* Ensure dots are above other elements */
-}
-
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: gray; /* Default color */
-  margin: 0 5px;
-  cursor: pointer;
-}
-
-.dot.active {
-  background-color: blue; /* Active dot color */
-}
