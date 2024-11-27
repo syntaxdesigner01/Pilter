@@ -1,8 +1,11 @@
+import NavBar from "@/components/GeneralComponents/NavBar";
+import SwiperComponent from "@/components/Inspiration/SwiperComponent";
 
 export default function Home() {
   return (
-    <main className=" text-black">
-      helloworld
-    </main>
+  <>
+    <NavBar/>
+    <SwiperComponent/>
+  </>
   );
 }
