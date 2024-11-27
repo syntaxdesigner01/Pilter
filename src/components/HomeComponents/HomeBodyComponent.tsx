@@ -5,7 +5,7 @@ import CustomButton from '../GeneralComponents/CustomButton';
 export default function HomeBodyComponent() {
   return (
     <section className="px-10 pt-20 flex flex-col gap-20 justify-center items-center w-full">
-      <aside className="flex justify-between items-center">
+      <aside className="flex justify-between items-center w-full">
         <Image
           src={"/searchIdeas.png"}
           alt="searchIdeas"

@@ -12,7 +12,7 @@ export default function SwiperCard({ title, baseText }: { title: string; baseTex
               width={300}
               height={300}
               alt="Image 1"
-              className="w-[250px] h-[250px]"
+              className="w-[300px] h-[300px] rounded-md shadow-lg z-50"
               key={img}
             />
           );
