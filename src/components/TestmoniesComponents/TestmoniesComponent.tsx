@@ -2,26 +2,20 @@
 
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
-import TestimonieCard from "./TestimonieCard"; 
+import TestimonieCard from "./TestimonieCard";
 import { useRef } from "react";
-import "./styles.css"; 
-import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
-
-interface AliceCarouselRef {
-  slideNext: () => void;
-  slidePrev: () => void;
-}
+import "./styles.css";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 
 export default function TestmoniesComponent() {
   const items = [
     <TestimonieCard key="1" />,
     <TestimonieCard key="2" />,
     <TestimonieCard key="3" />,
-
   ];
 
 
-  const carouselRef = useRef<AliceCarouselRef | null>(null);
+  const carouselRef = useRef<AliceCarousel | null>(null);
 
   const handlePrev = () => {
     if (carouselRef.current) {
@@ -50,10 +44,10 @@ export default function TestmoniesComponent() {
           animationDuration={1000}
         />
         <button className="carousel-control left" onClick={handlePrev}>
-          <ChevronLeftIcon boxSize={20} />
+          <FaAngleLeft />
         </button>
         <button className="carousel-control right" onClick={handleNext}>
-          <ChevronRightIcon boxSize={20} />
+          <FaAngleRight />
         </button>
       </section>
     </section>
