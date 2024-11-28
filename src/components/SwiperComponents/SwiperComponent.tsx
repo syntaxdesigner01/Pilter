@@ -9,7 +9,6 @@ function SwiperComponent() {
   const items = [
     <SwiperCard title="Home Decor" baseText="HomeDecor" key={"HomeDecor"} />,
     <SwiperCard  title="Women Fashion" baseText="womenFashion" key={"womenFashion"}/>,
-    // <SwiperCard title="Men Fashion" baseText="menfashion" key={"menfashion"} />,
     <SwiperCard title="Car" baseText="HomeDecor" key={"Car"} />,
   ];
 

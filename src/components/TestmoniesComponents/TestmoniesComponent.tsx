@@ -1,52 +1,60 @@
-import Image from "next/image";
-import './styles.css'
+"use client";
+
+import AliceCarousel from "react-alice-carousel";
+import "react-alice-carousel/lib/alice-carousel.css";
+import TestimonieCard from "./TestimonieCard"; 
+import { useRef } from "react";
+import "./styles.css"; 
+import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
+
+interface AliceCarouselRef {
+  slideNext: () => void;
+  slidePrev: () => void;
+}
 
 export default function TestmoniesComponent() {
-  return (
-    <section className="pt-20 pb-20">
-      <section className="flex justify-center items-center w-full ">
-        <section className="w-[500px] border-2  rounded-3xl shadow-sm rotate">
-          <section className="bg-[#1E1E1E] text-white flex items-center h-40 rounded-t-3xl px-10">
-            <section className="relative">
-              <Image
-                src={"/Icons/quoteOpen.svg"}
-                alt="quoteOpen"
-                width={40}
-                height={40}
-                className="relative top-[-20px]"
-              />
-            </section>
-            <p>
-              Pilter isn&apos;t just an image search engine—it&apos;s a
-              gateway to bringing art to life.
-            </p>
-            <section className="relative">
-              <Image
-                src={"/Icons/quoteClose.svg"}
-                alt="quoteClose"
-                width={40}
-                height={40}
-                className="relative bottom-[-10px] left-[-9em]"
-              />
-            </section>
-          </section>
+  const items = [
+    <TestimonieCard key="1" />,
+    <TestimonieCard key="2" />,
+    <TestimonieCard key="3" />,
 
-          <section className="flex justify-left px-4 items-center gap-4 py-6">
-            <Image
-              src={"/Testmonies/userTestmonies1.png"}
-              alt="avatar1"
-              width={80}
-              height={80}
-              className="rounded-full"
-            />
-            <section>
-              <h4 className="font-bold text-xl">Mary Cliont</h4>
-              <p className=" text-sm ">
-                Software Engineer <span className="font-semibold">@Pixbay</span>
-              </p>
-            </section>
-          </section>
-        </section>
+  ];
+
+
+  const carouselRef = useRef<AliceCarouselRef | null>(null);
+
+  const handlePrev = () => {
+    if (carouselRef.current) {
+      carouselRef.current.slidePrev();
+    }
+  };
+
+  const handleNext = () => {
+    if (carouselRef.current) {
+      carouselRef.current.slideNext();
+    }
+  };
+
+  return (
+    <section className="px-10 py-20 main">
+      <section className="carousel-container relative ">
+        <AliceCarousel
+          ref={carouselRef}
+          mouseTracking
+          items={items}
+          autoPlay
+          autoPlayInterval={3000}
+          disableButtonsControls
+          infinite
+          animationType="slide"
+          animationDuration={1000}
+        />
+        <button className="carousel-control left" onClick={handlePrev}>
+          <ChevronLeftIcon boxSize={20} />
+        </button>
+        <button className="carousel-control right" onClick={handleNext}>
+          <ChevronRightIcon boxSize={20} />
+        </button>
       </section>
     </section>
   );
