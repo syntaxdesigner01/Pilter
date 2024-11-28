@@ -1,16 +1,17 @@
-import React from "react";
-
-import {
-  ProgressCircleRing,
-  ProgressCircleRoot,
-} from "@/components/ui/progress-circle";
+import Footer from "@/components/GeneralComponents/Footer";
+import NavBar from "@/components/GeneralComponents/NavBar";
+import HomeBodyComponent from "@/components/HomeComponents/HomeBodyComponent";
+import SwiperComponent from "@/components/SwiperComponents/SwiperComponent";
+import TestmoniesComponent from "@/components/TestmoniesComponents/TestmoniesComponent";
 
 export default function Home() {
   return (
-    <main className="flex w-screen h-screen justify-center items-center">
-      <ProgressCircleRoot value={null}>
-        <ProgressCircleRing />
-      </ProgressCircleRoot>
-    </main>
+  <>
+    <NavBar/>
+    <SwiperComponent/>
+    <HomeBodyComponent/>
+    <TestmoniesComponent/>
+    <Footer/>
+  </> 
   );
 }

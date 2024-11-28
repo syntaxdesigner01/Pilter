@@ -2,3 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    /* @apply bg-white text-black; */
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    color: black;
+    scroll-behavior: smooth;
+height: fit-content;
+}
+

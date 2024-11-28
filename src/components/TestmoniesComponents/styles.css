@@ -1,0 +1,40 @@
+.rotate {
+    transform: rotate(-4.21deg);
+}
+
+.alice-carousel__dots.main {
+  position: relative;
+  bottom: 20px; 
+  left: 50%; 
+   top: -4em;
+  transform: translateX(-50%); 
+  z-index: 10; 
+  color: black;
+  display: none;
+} 
+
+.carousel-container {
+  position: relative;
+}
+
+
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    /* background-color: rgba(255, 255, 255, 0.8); */
+    border: none; /* Remove default border */
+    cursor: pointer; /* Change cursor on hover */
+    padding: 10px; /* Add some padding */
+    font-size: 20px; /* Adjust font size */
+    transition: background-color 0.3s; /* Smooth background transition */
+    z-index: 10; /* Ensure controls are above other elements */
+}
+
+.carousel-control.left {
+    left: 10em;
+}
+
+.carousel-control.right {
+    right: 10em; 
+}
