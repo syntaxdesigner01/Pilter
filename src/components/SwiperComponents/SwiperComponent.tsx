@@ -14,11 +14,8 @@ function SwiperComponent() {
       key={"womenFashion"}
     />,
     <SwiperCard title="Art" baseText="art" key={"Art"} />,
-    <SwiperCard
-      title="Men Fashion"
-      baseText="menfashion"
-      key={"menfashion"}
-    />,
+    <SwiperCard title="Men Fashion" baseText="menfashion" key={"menfashion"} />,
+    <SwiperCard title="Artise" baseText="celebrity" key={"Artise"} />,
   ];
 
   return (
