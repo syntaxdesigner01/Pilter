@@ -10,6 +10,6 @@ body {
     background-color: white;
     color: black;
     scroll-behavior: smooth;
-
+height: fit-content;
 }
 

@@ -1,3 +1,4 @@
+import Footer from "@/components/GeneralComponents/Footer";
 import NavBar from "@/components/GeneralComponents/NavBar";
 import HomeBodyComponent from "@/components/HomeComponents/HomeBodyComponent";
 import SwiperComponent from "@/components/SwiperComponents/SwiperComponent";
@@ -10,6 +11,7 @@ export default function Home() {
     <SwiperComponent/>
     <HomeBodyComponent/>
     <TestmoniesComponent/>
-  </>
+    <Footer/>
+  </> 
   );
 }
