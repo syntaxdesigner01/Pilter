@@ -5,7 +5,7 @@ import CustomButton from "./CustomButton";
 
 export default function Footer() {
   return (
-    <footer className="h-[40vh] bg-[#282626] p-10  text-white">
+    <footer className="h-[40vh] bg-[#282626] p-10  text-white absolute w-full bottom-0">
       <section className="flex justify-between w-full">
         <section>
           <Image src={"/logoDark.svg"} alt="logo" width={100} height={100} />
