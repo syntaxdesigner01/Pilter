@@ -1,5 +1,6 @@
 import AuthNavBar from '@/components/Auth/AuthNavBar'
 import TextBox from '@/components/Auth/TextBox'
+import CustomButton from '@/components/GeneralComponents/CustomButton'
 import React from 'react'
 
 export default function page() {
@@ -17,7 +18,13 @@ export default function page() {
          <TextBox Title='Email' PlaceHolder='john@mail.com' Type='email'/>
         </section>
         <section className='flex'>
-         <TextBox Title='Passowrd' PlaceHolder='******' Type='password'/>
+         <TextBox Title='Password' PlaceHolder='******' Type='password'/>
+        </section>
+
+        <section>
+          <CustomButton color='black' >
+            create account
+          </CustomButton>
         </section>
       </form>
     </section>

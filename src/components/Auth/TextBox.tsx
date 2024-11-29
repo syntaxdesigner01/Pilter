@@ -1,4 +1,4 @@
-import React from 'react'
+
 
 export default function TextBox({Title,Type,PlaceHolder}: {Title:string,Type:string,PlaceHolder:string}) {
   return (

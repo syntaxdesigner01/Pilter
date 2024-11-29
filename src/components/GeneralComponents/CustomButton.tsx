@@ -6,18 +6,20 @@ import React from "react";
 
 interface CustomButtonProps extends ChakraButtonProps {
   color: string;
+  width?: number;
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({
   children,
   color,
+  width,
   ...rest
 }) => {
   return (
     <ChakraButton
       size="md"
       bg={color}
-      w="150px"
+      w={width ? width : "150px"}
       color="white"
       rounded="full"
       {...rest} // Spread the rest of the props to the ChakraButton
