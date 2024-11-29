@@ -9,14 +9,18 @@ import * as React from "react"
 
 interface ButtonLoadingProps {
   loading?: boolean
-  loadingText?: React.ReactNode
+  loadingText?: React.ReactNode,
+  
 }
 
 export interface ButtonProps extends ChakraButtonProps, ButtonLoadingProps {}
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+
   function Button(props, ref) {
+
     const { loading, disabled, loadingText, children, ...rest } = props
+    
     return (
       <ChakraButton disabled={loading || disabled} ref={ref} {...rest}>
         {loading && !loadingText ? (

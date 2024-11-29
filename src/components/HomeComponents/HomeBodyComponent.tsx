@@ -31,6 +31,8 @@ export default function HomeBodyComponent() {
             w={"200px"}
             onMouseEnter={() => setShowArrowButton1(true)}
             onMouseLeave={() => setShowArrowButton1(false)}
+            hover
+    
           >
             Explore {showArrowButton1 && <HiOutlineArrowLongRight />}
           </CustomButton>
@@ -49,6 +51,7 @@ export default function HomeBodyComponent() {
             w={"200px"}
             onMouseEnter={() => setShowArrowButton2(true)}
             onMouseLeave={() => setShowArrowButton2(false)}
+            hover
           >
             Explore Kitty
             {showArrowButton2 && <HiOutlineArrowLongRight />}
