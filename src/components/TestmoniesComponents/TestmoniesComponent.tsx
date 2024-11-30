@@ -30,7 +30,7 @@ export default function TestmoniesComponent() {
   };
 
   return (
-    <section className="px-10 py-20 main pb-[20em]">
+    <section className="px-10 py-20 main pb-[6em]">
       <section className="carousel-container relative ">
         <AliceCarousel
           ref={carouselRef}

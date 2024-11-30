@@ -1,7 +1,12 @@
+'use client'
 import AuthNavBar from "@/components/Auth/AuthNavBar";
 import TextBox from "@/components/Auth/TextBox";
 import CustomButton from "@/components/GeneralComponents/CustomButton";
+import Footer from "@/components/GeneralComponents/Footer";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import Link from "next/link";
+
 import React from "react";
 
 export default function page() {
@@ -9,7 +14,7 @@ export default function page() {
     <main>
       <AuthNavBar />
 
-      <section className="flex justify-center items-center w-screen h-screen flex-col">
+      <section className="flex justify-center items-center w-full h-full flex-col py-[10%]">
         <h1 className="capitalize text-2xl font-extrabold ">create account</h1>
 
         <form className="flex flex-col justify-center items-center w-full gap-4">
@@ -24,19 +29,55 @@ export default function page() {
             <CustomButton
               color="black"
               width={"40em"}
-              rounded={"md"}
+              rounded={"xl"}
               py={8}
               fontWeight={700}
+
+              // loadingText={'loading'}
             >
               Create Account
             </CustomButton>
-
           </section>
-            <Button loading color={'black'} loadingText={'loading'} >
-              click me 
-            </Button>
         </form>
+
+        <section className="mt-4 flex  gap-4 font-bold text-2xl">
+          <Image
+            src={"/icons/lineIcone.svg"}
+            alt={"line"}
+            height={2}
+            width={150}
+          />
+
+          <span>OR</span>
+
+          <Image
+            src={"/icons/lineIcone.svg"}
+            alt={"line"}
+            height={2}
+            width={150}
+          />
+        </section>
+
+        <section className="py-4">
+          <Button className="border-2 w-[32em] py-8 rounded-3xl text-xl font-bold border-black">
+            <Image
+              src={"/icons/google.svg"}
+              alt={"line"}
+              height={40}
+              width={40}
+            />
+
+            <span>Continue with Google</span>
+          </Button>
+        </section>
+        <section className="flex gap-2 text-xl font-bold">
+          <h1>Already have an account ? </h1>
+          <Link href={''} className="text-redTheme underline">Login</Link>
+        </section>
+
       </section>
+        <Footer/>
+
     </main>
   );
 }

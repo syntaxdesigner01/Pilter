@@ -1,11 +1,8 @@
-import { ButtonProps as ChakraButtonProps } from "@chakra-ui/react";
-
 import {
-  AbsoluteCenter,
   Button as ChakraButton,
-  Span,
-  Spinner,
+  ButtonProps as ChakraButtonProps,
 } from "@chakra-ui/react";
+
 import React from "react";
 
 interface CustomButtonProps extends ChakraButtonProps {
@@ -22,8 +19,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   color,
   width,
   hover,
-  loading,
-  loadingText,
+
   // hoverColor,
   ...rest
 }) => {
@@ -40,21 +36,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         "hover:border-2 hover:bg-white hover:text-black hover:border-black"
       }`}
     >
-      {loading && !loadingText ? (
-        <>
-          <AbsoluteCenter display="inline-flex">
-            <Spinner size="inherit" color="inherit" />
-          </AbsoluteCenter>
-          <Span opacity={0}>{children}</Span>
-        </>
-      ) : loading && loadingText ? (
-        <>
-          <Spinner size="inherit" color="inherit" />
-          {loadingText}
-        </>
-      ) : (
-        children
-      )}
+      {children}
     </ChakraButton>
   );
 };
