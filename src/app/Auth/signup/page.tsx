@@ -22,7 +22,11 @@ export default function page() {
             <TextBox Title="Email" PlaceHolder="john@mail.com" Type="email" />
           </section>
           <section className="flex">
-            <TextBox Title="Password" PlaceHolder="******" Type="password" />
+            <TextBox Title="Password" PlaceHolder="12ft2" Type="password" />
+          </section>
+
+          <section className="text-start">
+            <input type="checkbox" />
           </section>
 
           <section>
@@ -30,7 +34,7 @@ export default function page() {
               color="black"
               width={"40em"}
               rounded={"xl"}
-              py={8}
+              py={6}
               fontWeight={700}
 
               // loadingText={'loading'}
@@ -59,12 +63,12 @@ export default function page() {
         </section>
 
         <section className="py-4">
-          <Button className="border-2 w-[32em] py-8 rounded-3xl text-xl font-bold border-black">
+          <Button className="border-2 w-[32em] py-6 rounded-xl text-xl font-bold border-black">
             <Image
               src={"/icons/google.svg"}
               alt={"line"}
-              height={40}
-              width={40}
+              height={30}
+              width={30}
             />
 
             <span>Continue with Google</span>
