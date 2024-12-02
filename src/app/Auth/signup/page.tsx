@@ -52,7 +52,13 @@ export default function SignupPage() {
 
           <section className="relative left-10 top-[-20px] flex items-center justify-center w-full">
             <section className="w-1/2 flex gap-2 text-sm font-bold capitalize">
-              <input type="checkbox" height={20} width={20} size={30} className="bg-white text-white"/>
+              <input
+                type="checkbox"
+                height={20}
+                width={20}
+                size={30}
+                className="bg-white text-white"
+              />
               <p>Accept terms and condition</p>
             </section>
           </section>
@@ -102,7 +108,7 @@ export default function SignupPage() {
         </section>
         <section className="flex gap-2 text-xl font-bold pt-10">
           <h1>Already have an account ? </h1>
-          <Link href={""} className="text-redTheme underline">
+          <Link href={"/Auth/signin"} className="text-redTheme underline">
             Login
           </Link>
         </section>
