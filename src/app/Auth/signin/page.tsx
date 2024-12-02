@@ -8,29 +8,30 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 
-export default function SignupPage() {
+export default function SignInPage() {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value); // Update state with the new input value
+  };
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value); // Update state with the new input value
+  };
 
-      const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => { 
-        setEmail(e.target.value); // Update state with the new input value
-      };
-      const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.target.value); // Update state with the new input value
-        };
-        
-      // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-      //   e.preventDefault(); // Prevent default form submission behavior
-      //   console.log("Form submitted with email: ", email, " and password: ", password);
-      // }
+  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault(); // Prevent default form submission behavior
+  //   console.log("Form submitted with email: ", email, " and password: ", password);
+  // }
 
   return (
     <main>
       <AuthNavBar />
 
       <section className="flex justify-center items-center w-full h-full  flex-col py-[10%]">
-        <h1 className="capitalize text-3xl font-extrabold ">create account</h1>
+        <h1 className="capitalize text-3xl font-extrabold ">
+          Sign-in to your account
+        </h1>
 
         <form className="flex flex-col justify-center items-center w-full gap-4 ">
           <section className="flex ">
@@ -50,19 +51,6 @@ export default function SignupPage() {
             />
           </section>
 
-          <section className="relative left-10 top-[-20px] flex items-center justify-center w-full">
-            <section className="w-1/2 flex gap-2 text-sm font-bold capitalize">
-              <input
-                type="checkbox"
-                height={20}
-                width={20}
-                size={30}
-                className="bg-white text-white"
-              />
-              <p>Accept terms and condition</p>
-            </section>
-          </section>
-
           <section>
             <CustomButton
               color="black"
@@ -71,7 +59,7 @@ export default function SignupPage() {
               py={6}
               fontWeight={700}
             >
-              Create Account
+              Sign In
             </CustomButton>
           </section>
         </form>
@@ -107,9 +95,9 @@ export default function SignupPage() {
           </Button>
         </section>
         <section className="flex gap-2 text-xl font-bold pt-10">
-          <h1>Already have an account ? </h1>
-          <Link href={"/Auth/signin"} className="text-redTheme underline">
-            Login
+          <h1>Don’t have an account ? </h1>
+          <Link href={"/Auth/signup"} className="text-redTheme underline">
+            Create Account
           </Link>
         </section>
       </section>
