@@ -6,7 +6,7 @@ import CustomButton from "./CustomButton";
 export default function Footer() {
   return (
     <footer className="h-[40vh] bg-[#282626] px-10 py-10  text-white  w-full relative overflow-hidden bottom-0 ">
-      <section className="flex justify-evenly w-full">
+      <section className="flex justify-between w-full">
         <section>
           <Image src={"/logoDark.svg"} alt="logo" width={100} height={100} />
         </section>

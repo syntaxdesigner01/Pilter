@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import AuthNavBar from "@/components/Auth/AuthNavBar";
 import TextBox from "@/components/Auth/TextBox";
 import CustomButton from "@/components/GeneralComponents/CustomButton";
@@ -14,8 +14,8 @@ export default function page() {
     <main>
       <AuthNavBar />
 
-      <section className="flex justify-center items-center w-full h-full flex-col py-[10%]">
-        <h1 className="capitalize text-2xl font-extrabold ">create account</h1>
+      <section className="flex justify-center items-center w-full h-full  flex-col py-[10%]  ">
+        <h1 className="capitalize text-3xl font-extrabold ">create account</h1>
 
         <form className="flex flex-col justify-center items-center w-full gap-4">
           <section className="flex ">
@@ -70,14 +70,14 @@ export default function page() {
             <span>Continue with Google</span>
           </Button>
         </section>
-        <section className="flex gap-2 text-xl font-bold">
+        <section className="flex gap-2 text-xl font-bold pt-10">
           <h1>Already have an account ? </h1>
-          <Link href={''} className="text-redTheme underline">Login</Link>
+          <Link href={""} className="text-redTheme underline">
+            Login
+          </Link>
         </section>
-
       </section>
-        <Footer/>
-
+      <Footer />
     </main>
   );
 }
