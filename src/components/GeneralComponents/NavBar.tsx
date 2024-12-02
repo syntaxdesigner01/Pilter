@@ -16,10 +16,12 @@ export default function NavBar() {
         <CustomButton
           color="#CC1414"
           className="hover:border-2 hover:bg-white hover:text-black hover:border-black"
+          hover
         >
           Log In
         </CustomButton>
         <CustomButton
+        hover
           color="black"
           className="hover:border-2 hover:bg-white hover:text-black hover:border-black"
         >

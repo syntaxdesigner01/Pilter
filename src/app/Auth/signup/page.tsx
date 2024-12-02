@@ -34,14 +34,27 @@ export default function SignupPage() {
 
         <form className="flex flex-col justify-center items-center w-full gap-4 ">
           <section className="flex ">
-            <TextBox Title="Email"  Type="email" onChange={handleEmailChange} value={email}/>
+            <TextBox
+              Title="Email"
+              Type="email"
+              onChange={handleEmailChange}
+              value={email}
+            />
           </section>
           <section className="flex">
-            <TextBox Title="Password" Type="password" onChange={handlePasswordChange} value={password} />
+            <TextBox
+              Title="Password"
+              Type="password"
+              onChange={handlePasswordChange}
+              value={password}
+            />
           </section>
 
-          <section className="text-start">
-            <input type="checkbox" />
+          <section className="relative left-10 top-[-20px] flex items-center justify-center w-full">
+            <section className="w-1/2 flex gap-2 text-sm font-bold capitalize">
+              <input type="checkbox" height={20} width={20} size={30} className="bg-white text-white"/>
+              <p>Accept terms and condition</p>
+            </section>
           </section>
 
           <section>
@@ -51,7 +64,6 @@ export default function SignupPage() {
               rounded={"xl"}
               py={6}
               fontWeight={700}
-
             >
               Create Account
             </CustomButton>
