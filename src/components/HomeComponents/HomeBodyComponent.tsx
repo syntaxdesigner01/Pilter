@@ -1,8 +1,14 @@
-import Image from 'next/image'
-import React from 'react'
-import CustomButton from '../GeneralComponents/CustomButton';
+'use client'
+import Image from "next/image";
+import React, { useState } from "react";
+import CustomButton from "../GeneralComponents/CustomButton";
+import { HiOutlineArrowLongRight } from "react-icons/hi2";
 
 export default function HomeBodyComponent() {
+
+  const [showArrowButton1,setShowArrowButton1]= useState<boolean>(false)
+  const [showArrowButton2,setShowArrowButton2]= useState<boolean>(false)
+
   return (
     <section className="px-10 pt-20 flex flex-col gap-20 justify-center items-center w-full">
       <aside className="flex justify-between items-center w-full">
@@ -20,8 +26,15 @@ export default function HomeBodyComponent() {
             &quot;Spark your creativity by exploring over 1,000 similar images
             inspired by your idea and others&apos; work.&quot;
           </p>
-          <CustomButton color="#CC1414" w={"200px"}>
-            Explore
+          <CustomButton
+            color="#CC1414"
+            w={"200px"}
+            onMouseEnter={() => setShowArrowButton1(true)}
+            onMouseLeave={() => setShowArrowButton1(false)}
+            hover
+    
+          >
+            Explore {showArrowButton1 && <HiOutlineArrowLongRight />}
           </CustomButton>
         </section>
       </aside>
@@ -33,8 +46,15 @@ export default function HomeBodyComponent() {
             &quot;Unleash your creativity with Kitty AI—generate stunning images
             of your choice, absolutely free!&quot;
           </p>
-          <CustomButton color="#CC1414" w={"200px"}>
+          <CustomButton
+            color="#CC1414"
+            w={"200px"}
+            onMouseEnter={() => setShowArrowButton2(true)}
+            onMouseLeave={() => setShowArrowButton2(false)}
+            hover
+          >
             Explore Kitty
+            {showArrowButton2 && <HiOutlineArrowLongRight />}
           </CustomButton>
         </section>
         <Image
