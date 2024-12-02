@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-
+import { VscEye, VscEyeClosed } from "react-icons/vsc";
 export default function TextBox({
   Title,
   Type,
@@ -28,20 +28,33 @@ export default function TextBox({
       >
         {Title}
       </label>
-      <input
-        id="input"
-        type={Type}
-        placeholder={PlaceHolder}
-        value={value} // Use value prop
-        onChange={onChange}
-        className={`
+
+      
+        <input
+          id="input"
+          type={Type}
+          placeholder={PlaceHolder}
+          value={value} // Use value prop
+          onChange={onChange}
+          className={`
           h-16 px-8 bg-white border-2 border-black w-full ring-0 rounded-xl 
           ${isFocused && " shadow-xl"}
           `}
-        required
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-      />
+          required
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+        />
+
+        {Type === "password" && (
+          <section className="flex justify-end items-end relative top-[-2.6em] right-4 ">
+            {isFocused ? (
+              <VscEye className="text-2xl" onClick={() => setIsFocused(false)} />
+            ) : (
+              <VscEyeClosed className="text-2xl" onClick={() => setIsFocused(true)} />
+            )}
+          </section>
+        )}
+    
     </section>
   );
 }
