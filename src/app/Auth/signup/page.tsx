@@ -6,10 +6,25 @@ import Footer from "@/components/GeneralComponents/Footer";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import React, { useState } from "react";
 
-import React from "react";
+export default function SignupPage() {
 
-export default function page() {
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+
+      const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => { 
+        setEmail(e.target.value); // Update state with the new input value
+      };
+      const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value); // Update state with the new input value
+        };
+        
+      // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+      //   e.preventDefault(); // Prevent default form submission behavior
+      //   console.log("Form submitted with email: ", email, " and password: ", password);
+      // }
+
   return (
     <main>
       <AuthNavBar />
@@ -19,10 +34,10 @@ export default function page() {
 
         <form className="flex flex-col justify-center items-center w-full gap-4">
           <section className="flex ">
-            <TextBox Title="Email" PlaceHolder="john@mail.com" Type="email" />
+            <TextBox Title="Email"  Type="email" onChange={handleEmailChange} value={email}/>
           </section>
           <section className="flex">
-            <TextBox Title="Password" PlaceHolder="12ft2" Type="password" />
+            <TextBox Title="Password" Type="password" onChange={handlePasswordChange} value={password} />
           </section>
 
           <section className="text-start">
@@ -37,7 +52,6 @@ export default function page() {
               py={6}
               fontWeight={700}
 
-              // loadingText={'loading'}
             >
               Create Account
             </CustomButton>

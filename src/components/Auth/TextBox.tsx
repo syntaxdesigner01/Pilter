@@ -21,9 +21,9 @@ export default function TextBox({
       <label
         htmlFor="input"
         className={`absolute transition-all duration-200 transform ${
-          isFocused
+          isFocused || value
             ? "top-[-44px] left-2 text-xl font-bold text-black px-6 bg-white py-2 flex justify-center items-center "
-            : "top-3 left-10 text-md font-bold text-black "
+            : "top-5 left-10 text-md font-bold text-black "
         }`}
       >
         {Title}
@@ -35,7 +35,7 @@ export default function TextBox({
         value={value} // Use value prop
         onChange={onChange}
         className={`
-          h-16 px-8 bg-white border-2 w-full ring-0 rounded-xl 
+          h-16 px-8 bg-white border-2 border-black w-full ring-0 rounded-xl 
           ${isFocused && " shadow-xl"}
           `}
         required
