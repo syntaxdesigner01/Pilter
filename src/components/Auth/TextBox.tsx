@@ -11,10 +11,20 @@ export default function TextBox({
   Title: string;
   Type: string;
   PlaceHolder?: string;
-  value: string; // Add value prop
+  value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
   const [isFocused, setIsFocused] = useState(false);
+  const [show, setShow] = useState(false);
+
+  // const visitibilityToggleOn = ()=>{
+  //   document.getElementById("input")?.setAttribute("type","password")
+  //   setVisitibilityToggle(true);
+  // }
+  // const visitibilityToggleOff = ()=>{
+  //   document.getElementById("input")?.setAttribute("type","text")
+  //   setVisitibilityToggle(false);
+  // }
 
   return (
     <section className="flex flex-col w-[40em] relative mt-10">
@@ -29,32 +39,34 @@ export default function TextBox({
         {Title}
       </label>
 
-      
-        <input
-          id="input"
-          type={Type}
-          placeholder={PlaceHolder}
-          value={value} // Use value prop
-          onChange={onChange}
-          className={`
+      <input
+        id="input"
+        type={Type === "password" && show ? "text" : Type}
+        placeholder={PlaceHolder}
+        value={value}
+        onChange={onChange}
+        className={`
           h-16 px-8 bg-white border-2 border-black w-full ring-0 rounded-xl 
           ${isFocused && " shadow-xl"}
           `}
-          required
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-        />
+        required
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+      />
 
-        {Type === "password" && (
-          <section className="flex justify-end items-end relative top-[-2.6em] right-4 ">
-            {isFocused ? (
-              <VscEye className="text-2xl" onClick={() => setIsFocused(false)} />
-            ) : (
-              <VscEyeClosed className="text-2xl" onClick={() => setIsFocused(true)} />
-            )}
-          </section>
-        )}
-    
+      {Type === "password" && (
+        <section className="flex justify-end items-end relative top-[-2.6em] right-4 ">
+          <VscEye
+            className={`text-2xl ${show && "hidden"}`}
+            onClick={() => setShow(true)}
+          />
+
+          <VscEyeClosed
+            className={`text-2xl ${!show && "hidden"}`}
+            onClick={() => setShow(false)}
+          />
+        </section>
+      )}
     </section>
   );
 }

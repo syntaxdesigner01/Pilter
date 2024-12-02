@@ -29,10 +29,10 @@ export default function SignupPage() {
     <main>
       <AuthNavBar />
 
-      <section className="flex justify-center items-center w-full h-full  flex-col py-[10%]  ">
+      <section className="flex justify-center items-center w-full h-full  flex-col py-[10%]">
         <h1 className="capitalize text-3xl font-extrabold ">create account</h1>
 
-        <form className="flex flex-col justify-center items-center w-full gap-4">
+        <form className="flex flex-col justify-center items-center w-full gap-4 ">
           <section className="flex ">
             <TextBox Title="Email"  Type="email" onChange={handleEmailChange} value={email}/>
           </section>
