@@ -9,10 +9,10 @@ interface CustomButtonProps extends ChakraButtonProps {
   color: string;
   width?: number | string;
   hover?: boolean;
-  hoverColor?: string; // You can implement this if needed
+  hoverColor?: string; 
   loading?: boolean;
   loadingText?: React.ReactNode;
-  router?: (event: React.MouseEvent<HTMLButtonElement>) => void; // Function to handle routing
+  router?: (event: React.MouseEvent<HTMLButtonElement>) => void; 
 }
 
 
@@ -39,7 +39,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       color="white"
       rounded="full"
       onClick={handleClick}
-      {...rest} // Spread the rest of the props to the Button
+      {...rest} 
       className={`${
         hover &&
         "hover:border-2 hover:bg-white hover:text-black hover:border-black"
