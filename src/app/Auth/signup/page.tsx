@@ -5,7 +5,7 @@ import CustomButton from "@/components/GeneralComponents/CustomButton";
 import Footer from "@/components/GeneralComponents/Footer";
 import { Button } from "@/components/ui/button";
 import { routeLinks } from "@/utils/routerLinks";
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -81,7 +81,7 @@ export default function SignupPage() {
         </form>
 
         <section className="mt-4 flex  gap-4 font-bold text-2xl">
-          <Image
+          <img
             src={"/icons/lineIcone.svg"}
             alt={"line"}
             height={2}
@@ -90,7 +90,7 @@ export default function SignupPage() {
 
           <span>OR</span>
 
-          <Image
+          <img
             src={"/icons/lineIcone.svg"}
             alt={"line"}
             height={2}
@@ -100,7 +100,7 @@ export default function SignupPage() {
 
         <section className="py-4">
           <Button className="border-2 w-[32em] py-6 rounded-xl text-xl font-bold border-black">
-            <Image
+            <img
               src={"/icons/google.svg"}
               alt={"line"}
               height={30}
