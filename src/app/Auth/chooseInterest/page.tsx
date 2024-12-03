@@ -14,9 +14,6 @@ export default function ChooseInterest() {
 
   const route = useRouter()
 
-  console.log(selected);
-  console.log(selected.length);
-
   const handleSelectItems = (item: string) => {
     if (selected.includes(item)) {
       setSelected(selected.filter((i) => i !== item));
@@ -57,7 +54,7 @@ export default function ChooseInterest() {
                     selected.includes(interest) ? "bg-black text-white" : ""
                   }`}
                   variant={"solid"}
-                  onClick={() => handleSelectItems(interest)} // Use the handleSelectItems function
+                  onClick={() => handleSelectItems(interest)}
                 >
                   {interest}
                 </Button>
@@ -68,7 +65,6 @@ export default function ChooseInterest() {
         </section>
 
         <section className="flex justify-center items-center mt-20">
-   
           <CustomButton color="black" hover rounded={'md'} w={'20em'} router={()=>route.push('/')}>Continue</CustomButton>
         </section>
       </main>
