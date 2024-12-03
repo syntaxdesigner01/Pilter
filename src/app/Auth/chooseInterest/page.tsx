@@ -5,9 +5,14 @@ import { all_interest } from "@/utils/interest";
 import React, { useState } from "react";
 import { RxSlash } from "react-icons/rx";
 import toast, { Toaster } from "react-hot-toast";
+import Footer from "@/components/GeneralComponents/Footer";
+import CustomButton from "@/components/GeneralComponents/CustomButton";
+import { useRouter } from "next/navigation";
 
 export default function ChooseInterest() {
   const [selected, setSelected] = useState<string[]>([]);
+
+  const route = useRouter()
 
   console.log(selected);
   console.log(selected.length);
@@ -48,7 +53,7 @@ export default function ChooseInterest() {
             return (
               <div key={interest} className="flex justify-center items-center">
                 <Button
-                  className={`w-[10em] border-[0.2px] border-black rounded-xl font-bold hover:bg-black hover:text-white ${
+                  className={`w-[14em] p-6 border-[0.2px] border-black rounded-xl font-bold hover:bg-black hover:text-white ${
                     selected.includes(interest) ? "bg-black text-white" : ""
                   }`}
                   variant={"solid"}
@@ -61,7 +66,13 @@ export default function ChooseInterest() {
           })}
           <Toaster position="top-center" />
         </section>
+
+        <section className="flex justify-center items-center mt-20">
+   
+          <CustomButton color="black" hover rounded={'md'} w={'20em'} router={()=>route.push('/')}>Continue</CustomButton>
+        </section>
       </main>
+      <Footer />
     </>
   );
 }
