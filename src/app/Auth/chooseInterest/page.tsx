@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { all_interest } from "@/utils/interest";
 import React, { useState } from "react";
 import { RxSlash } from "react-icons/rx";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function ChooseInterest() {
   const [selected, setSelected] = useState<string[]>([]);
@@ -17,7 +18,9 @@ export default function ChooseInterest() {
     } else {
     
       if (selected.length === 5){
-        alert("You can't select more than 5 interests.");
+        toast.error("You can't select more than 5 interests", {
+          duration: 2000,
+        });
         return;
       }else{
           setSelected([...selected, item]);
@@ -56,6 +59,7 @@ export default function ChooseInterest() {
               </div>
             );
           })}
+          <Toaster position="top-center" />
         </section>
       </main>
     </>
