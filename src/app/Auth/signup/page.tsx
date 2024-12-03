@@ -4,8 +4,10 @@ import TextBox from "@/components/Auth/TextBox";
 import CustomButton from "@/components/GeneralComponents/CustomButton";
 import Footer from "@/components/GeneralComponents/Footer";
 import { Button } from "@/components/ui/button";
+import { routeLinks } from "@/utils/routerLinks";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 export default function SignupPage() {
@@ -13,6 +15,7 @@ export default function SignupPage() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
+    const route = useRouter()
       const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => { 
         setEmail(e.target.value); // Update state with the new input value
       };
@@ -70,6 +73,7 @@ export default function SignupPage() {
               rounded={"xl"}
               py={6}
               fontWeight={700}
+              router={() => route.push(routeLinks?.chooseInterest)}
             >
               Create Account
             </CustomButton>
