@@ -10,7 +10,7 @@ export default function TextBox({
 }: {
   Title: string;
   Type: string;
-  PlaceHolder?: string;
+  PlaceHolder?: string; 
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
