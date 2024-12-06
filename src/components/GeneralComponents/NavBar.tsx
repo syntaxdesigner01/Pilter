@@ -4,12 +4,14 @@ import React from 'react'
 import CustomButton from './CustomButton';
 import { useRouter } from 'next/navigation';
 
+
+
 export default function NavBar() {
 
   const route = useRouter()
 
   return (
-    <nav className="p-8 flex items-center justify-between">
+    <nav className="p-8 flex items-center justify-between" >
       <section className="flex items-center gap-10">
         <Image src={"logo.svg"} alt="logo" height={90} width={90} />
         <p className="text-xl">Explore</p>
