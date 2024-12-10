@@ -2,45 +2,40 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "../ui/button";
 import Image from "next/image";
-import {
-  signInWithGoogle,
-  signOutWithGoogle,
-} from "@/utils/AuthProviders/GoogleAuth";
+import { signInWithGoogle } from "@/utils/AuthProviders/GoogleAuth";
 import { routeLinks } from "@/utils/routerLinks";
 import { useRouter } from "next/navigation";
-import { getSession, Session } from "next-auth/react";
+import { getSession } from "next-auth/react";
 
-interface AuthWithGoogleProps {
-  Action: "signIn" | "signOut";
+interface CustomSession {
+  user?: {
+    name: string;
+    email: string;
+    image?: string;
+  };
+  expires: string;
 }
 
 /**
- * A functional component that handles user authentication with Google.
- *
- * @param Action - Determines the action to be performed. It can be either "signIn" or "signOut".
- *
- * @returns A form with a button to initiate the specified action with Google.
- *
- * @remarks
- * This component uses Next.js' `useRouter` hook to navigate between different routes.
- * It also utilizes the `useState` hook to manage the user session state.
- * The `useEffect` hook is used to fetch the user session and navigate to the appropriate route based on the session status.
- * The `handleSubmit` function is called when the form is submitted. It prevents the default form submission behavior,
- * and then calls the appropriate authentication function based on the `Action` prop.
- * If an error occurs during the authentication process, it is logged to the console.
+ * AuthWithGoogle component for handling Google authentication.
+ * 
+ * This component provides a button for Google authentication, manages the session state,
+ * and handles routing based on the authentication status.
+ * 
+ * @returns {JSX.Element} A form with a button for Google authentication.
  */
-
- 
-export default function AuthWithGoogle({ Action }: AuthWithGoogleProps) {
+export default function AuthWithGoogle() {
   const router = useRouter();
-  const [userSession, setSession] = useState<Session | null>(null);
+  const [session, setSession] = useState<CustomSession | null>(null);
 
   useEffect(() => {
     const fetchSession = async () => {
       const sessionData = await getSession();
-      setSession(sessionData);
+      setSession(sessionData as CustomSession);
+
       if (sessionData) {
         router.push(routeLinks.chooseInterest);
+        console.log(session);
       } else {
         router.push(routeLinks.signup);
       }
@@ -48,14 +43,11 @@ export default function AuthWithGoogle({ Action }: AuthWithGoogleProps) {
     fetchSession();
   }, [router]);
 
+ 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      if (Action === "signIn") {
-        await signInWithGoogle();
-      } else if (Action === "signOut") {
-        await signOutWithGoogle();
-      }
+      await signInWithGoogle();
     } catch (error) {
       console.error("Authentication error:", error);
     }

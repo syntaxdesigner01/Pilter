@@ -12,22 +12,21 @@ import Link from "next/link";
 import React, { useState } from "react";
 
 export default function SignupPage() {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
+  // const route = useRouter()
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value); // Update state with the new input value
+  };
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value); // Update state with the new input value
+  };
 
-    // const route = useRouter()
-      const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => { 
-        setEmail(e.target.value); // Update state with the new input value
-      };
-      const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.target.value); // Update state with the new input value
-        };
-        
-      // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-      //   e.preventDefault(); // Prevent default form submission behavior
-      //   console.log("Form submitted with email: ", email, " and password: ", password);
-      // }
+  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault(); // Prevent default form submission behavior
+  //   console.log("Form submitted with email: ", email, " and password: ", password);
+  // }
 
   return (
     <main>
@@ -101,7 +100,7 @@ export default function SignupPage() {
         </section>
 
         <section className="py-4">
-          <AuthWithGoogle Action="signIn" />
+          <AuthWithGoogle />
         </section>
         <section className="flex gap-2 text-xl font-bold pt-10">
           <h1>Already have an account ? </h1>
