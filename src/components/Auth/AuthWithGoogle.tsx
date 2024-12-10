@@ -2,22 +2,24 @@
 import React from "react";
 import { Button } from "../ui/button";
 import Image from "next/image";
-import { signInWithGoogle, signOutWithGoogle } from "@/utils/AuthProviders/GoogleAuth"; // Import the server action
+import {
+  signInWithGoogle,
+  signOutWithGoogle,
+} from "@/utils/AuthProviders/GoogleAuth"; // Import the server action
 import { useRouter } from "next/router";
 import { routeLinks } from "@/utils/routerLinks";
 
-export default function AuthWithGoogle({Action}:{Action:string}) {
-
-    const router =  useRouter();
+export default function AuthWithGoogle({ Action }: { Action: string }) {
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent default form submission
- if(Action === 'signIn'){
-        await signInWithGoogle();
-        router.push(routeLinks.chooseInterest);
-}
+    if (Action === "signIn") {
+      await signInWithGoogle();
+      router.push(routeLinks.chooseInterest);
+    }
 
- if(Action === 'signOut')await signOutWithGoogle();
+    if (Action === "signOut") await signOutWithGoogle();
   };
 
   return (
