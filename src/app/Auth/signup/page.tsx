@@ -16,12 +16,7 @@ export default function SignupPage() {
   const [password, setPassword] = useState<string>("");
 
   // const route = useRouter()
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value); // Update state with the new input value
-  };
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value); // Update state with the new input value
-  };
+  
 
   // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
   //   e.preventDefault(); // Prevent default form submission behavior
@@ -40,7 +35,7 @@ export default function SignupPage() {
             <TextBox
               Title="Email"
               Type="email"
-              onChange={handleEmailChange}
+              onChange={(e) => setEmail(e.target.value)}
               value={email}
             />
           </section>
@@ -48,7 +43,7 @@ export default function SignupPage() {
             <TextBox
               Title="Password"
               Type="password"
-              onChange={handlePasswordChange}
+              onChange={(e) => setPassword(e.target.value)}
               value={password}
             />
           </section>
