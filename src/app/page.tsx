@@ -4,7 +4,7 @@ import HomeBodyComponent from "@/components/HomeComponents/HomeBodyComponent";
 import SwiperComponent from "@/components/SwiperComponents/SwiperComponent";
 import TestmoniesComponent from "@/components/TestmoniesComponents/TestmoniesComponent";
 
-export default function Home() {
+export default function LandingPage() {
   return (
   <>
     <NavBar/>
