@@ -30,6 +30,8 @@ export default function ChooseInterest() {
     }
   };
 
+  
+
   return (
     <>
       <AuthNavBar />
@@ -65,7 +67,7 @@ export default function ChooseInterest() {
         </section>
 
         <section className="flex justify-center items-center mt-20">
-          <CustomButton color="black" hover rounded={'md'} w={'20em'} router={()=>route.push('/')}>Continue</CustomButton>
+          <CustomButton color="black" hover rounded={'md'} w={'20em'} router={()=>route.push('/home')}>Continue</CustomButton>
         </section>
       </main>
       <Footer />
