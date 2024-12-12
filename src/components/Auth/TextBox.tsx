@@ -1,6 +1,21 @@
 "use client";
 import React, { useState } from "react";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
+
+/**
+ * A reusable text box component for user input.
+ *
+ * @param props - The properties for the TextBox component.
+ * @param props.Title - The title or label for the text box.
+ * @param props.Type - The type of input for the text box.
+ * @param props.PlaceHolder - The placeholder text for the text box.
+ * @param props.value - The current value of the text box.
+ * @param props.onChange - The event handler for when the text box value changes.
+ *
+ * @returns - A React component for the TextBox.
+ */
+
+
 export default function TextBox({
   Title,
   Type,
@@ -16,15 +31,6 @@ export default function TextBox({
 }) {
   const [isFocused, setIsFocused] = useState(false);
   const [show, setShow] = useState(false);
-
-  // const visitibilityToggleOn = ()=>{
-  //   document.getElementById("input")?.setAttribute("type","password")
-  //   setVisitibilityToggle(true);
-  // }
-  // const visitibilityToggleOff = ()=>{
-  //   document.getElementById("input")?.setAttribute("type","text")
-  //   setVisitibilityToggle(false);
-  // }
 
   return (
     <section className="flex flex-col w-[40em] relative mt-10">
@@ -70,3 +76,4 @@ export default function TextBox({
     </section>
   );
 }
+
