@@ -4,7 +4,7 @@ import AuthWithGoogle from "@/components/Auth/AuthWithGoogle";
 import TextBox from "@/components/Auth/TextBox";
 import CustomButton from "@/components/GeneralComponents/CustomButton";
 import Footer from "@/components/GeneralComponents/Footer";
-import { signInWithCredential } from "@/utils/AuthProviders/GoogleAuth";
+import { signInWithCredential } from "@/utils/AuthProviders/appAuthCredentials";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -16,25 +16,23 @@ export default function SignupPage() {
   const [error, setError] = useState<string | null>(null);
   const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Prevent default form submission behavior
-
+  const handleSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault(); 
     if (!termsAccepted) {
       setError("You must accept the terms and conditions.");
       return;
     }
 
     setLoading(true);
-    setError(null); // Reset error state
+    setError(null); 
 
-  
     try {
-      await signInWithCredential({email, password}).then( e =>{
+      await signInWithCredential({ email, password }).then((e) => {
         console.log(e);
         setLoading(false);
-      })
-    }catch(err) {
-      console.log(err)
+      });
+    } catch (err) {
+      console.log(err);
     }
   };
 

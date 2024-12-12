@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "../ui/button";
 import Image from "next/image";
-import { signInWithGoogle } from "@/utils/AuthProviders/GoogleAuth";
+import { signInWithGoogle } from "@/utils/AuthProviders/appAuthCredentials";
 import { routeLinks } from "@/utils/routerLinks";
 import { useRouter } from "next/navigation";
 import { getSession } from "next-auth/react";
@@ -18,10 +18,10 @@ interface CustomSession {
 
 /**
  * AuthWithGoogle component for handling Google authentication.
- * 
+ *
  * This component provides a button for Google authentication, manages the session state,
  * and handles routing based on the authentication status.
- * 
+ *
  * @returns {JSX.Element} A form with a button for Google authentication.
  */
 export default function AuthWithGoogle() {
@@ -43,7 +43,6 @@ export default function AuthWithGoogle() {
     fetchSession();
   }, [router]);
 
- 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -70,4 +69,3 @@ export default function AuthWithGoogle() {
     </form>
   );
 }
-

@@ -24,7 +24,6 @@ export async function signUpWithCredential({email, password}:{email: string, pas
     const existingUser = users.find(user => user.email === email);
 
     if (existingUser){
-
         console.log({ body: existingUser, message: 'User already exists' })
         return {body:existingUser, message: 'User already exists!.Try Signing-In with your email address' }; 
     }else{
@@ -34,7 +33,6 @@ export async function signUpWithCredential({email, password}:{email: string, pas
             email,
             password
         }
-
         users.push(newUser);
         console.log('New user created');
         console.log(newUser)
@@ -53,7 +51,4 @@ export async function signInWithCredential({ email, password }: { email: string,
     } else {
        return {message:'Invalid username or password'}
     }
-
-
-
 }
