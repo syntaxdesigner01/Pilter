@@ -33,13 +33,13 @@ export default function TextBox({
   const [show, setShow] = useState(false);
 
   return (
-    <section className="flex flex-col w-[40em] relative mt-10">
+    <section className="flex flex-col w-[30em] relative mt-10">
       <label
         htmlFor="input"
         className={`absolute transition-all duration-200 transform ${
           isFocused || value
             ? "top-[-44px] left-2 text-xl font-bold text-black px-6 bg-white py-2 flex justify-center items-center "
-            : "top-5 left-10 text-md font-bold text-black "
+            : "top-3 left-10 text-md font-bold text-black "
         }`}
       >
         {Title}
@@ -52,7 +52,7 @@ export default function TextBox({
         value={value}
         onChange={onChange}
         className={`
-          h-16 px-8 bg-white border-2 border-black w-full ring-0 rounded-xl 
+         xl:h-12  h-16 px-8 bg-white border-2 border-black w-full ring-0 rounded-xl 
           ${isFocused && " shadow-xl"}
           `}
         required
@@ -61,7 +61,7 @@ export default function TextBox({
       />
 
       {Type === "password" && (
-        <section className="flex justify-end items-end relative top-[-2.6em] right-4 ">
+        <section className="flex justify-end items-end relative top-[-2.2em] right-4 ">
           <VscEye
             className={`text-2xl ${show && "hidden"}`}
             onClick={() => setShow(true)}

@@ -60,7 +60,7 @@ export default function SignInPage() {
           <section>
             <CustomButton
               color="black"
-              width={"40em"}
+              width={"30em"}
               rounded={"xl"}
               py={6}
               fontWeight={700}

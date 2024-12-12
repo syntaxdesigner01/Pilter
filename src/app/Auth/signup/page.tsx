@@ -4,7 +4,7 @@ import AuthWithGoogle from "@/components/Auth/AuthWithGoogle";
 import TextBox from "@/components/Auth/TextBox";
 import CustomButton from "@/components/GeneralComponents/CustomButton";
 import Footer from "@/components/GeneralComponents/Footer";
-import {  signUpWithCredential } from "@/utils/AuthProviders/appAuthCredentials";
+import { signUpWithCredential } from "@/utils/AuthProviders/appAuthCredentials";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -17,14 +17,14 @@ export default function SignupPage() {
   const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
-    e.preventDefault(); 
+    e.preventDefault();
     if (!termsAccepted) {
       setError("You must accept the terms and conditions.");
       return;
     }
 
     setLoading(true);
-    setError(null); 
+    setError(null);
 
     try {
       await signUpWithCredential({ email, password }).then((e) => {
@@ -35,6 +35,14 @@ export default function SignupPage() {
       console.log(err);
     }
   };
+
+  // const handleError = () => {
+  //   setTimeout(() => {
+  //     <p className="text-red-500">{error}</p>;
+  //   }, 30000);
+
+  //   setError(null);
+  // };
 
   return (
     <main>
@@ -64,7 +72,7 @@ export default function SignupPage() {
             />
           </section>
 
-          <section className="relative left-10 top-[-20px] flex items-center justify-center w-full">
+          <section className="relative left-20 top-[-20px] flex items-center justify-center w-full">
             <section className="w-1/2 flex gap-2 text-sm font-bold capitalize">
               <input
                 type="checkbox"
@@ -84,7 +92,7 @@ export default function SignupPage() {
           <section>
             <CustomButton
               color="black"
-              width={"40em"}
+              width={"30em"}
               rounded={"xl"}
               py={6}
               fontWeight={700}
