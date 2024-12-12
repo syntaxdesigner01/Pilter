@@ -4,19 +4,37 @@ import AuthWithGoogle from "@/components/Auth/AuthWithGoogle";
 import TextBox from "@/components/Auth/TextBox";
 import CustomButton from "@/components/GeneralComponents/CustomButton";
 import Footer from "@/components/GeneralComponents/Footer";
+import { signInWithCredential } from "@/utils/AuthProviders/appAuthCredentials";
+import { routeLinks } from "@/utils/routerLinks";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 export default function SignInPage() {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
 
+const router = useRouter()
 
-  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault(); // Prevent default form submission behavior
-  //   console.log("Form submitted with email: ", email, " and password: ", password);
-  // }
+  const handleSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await signInWithCredential({ email, password }).then((data) => {
+        console.log(data);
+        setLoading(false);
+
+        if (data.status ===200){
+          router.push(routeLinks.mainApHome)
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
 
   return (
     <main>
@@ -48,10 +66,13 @@ export default function SignInPage() {
           <section>
             <CustomButton
               color="black"
-              width={"40em"}
+              width={"30em"}
               rounded={"xl"}
               py={6}
               fontWeight={700}
+              disabled={loading}
+              type="submit"
+              click={handleSubmit}
             >
               Sign In
             </CustomButton>

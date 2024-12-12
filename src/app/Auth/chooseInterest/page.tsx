@@ -8,6 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Footer from "@/components/GeneralComponents/Footer";
 import CustomButton from "@/components/GeneralComponents/CustomButton";
 import { useRouter } from "next/navigation";
+import { routeLinks } from "@/utils/routerLinks";
 
 export default function ChooseInterest() {
   const [selected, setSelected] = useState<string[]>([]);
@@ -67,7 +68,7 @@ export default function ChooseInterest() {
         </section>
 
         <section className="flex justify-center items-center mt-20">
-          <CustomButton color="black" hover rounded={'md'} w={'20em'} router={()=>route.push('/home')}>Continue</CustomButton>
+          <CustomButton color="black" hover rounded={'md'} w={'20em'} click={()=>route.push(routeLinks.mainApHome)}>Continue</CustomButton>
         </section>
       </main>
       <Footer />
