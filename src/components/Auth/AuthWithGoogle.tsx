@@ -34,10 +34,10 @@ export default function AuthWithGoogle() {
       setSession(sessionData as CustomSession);
 
       if (sessionData) {
-        // router.push(routeLinks.chooseInterest);
+        router.push(routeLinks.chooseInterest);
         console.log(session);
       } else {
-        // router.push(routeLinks.signup);
+        router.push(routeLinks.signup);
       }
     };
     fetchSession();
