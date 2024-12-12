@@ -12,9 +12,9 @@ export default function NavBar() {
   const route = useRouter()
 
   return (
-    <nav className="p-8 flex items-center justify-between" >
+    <nav className="p-8 flex items-center justify-between px-10" >
       <section className="flex items-center gap-10">
-        <Image src={"logo.svg"} alt="logo" height={90} width={90} onClick={()=> route.push(routeLinks.home)} />
+        <Image src={"logo.svg"} alt="logo" height={70} width={70} onClick={()=> route.push(routeLinks.home)} />
         <p className="text-xl">Explore</p>
       </section>
 
