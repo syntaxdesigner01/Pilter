@@ -4,19 +4,31 @@ import AuthWithGoogle from "@/components/Auth/AuthWithGoogle";
 import TextBox from "@/components/Auth/TextBox";
 import CustomButton from "@/components/GeneralComponents/CustomButton";
 import Footer from "@/components/GeneralComponents/Footer";
+import { signInWithCredential } from "@/utils/AuthProviders/appAuthCredentials";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 
 export default function SignInPage() {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
 
 
-  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault(); // Prevent default form submission behavior
-  //   console.log("Form submitted with email: ", email, " and password: ", password);
-  // }
+
+  const handleSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await signInWithCredential({ email, password }).then((e) => {
+        console.log(e);
+        setLoading(false);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
 
   return (
     <main>
@@ -52,6 +64,9 @@ export default function SignInPage() {
               rounded={"xl"}
               py={6}
               fontWeight={700}
+              disabled={loading}
+              type="submit"
+              click={handleSubmit}
             >
               Sign In
             </CustomButton>
