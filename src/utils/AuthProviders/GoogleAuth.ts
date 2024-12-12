@@ -20,13 +20,13 @@ export async function signOutWithGoogle() {
     console.log("Signed out");
 }
 
-export async function signInWithCredential({email, password}:{email: string, password: string}) {
+export async function signUpWithCredential({email, password}:{email: string, password: string}) {
     const existingUser = users.find(user => user.email === email);
 
     if (existingUser){
-        console.log('User already exists');
+
         console.log({ body: existingUser, message: 'User already exists' })
-        return {body:existingUser, message: 'User already exists' }; 
+        return {body:existingUser, message: 'User already exists!.Try Signing-In with your email address' }; 
     }else{
         const newUser = {
             id: users.length + 1,
@@ -38,9 +38,25 @@ export async function signInWithCredential({email, password}:{email: string, pas
         users.push(newUser);
         console.log('New user created');
         console.log(newUser)
-        return newUser;
+        return {body: newUser,message:'Account created successfully'};
     }
 
  
+
+}
+
+
+export async function signInWithCredential({ email, password }: { email: string, password: string }) {
+    const existingUser = users.find(user => user.email === email);
+
+    if (existingUser) {
+
+        console.log({ body: existingUser, message: 'User already exists' })
+        return { body: existingUser, message: 'User already exists' };
+    } else {
+       return {message:'Invalid username or password'}
+    }
+
+
 
 }
