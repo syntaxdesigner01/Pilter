@@ -1,16 +1,41 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState } from "react";
 import CustomButton from "./CustomButton";
 import { useRouter } from "next/navigation";
 import { routeLinks } from "@/utils/routerLinks";
-import { auth } from "@/auth";
+import { getSession } from "next-auth/react";
 
+interface CustomSession {
+  user?: {
+    name: string;
+    email: string;
+    image?: string;
+  };
+  expires: string;
+}
 
 export default function NavBar() {
-  const [userSession, setUserSession] = useState<boolean>(false);
+  const [session, setSession] = useState<CustomSession | null>(null);
 
+  
   const route = useRouter();
+
+    useEffect(() => {
+      const fetchSession = async () => {
+        const sessionData = await getSession();
+        setSession(sessionData as CustomSession);
+
+        if (sessionData) {
+          route.push(routeLinks.mainApHome);
+          console.log(session);
+        } else {
+          route.push(routeLinks.home);
+        }
+      };
+      fetchSession();
+    }, [route]);
+
 
   return (
     <nav className="p-8 flex items-center justify-between px-10">
@@ -25,7 +50,7 @@ export default function NavBar() {
         <p className="text-xl">Explore</p>
       </section>
 
-      {userSession ? (
+      {session ? (
         <p>Dashboard</p>
       ) : (
         <section className="flex gap-10">
