@@ -27,7 +27,8 @@ export default function NavBar() {
         setSession(sessionData as CustomSession);
 
         if (sessionData) {
-          route.push(routeLinks.mainApHome);
+          // route.push(routeLinks.mainApHome);
+          
           console.log(session);
         } else {
           route.push(routeLinks.home);
