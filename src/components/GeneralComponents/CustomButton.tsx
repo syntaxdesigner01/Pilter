@@ -9,10 +9,11 @@ interface CustomButtonProps extends ChakraButtonProps {
   color: string;
   width?: number | string;
   hover?: boolean;
-  hoverColor?: string; 
+  hoverColor?: string;
   loading?: boolean;
   loadingText?: React.ReactNode;
-  router?: (event: React.MouseEvent<HTMLButtonElement>) => void; 
+  click?: (
+    event: React.SyntheticEvent) => void | Promise<void>;
 }
 
 
@@ -21,14 +22,16 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   color,
   width,
   hover,
-  router, 
+  click,
   ...rest
 }) => {
 
-   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-     if (router) {
-       router(event);
+   const handleClick = (event:React.SyntheticEvent) => {
+     if (typeof click === 'function') {
+    click(event)
      }
+    
+
    };
 
   return (

@@ -4,34 +4,52 @@ import AuthWithGoogle from "@/components/Auth/AuthWithGoogle";
 import TextBox from "@/components/Auth/TextBox";
 import CustomButton from "@/components/GeneralComponents/CustomButton";
 import Footer from "@/components/GeneralComponents/Footer";
-// import { Button } from "@/components/ui/button";
-// import { routeLinks } from "@/utils/routerLinks";
+import { signInWithCredential } from "@/utils/AuthProviders/GoogleAuth";
 import Image from "next/image";
 import Link from "next/link";
-// import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 export default function SignupPage() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
 
-  // const route = useRouter()
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // Prevent default form submission behavior
+
+    if (!termsAccepted) {
+      setError("You must accept the terms and conditions.");
+      return;
+    }
+
+    setLoading(true);
+    setError(null); // Reset error state
+
   
-
-  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault(); // Prevent default form submission behavior
-  //   console.log("Form submitted with email: ", email, " and password: ", password);
-  // }
+    try {
+      await signInWithCredential({email, password}).then( e =>{
+        console.log(e);
+        setLoading(false);
+      })
+    }catch(err) {
+      console.log(err)
+    }
+  };
 
   return (
     <main>
       <AuthNavBar />
 
-      <section className="flex justify-center items-center w-full h-full  flex-col py-[10%]">
-        <h1 className="capitalize text-3xl font-extrabold ">create account</h1>
+      <section className="flex justify-center items-center w-full h-full flex-col py-[10%]">
+        <h1 className="capitalize text-3xl font-extrabold">create account</h1>
 
-        <form className="flex flex-col justify-center items-center w-full gap-4 ">
-          <section className="flex ">
+        <form
+          className="flex flex-col justify-center items-center w-full gap-4"
+          onSubmit={handleSubmit}
+        >
+          <section className="flex">
             <TextBox
               Title="Email"
               Type="email"
@@ -56,10 +74,14 @@ export default function SignupPage() {
                 width={20}
                 size={30}
                 className="bg-white text-white"
+                checked={termsAccepted}
+                onChange={() => setTermsAccepted(!termsAccepted)}
               />
-              <p>Accept terms and condition</p>
+              <p>Accept terms and conditions</p>
             </section>
           </section>
+
+          {error && <p className="text-red-500">{error}</p>}
 
           <section>
             <CustomButton
@@ -68,38 +90,30 @@ export default function SignupPage() {
               rounded={"xl"}
               py={6}
               fontWeight={700}
-              // router={() => route.push(routeLinks?.chooseInterest)}
+              disabled={loading}
               type="submit"
+              click={handleSubmit}
             >
-              Create Account
+              {/* {loading ? "Creating Account..." : "Create Account"} */}
+              <span>Create Account</span>
             </CustomButton>
           </section>
         </form>
 
-        <section className="mt-4 flex  gap-4 font-bold text-2xl">
-          <Image
-            src={"/icons/lineIcone.svg"}
-            alt={"line"}
-            height={2}
-            width={150}
-          />
+        <section className="mt-4 flex gap-4 font-bold text-2xl">
+          <Image src="/icons/lineIcone.svg" alt="line" height={2} width={150} />
 
           <span>OR</span>
 
-          <Image
-            src={"/icons/lineIcone.svg"}
-            alt={"line"}
-            height={2}
-            width={150}
-          />
+          <Image src="/icons/lineIcone.svg" alt="line" height={2} width={150} />
         </section>
 
         <section className="py-4">
           <AuthWithGoogle />
         </section>
         <section className="flex gap-2 text-xl font-bold pt-10">
-          <h1>Already have an account ? </h1>
-          <Link href={"/Auth/signin"} className="text-redTheme underline">
+          <h1>Already have an account?</h1>
+          <Link href="/Auth/signin" className="text-redTheme underline">
             Login
           </Link>
         </section>
