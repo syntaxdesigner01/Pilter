@@ -4,7 +4,7 @@ import AuthWithGoogle from "@/components/Auth/AuthWithGoogle";
 import TextBox from "@/components/Auth/TextBox";
 import CustomButton from "@/components/GeneralComponents/CustomButton";
 import Footer from "@/components/GeneralComponents/Footer";
-import { signInWithCredential } from "@/utils/AuthProviders/appAuthCredentials";
+import {  signUpWithCredential } from "@/utils/AuthProviders/appAuthCredentials";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -27,7 +27,7 @@ export default function SignupPage() {
     setError(null); 
 
     try {
-      await signInWithCredential({ email, password }).then((e) => {
+      await signUpWithCredential({ email, password }).then((e) => {
         console.log(e);
         setLoading(false);
       });
