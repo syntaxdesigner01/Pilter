@@ -2,17 +2,15 @@ import { NextResponse } from "next/server";
 import connectdb from "../../../../lib/db";
 import User from "../../../../lib/models/dbSchema";
 import generateId from "../../../../lib/generateId";
-import bcrypt from 'bcrypt';
-
 
 
 export const POST = async (request: Request) => {
 
     try {
-        const [email, password] = await request.json()
+        const {email, password} = await request.json()
         await connectdb();
 
-        const existingUser = User.findOne({ email })
+        const existingUser = await User.findOne({ email })
 
         if (existingUser) {
             console.log({ body: existingUser, message: 'User  already exists' });
@@ -31,26 +29,33 @@ export const POST = async (request: Request) => {
                 existingUserId = await User.findOne({ id: id });
             } while (existingUserId);
 
-            const hashedPassword = await bcrypt.hash(password, 10)
-
+        
             const userData = {
                 id: id,
                 name: email.split('@')[0],
                 email,
-                password: hashedPassword
+                password
             }
-            
+
             const newUser = new User(userData)
             await newUser.save()
 
             console.log('New user created');
             console.log(newUser)
-            return { body: newUser, message: 'Account created successfully', status: 200 };
+            return NextResponse.json({ body: newUser, message: 'Account created successfully', status: 200 });
         }
-
 
     } catch (error) {
 
-        return NextResponse.json({ message: `An error occurred ${error}` });
+        console.log("Error in creating data: " + error, { status: 500 });
+
+        return new NextResponse(
+            JSON.stringify({
+                message:
+                    "Error in Signing-up user. Please check your Internet connection and try again.",
+                    error: error,
+            }),
+            { status: 500 }
+        );
     }
 }
