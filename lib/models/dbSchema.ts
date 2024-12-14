@@ -22,7 +22,11 @@ const userSchema = new Schema({
             message: () => 'Password must be at least 6 characters long and contain at least one letter and one number.'
         }
     },
-});
+},
+{
+    timestamps: true
+}
+);
 
 // Hash the password before saving
 userSchema.pre('save', async function (next) {
