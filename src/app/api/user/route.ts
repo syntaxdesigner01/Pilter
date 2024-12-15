@@ -42,7 +42,7 @@ export const POST = async (request: Request) => {
 
             console.log('New user created');
             console.log(newUser)
-            return NextResponse.json({ body: newUser, message: 'Account created successfully', status: 200 });
+            return NextResponse.json({ user: newUser, message: 'Account created successfully', status: 200 });
         }
 
     } catch (error) {
