@@ -19,7 +19,7 @@ function SwiperComponent() {
   ];
 
   return (
-    <section className="px-10">
+    <section className="px-4 md:px-10 mt-10 md:mt-4">
       <section className="text-center flex flex-col gap-4">
         <h1 className="capitalize text-3xl font-bold">
           get your next big idea
@@ -38,6 +38,11 @@ function SwiperComponent() {
           animationType="fadeout"
           animationDuration={1000}
           activeIndex={1}
+          responsive={{
+            0: { items: 1 },
+            768: { items: 1 },
+            1024: { items: 1 },
+          }}  
         />
       </section>
     </section>
