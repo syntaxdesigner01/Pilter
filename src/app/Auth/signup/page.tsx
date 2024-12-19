@@ -1,6 +1,6 @@
 "use client";
 import AuthNavBar from "@/components/Auth/AuthNavBar";
-import AuthWithGoogle from "@/components/Auth/AuthWithGoogle";
+// import AuthWithGoogle from "@/components/Auth/AuthWithGoogle";
 import TextBox from "@/components/Auth/TextBox";
 import CustomButton from "@/components/GeneralComponents/CustomButton";
 import Footer from "@/components/GeneralComponents/Footer";
@@ -115,7 +115,7 @@ export default function SignupPage() {
         </section>
 
         <section className="py-4">
-          <AuthWithGoogle />
+          {/* <AuthWithGoogle /> */}
         </section>
         <section className="flex gap-2 text-xl font-bold pt-10">
           <h1>Already have an account?</h1>

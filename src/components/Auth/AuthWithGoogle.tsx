@@ -33,13 +33,11 @@ export default function AuthWithGoogle() {
       const sessionData = await getSession();
       setSession(sessionData as CustomSession);
 
-      if (sessionData) { 
-        //commented on for now
-        // router.push(routeLinks.chooseInterest);
+      if (sessionData) {
+        router.push(routeLinks.chooseInterest);
         console.log(session);
       } else {
-        //commented on for now
-        // router.push(routeLinks.signin);
+        router.push(routeLinks.signin);
       }
     };
     fetchSession();

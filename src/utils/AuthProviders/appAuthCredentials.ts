@@ -6,7 +6,7 @@ import User from '../../../lib/models/dbSchema';
 import connectdb from '../../../lib/db';
 import bcrypt from 'bcrypt';
 
-interface userData {
+export interface userData {
     id: string;
     name: string;
     email: string;
