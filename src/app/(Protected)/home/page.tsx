@@ -1,6 +1,8 @@
 
 import SignupPage from "@/app/Auth/signup/page"
 import { auth } from "@/auth"
+import LogoutWithGooglr from "@/components/Auth/LogoutWithGooglr"
+
 
 
 
@@ -16,10 +18,11 @@ console.log(session)
 
 
   return (
-    <div className="flex justify-center items-center w-screen h-screen">
+    <div className="flex flex-col justify-center items-center w-screen h-screen">
       <p>
         Welcome, {session.user?.email}
       </p>
+        <LogoutWithGooglr/>
     </div>
   );
 }

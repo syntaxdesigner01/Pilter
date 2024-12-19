@@ -4,6 +4,7 @@ import { signIn, signOut } from '@/auth';
 import generateId from '../../../lib/generateId';
 import User from '../../../lib/models/dbSchema';
 import connectdb from '../../../lib/db';
+import bcrypt from 'bcrypt';
 
 interface userData {
     id: string;
@@ -75,20 +76,22 @@ export async function signUpWithCredential({ email, password }: { email: string,
 }
 
 
-export async function signInWithCredential({ email, password }: { email: string, password: string }) {
+export async function signInWithUserCredential({ email, password }: { email: string, password: string }) {
     try {
         await connectdb();
         const existingUser = await User.findOne({ email })
 
         if (existingUser) {
-            const isMatch = await existingUser.comparePassword(password);
+            const isPasswordValid = await bcrypt.compare(password, existingUser.password);
 
-            if(isMatch) {
+            if (isPasswordValid) {
                 console.log({ user: existingUser, message: 'Welcome Back!' })
-                return { user: existingUser, message: 'Welcome Back!', status: 200 };
-            }
-        } 
-            return { message: 'Invalid username or password', status: 404 }
+                return JSON.stringify({ user: existingUser, message: 'Welcome Back!', status: 200 });
+            } else return JSON.stringify({ message: 'Invalid username or password', status: 404 })
+        } else{
+            return JSON.stringify({ message: 'User not found Try again by creating an account', status: 404 })
+        }
+            
         
     } catch (error) {
         return (

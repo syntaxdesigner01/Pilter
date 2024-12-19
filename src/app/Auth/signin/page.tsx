@@ -4,7 +4,7 @@ import AuthWithGoogle from "@/components/Auth/AuthWithGoogle";
 import TextBox from "@/components/Auth/TextBox";
 import CustomButton from "@/components/GeneralComponents/CustomButton";
 import Footer from "@/components/GeneralComponents/Footer";
-import { signInWithCredential } from "@/utils/AuthProviders/appAuthCredentials";
+import { signInWithUserCredential } from "@/utils/AuthProviders/appAuthCredentials";
 import { routeLinks } from "@/utils/routerLinks";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,12 +22,13 @@ const router = useRouter()
     e.preventDefault();
     setLoading(true);
     try {
-      await signInWithCredential({ email, password }).then((data) => {
-        console.log(data);
+      await signInWithUserCredential({ email, password }).then((data) => {
+        console.log(JSON.parse(data));
         setLoading(false);
 
-        if (data.status ===200){
-          router.push(routeLinks.mainApHome)
+        if (data?.status == 200) {
+          router.push(routeLinks.mainApHome);
+          console.log("yes");
         }
       });
     } catch (err) {
@@ -102,7 +103,7 @@ const router = useRouter()
         </section>
         <section className="flex gap-2 text-xl font-bold pt-10">
           <h1>Don’t have an account ? </h1>
-          <Link href={"/Auth/signup"} className="text-redTheme underline">
+          <Link href={routeLinks.signup} className="text-redTheme underline">
             Create Account
           </Link>
         </section>
