@@ -80,13 +80,16 @@ export async function signInWithCredential({ email, password }: { email: string,
         await connectdb();
         const existingUser = await User.findOne({ email })
 
-        if (existingUser && existingUser.password === password) {
+        if (existingUser) {
+            const isMatch = await existingUser.comparePassword(password);
 
-            console.log({ body: existingUser, message: 'Welcome Back!' })
-            return { user: existingUser, message: 'Welcome Back!', status: 200 };
-        } else {
+            if(isMatch) {
+                console.log({ user: existingUser, message: 'Welcome Back!' })
+                return { user: existingUser, message: 'Welcome Back!', status: 200 };
+            }
+        } 
             return { message: 'Invalid username or password', status: 404 }
-        }
+        
     } catch (error) {
         return (
             JSON.stringify({
