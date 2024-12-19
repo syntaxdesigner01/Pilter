@@ -3,8 +3,8 @@ import "./styles.css";
 
 export default function TestimonieCard() {
   return (
-    <section className="flex justify-center items-center w-full pt-20 pb-20 ">
-      <section className="w-[500px] border-2  rounded-3xl shadow-md rotate">
+    <section className="flex justify-center items-center w-full pt-20 pb-20 overflow-hidden">
+      <section className="md:w-[500px] w-[400px] border-2  rounded-3xl shadow-md rotate">
         <section className="bg-[#1E1E1E] text-white flex items-center h-40 rounded-t-3xl px-10">
           <section className="relative">
             <Image
@@ -36,7 +36,7 @@ export default function TestimonieCard() {
             alt="avatar1"
             width={80}
             height={80}
-            className="rounded-full"
+            className="rounded-full md:w-[80px] md:h-[80px] w-[60px] h-[60px]"
           />
           <section>
             <h4 className="font-bold text-xl">Mary Cliont</h4>
