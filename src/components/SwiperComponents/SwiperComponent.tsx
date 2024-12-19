@@ -21,7 +21,7 @@ function SwiperComponent() {
   return (
     <section className="px-4 md:px-10 mt-10 md:mt-4">
       <section className="text-center flex flex-col gap-4">
-        <h1 className="capitalize text-3xl font-bold">
+        <h1 className="capitalize text-2xl md:text-3xl font-bold">
           get your next big idea
         </h1>
       </section>

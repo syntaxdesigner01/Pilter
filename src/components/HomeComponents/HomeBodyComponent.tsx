@@ -18,9 +18,9 @@ export default function HomeBodyComponent() {
   }, []);
 
   return (
-    <section className="px-10 pt-20 flex flex-col gap-20 justify-center items-center w-full">
+    <section className="px-4 md:px-10 pt-20 flex flex-col gap-20 justify-center items-center w-full">
       <aside
-        className="flex justify-between items-center w-full"
+        className="grid gap-10 md:gap-0 md:grid-cols-2 md:justify-between justify-center items-center w-full"
         data-aos="fade-up"
         data-aos-easing="ease-in-out"
         data-aos-duration="1000"
@@ -37,12 +37,12 @@ export default function HomeBodyComponent() {
           alt="searchIdeas"
           width={1000}
           height={1000}
-          className="w-[500px] "
+          className="md:w-[500px] w-[400px]"
         />
 
         <section className="text-center leading-relaxed flex flex-col gap-4 justify-center items-center">
-          <h1 className="font-bold text-3xl">Search for an idea</h1>
-          <p className="w-[70%] text-xl">
+          <h1 className="font-bold md:text-3xl text-xl">Search for an idea</h1>
+          <p className="md:w-[70%] w-[95%] text-xl">
             &quot;Spark your creativity by exploring over 1,000 similar images
             inspired by your idea and others&apos; work.&quot;
           </p>
@@ -59,7 +59,7 @@ export default function HomeBodyComponent() {
       </aside>
 
       <aside
-        className="text-left leading-relaxed flex  gap-4 justify-center items-center"
+        className="text-left leading-relaxed flex flex-col-reverse md:flex-row gap-4 justify-center items-center"
         data-aos="fade-up"
         data-aos-easing="ease-in-out"
         data-aos-duration="600"
@@ -71,9 +71,11 @@ export default function HomeBodyComponent() {
         data-aos-group-delay="0s"
         data-aos-once="false"
       >
-        <section>
-          <h1 className="font-bold text-3xl">AI Generative Images</h1>
-          <p className="w-[70%] text-xl py-4">
+        <section className="text-center leading-relaxed flex flex-col justify-start items-center">
+          <h1 className="font-bold md:text-3xl text-xl">
+            AI Generative Images
+          </h1>
+          <p className="md:w-[70%] w-[95%] py-4">
             &quot;Unleash your creativity with Kitty AI—generate stunning images
             of your choice, absolutely free!&quot;
           </p>
