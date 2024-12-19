@@ -8,6 +8,7 @@ import { signUpWithCredential } from "@/utils/AuthProviders/appAuthCredentials";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function SignupPage() {
   const [email, setEmail] = useState<string>("");
@@ -26,23 +27,28 @@ export default function SignupPage() {
     setLoading(true);
     setError(null);
 
-    try {
-      await signUpWithCredential({ email, password }).then((e) => {
-        console.log(e);
+    if (
+      email.trim().length === 0 ||
+      password.trim().length === 0 ||
+      !termsAccepted
+    ) {
+      toast.error("Field cannot be empty");
+      setLoading(false);
+    } else {
+      if (window.navigator.onLine) {
+        try {
+          const response = await signUpWithCredential({ email, password });
+          console.log(response);
+        } catch (err) {
+          setLoading(false);
+          console.log(err);
+        }
+      } else {
+        toast.error("Network Error - Please try again when you stable network");
         setLoading(false);
-      });
-    } catch (err) {
-      console.log(err);
+      }
     }
   };
-
-  // const handleError = () => {
-  //   setTimeout(() => {
-  //     <p className="text-red-500">{error}</p>;
-  //   }, 30000);
-
-  //   setError(null);
-  // };
 
   return (
     <main>
@@ -72,7 +78,7 @@ export default function SignupPage() {
             />
           </section>
 
-          <section className="relative left-20 top-[-20px] flex items-center justify-center w-full">
+          <section className="relative left-24 top-[-20px] flex items-center justify-center w-full">
             <section className="w-1/2 flex gap-2 text-sm font-bold capitalize">
               <input
                 type="checkbox"
@@ -114,9 +120,7 @@ export default function SignupPage() {
           <Image src="/icons/lineIcone.svg" alt="line" height={2} width={150} />
         </section>
 
-        <section className="py-4">
-          {/* <AuthWithGoogle /> */}
-        </section>
+        <section className="py-4">{/* <AuthWithGoogle /> */}</section>
         <section className="flex gap-2 text-xl font-bold pt-10">
           <h1>Already have an account?</h1>
           <Link href="/Auth/signin" className="text-redTheme underline">
@@ -124,6 +128,7 @@ export default function SignupPage() {
           </Link>
         </section>
       </section>
+      <Toaster position="top-right" toastOptions={{ duration: 30000 }} />
       <Footer />
     </main>
   );
