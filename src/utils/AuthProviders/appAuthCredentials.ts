@@ -5,7 +5,7 @@ import generateId from '../../../lib/generateId';
 import User from '../../../lib/models/dbSchema';
 import connectdb from '../../../lib/db';
 
-interface userData{
+interface userData {
     id: string;
     name: string;
     email: string;
@@ -30,7 +30,7 @@ export async function signOutWithGoogle() {
     console.log("Signed out");
 }
 
-export async function signUpWithCredential({email, password}:{email: string, password: string}) {
+export async function signUpWithCredential({ email, password }: { email: string, password: string }) {
 
     try {
         await connectdb();
@@ -76,13 +76,25 @@ export async function signUpWithCredential({email, password}:{email: string, pas
 
 
 export async function signInWithCredential({ email, password }: { email: string, password: string }) {
-    const existingUser = users.find(user => user.email === email);
-    
-    if (existingUser && existingUser.password === password) {
+    try {
+        await connectdb();
+        const existingUser = await User.findOne({ email })
 
-        console.log({ body: existingUser, message: 'Welcome Back!' })
-        return { body: existingUser, message: 'Welcome Back!',status:200 };
-    } else {
-       return {message:'Invalid username or password',status:404}
+        if (existingUser && existingUser.password === password) {
+
+            console.log({ body: existingUser, message: 'Welcome Back!' })
+            return { user: existingUser, message: 'Welcome Back!', status: 200 };
+        } else {
+            return { message: 'Invalid username or password', status: 404 }
+        }
+    } catch (error) {
+        return (
+            JSON.stringify({
+                message:
+                    "Error in Signing-up user. Please check your Internet connection and try again.",
+                error: error,
+            }),
+            { status: 500 }
+        );
     }
 }
