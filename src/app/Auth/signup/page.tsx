@@ -1,6 +1,6 @@
 "use client";
 import AuthNavBar from "@/components/Auth/AuthNavBar";
-// import AuthWithGoogle from "@/components/Auth/AuthWithGoogle";
+import AuthWithGoogle from "@/components/Auth/AuthWithGoogle";
 import TextBox from "@/components/Auth/TextBox";
 import CustomButton from "@/components/GeneralComponents/CustomButton";
 import Footer from "@/components/GeneralComponents/Footer";
@@ -54,8 +54,10 @@ export default function SignupPage() {
     <main>
       <AuthNavBar />
 
-      <section className="flex justify-center items-center w-full h-full flex-col py-[10%]">
-        <h1 className="capitalize text-3xl font-extrabold">create account</h1>
+      <section className="flex justify-center items-center w-full h-full  flex-col pt-[10em] py-[6em] md:py-[10%]">
+        <h1 className="capitalize md:text-3xl text-xl font-extrabold">
+          create account
+        </h1>
 
         <form
           className="flex flex-col justify-center items-center w-full gap-4"
@@ -105,9 +107,9 @@ export default function SignupPage() {
               disabled={loading}
               type="submit"
               click={handleSubmit}
+              smWidth={"90vw"}
             >
-              {/* {loading ? "Creating Account..." : "Create Account"} */}
-              <span>Create Account</span>
+              {loading ? "Creating Account..." : "Create Account"}
             </CustomButton>
           </section>
         </form>
@@ -120,8 +122,11 @@ export default function SignupPage() {
           <Image src="/icons/lineIcone.svg" alt="line" height={2} width={150} />
         </section>
 
-        <section className="py-4">{/* <AuthWithGoogle /> */}</section>
-        <section className="flex gap-2 text-xl font-bold pt-10">
+        <section className="py-4">
+          <AuthWithGoogle />
+        </section>
+
+        <section className="flex gap-2 text-lg md:text-xl font-bold pt-10 flex-col md:flex-row text-center">
           <h1>Already have an account?</h1>
           <Link href="/Auth/signin" className="text-redTheme underline">
             Login

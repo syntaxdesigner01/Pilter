@@ -126,7 +126,7 @@ export default function SignInPage() {
         <section className="py-4">
           <AuthWithGoogle />
         </section>
-        <section className="flex gap-2 text-lg md:text-xl font-bold pt-10 flex-col text-center">
+        <section className="flex gap-2 text-lg md:text-xl font-bold pt-10 flex-col md:flex-row text-center">
           <h1>Don’t have an account ? </h1>
           <Link href={routeLinks.signup} className="text-redTheme underline">
             Create Account
