@@ -5,24 +5,26 @@ import CustomButton from "./CustomButton";
 
 export default function Footer() {
   return (
-    <footer className="h-[40vh] bg-[#282626] px-10 py-10  text-white  w-full relative overflow-hidden bottom-0 ">
-      <section className="flex justify-between w-full">
+    <footer className="md:h-[40vh] bg-[#282626] px-10 py-10  text-white  w-full relative overflow-hidden bottom-0 ">
+      <section className="grid grid-cols-2 md:grid-cols-3 justify-between w-full">
         <section>
           <Image src={"/logoDark.svg"} alt="logo" width={100} height={100} />
         </section>
-        <section>
-          <li>Home</li>
-          <li>Explore</li>
-          <li>Kitty AI</li>
-          <li>About Us</li>
-          <li>Blog</li>
-        </section>
+        <section className="grid grid-cols-2  w-full justify-between items-center">
+          <section>
+            <li>Home</li>
+            <li>Explore</li>
+            <li>Kitty AI</li>
+            <li>About Us</li>
+            <li>Blog</li>
+          </section>
 
-        <section>
-          <li>Sign Up</li>
-          <li>Login</li>
-          <li>Terms of Service</li>
-          <li>Privacy Policy</li>
+          <section>
+            <li>Sign Up</li>
+            <li>Login</li>
+            <li>Terms of Service</li>
+            <li>Privacy Policy</li>
+          </section>
         </section>
 
         <section className="flex flex-col gap-2">

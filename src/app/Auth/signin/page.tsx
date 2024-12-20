@@ -41,7 +41,7 @@ export default function SignInPage() {
         //check user is online
         if (window.navigator.onLine) {
           const response = await signInWithUserCredential({ email, password });
-          const data: SignInResponse = JSON.parse(response);
+          const data: SignInResponse = JSON.parse(response as string);
           console.log(data);
           setLoading(false);
           if (data?.status === 200) {
