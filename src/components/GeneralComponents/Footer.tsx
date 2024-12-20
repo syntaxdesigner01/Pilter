@@ -44,7 +44,7 @@ export default function Footer() {
             bg={"white"}
             color={"black"}
             size={"md"}
-            w={"22em"}
+            w={{ sm: "60vw", md: "22em" }}
             rounded={"md"}
             type="email"
           />
