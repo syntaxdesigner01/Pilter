@@ -1,6 +1,6 @@
 "use client";
 import AuthNavBar from "@/components/Auth/AuthNavBar";
-// import AuthWithGoogle from "@/components/Auth/AuthWithGoogle";
+import AuthWithGoogle from "@/components/Auth/AuthWithGoogle";
 import TextBox from "@/components/Auth/TextBox";
 import CustomButton from "@/components/GeneralComponents/CustomButton";
 import Footer from "@/components/GeneralComponents/Footer";
@@ -43,6 +43,7 @@ export default function SignInPage() {
           const response = await signInWithUserCredential({ email, password });
           const data: SignInResponse = JSON.parse(response as string);
           console.log(data);
+          toast.error(data.message);
           setLoading(false);
           if (data?.status === 200) {
             router.push(routeLinks.mainApHome);
@@ -55,6 +56,7 @@ export default function SignInPage() {
       } catch (err) {
         console.error(err);
         setLoading(false);
+        toast.error("An error occured, Please try again");
       }
     }
   };
@@ -119,7 +121,7 @@ export default function SignInPage() {
           />
         </section>
 
-        <section className="py-4">{/* <AuthWithGoogle /> */}</section>
+        <section className="py-4"><AuthWithGoogle /></section>
         <section className="flex gap-2 text-xl font-bold pt-10">
           <h1>Don’t have an account ? </h1>
           <Link href={routeLinks.signup} className="text-redTheme underline">

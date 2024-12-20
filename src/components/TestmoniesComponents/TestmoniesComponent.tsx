@@ -53,7 +53,7 @@ export default function TestmoniesComponent() {
       // data-aos-group-delay="0s"
       // data-aos-once="false"
     >
-      <section className="carousel-container relative ">
+      <section className="carousel-container relative  ">
         <AliceCarousel
           ref={carouselRef}
           mouseTracking
@@ -65,10 +65,16 @@ export default function TestmoniesComponent() {
           animationType="fadeout"
           animationDuration={1000}
         />
-        <button className="carousel-control left" onClick={handlePrev}>
+        <button
+          className="carousel-control left hidden md:block"
+          onClick={handlePrev}
+        >
           <FaAngleLeft />
         </button>
-        <button className="carousel-control right" onClick={handleNext}>
+        <button
+          className="carousel-control right hidden md:block"
+          onClick={handleNext}
+        >
           <FaAngleRight />
         </button>
       </section>

@@ -35,13 +35,13 @@ export default function AuthWithGoogle() {
 
       if (sessionData) {
         router.push(routeLinks.chooseInterest);
-        console.log(session);
-      } else {
-        router.push(routeLinks.signin);
-      }
+        console.log(session);}
+      // } else {
+      //   router.push(routeLinks.signin);
+      // }
     };
     fetchSession();
-  }, [router]);
+  }, [router,session]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
