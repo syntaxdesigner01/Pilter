@@ -28,7 +28,6 @@ export default function SignInPage() {
 
   const router = useRouter();
 
-
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -49,9 +48,11 @@ export default function SignInPage() {
             router.push(routeLinks.mainApHome);
             console.log("yes");
           }
-        }else{
-                toast.error("Network Error - Please try again when you stable network");
-                 setLoading(false);
+        } else {
+          toast.error(
+            "Network Error - Please try again when you stable network"
+          );
+          setLoading(false);
         }
       } catch (err) {
         console.error(err);
@@ -64,8 +65,8 @@ export default function SignInPage() {
     <main>
       <AuthNavBar />
 
-      <section className="flex justify-center items-center w-full h-full  flex-col py-[10%]">
-        <h1 className="capitalize text-3xl font-extrabold ">
+      <section className="flex justify-center items-center w-full h-full  flex-col pt-[10em] py-[6em] md:py-[10%]">
+        <h1 className="capitalize md:text-3xl text-xl font-extrabold ">
           Sign-in to your account
         </h1>
 
@@ -97,6 +98,7 @@ export default function SignInPage() {
               disabled={loading}
               type="submit"
               click={handleSubmit}
+              smWidth={"90vw"}
             >
               Sign In
             </CustomButton>
@@ -121,8 +123,10 @@ export default function SignInPage() {
           />
         </section>
 
-        <section className="py-4"><AuthWithGoogle /></section>
-        <section className="flex gap-2 text-xl font-bold pt-10">
+        <section className="py-4">
+          <AuthWithGoogle />
+        </section>
+        <section className="flex gap-2 text-lg md:text-xl font-bold pt-10 flex-col text-center">
           <h1>Don’t have an account ? </h1>
           <Link href={routeLinks.signup} className="text-redTheme underline">
             Create Account

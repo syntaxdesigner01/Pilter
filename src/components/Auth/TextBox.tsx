@@ -15,7 +15,6 @@ import { VscEye, VscEyeClosed } from "react-icons/vsc";
  * @returns - A React component for the TextBox.
  */
 
-
 export default function TextBox({
   Title,
   Type,
@@ -25,7 +24,7 @@ export default function TextBox({
 }: {
   Title: string;
   Type: string;
-  PlaceHolder?: string; 
+  PlaceHolder?: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
@@ -33,13 +32,13 @@ export default function TextBox({
   const [show, setShow] = useState(false);
 
   return (
-    <section className="flex flex-col w-[30em] relative mt-10">
+    <section className="flex flex-col w-[90vw] md:w-[30em] relative md:mt-10 mt-10">
       <label
         htmlFor="input"
         className={`absolute transition-all duration-200 transform ${
           isFocused || value
             ? "top-[-44px] left-2 text-xl font-bold text-black px-6 bg-white py-2 flex justify-center items-center "
-            : "top-3 left-10 text-md font-bold text-black "
+            : "top-5 md:top-3 left-10 text-md font-bold text-black "
         }`}
       >
         {Title}
@@ -61,7 +60,7 @@ export default function TextBox({
       />
 
       {Type === "password" && (
-        <section className="flex justify-end items-end relative top-[-2.2em] right-4 ">
+        <section className="flex justify-end items-end relative top-[-2.7em] right-4 ">
           <VscEye
             className={`text-2xl ${show && "hidden"}`}
             onClick={() => setShow(true)}
@@ -76,4 +75,3 @@ export default function TextBox({
     </section>
   );
 }
-

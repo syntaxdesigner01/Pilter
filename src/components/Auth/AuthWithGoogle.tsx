@@ -55,7 +55,7 @@ export default function AuthWithGoogle() {
   return (
     <form onSubmit={handleSubmit}>
       <Button
-        className="border-2 w-[22em] py-6 rounded-xl text-xl font-bold border-black"
+        className="border-2 w-[90vw] md:w-[22em] py-6 rounded-xl text-xl font-bold border-black"
         type="submit"
       >
         <Image
