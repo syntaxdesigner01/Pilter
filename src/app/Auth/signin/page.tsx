@@ -12,8 +12,9 @@ import { routeLinks } from "@/utils/routerLinks";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { validateEmail, validatePassword } from "@/validators";
 
 interface SignInResponse {
   message: string;
@@ -25,12 +26,36 @@ export default function SignInPage() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [passowordError, setPassowordError] = useState<string | null>(null);
 
   const router = useRouter();
+
+    useEffect(() => {
+      setTimeout(() => {
+        setEmailError(null);
+        setPassowordError(null);
+      }, 6000);
+    }, [emailError, passowordError]);
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     setLoading(true);
+
+     if (!validateEmail(email)) {
+           setEmailError("Please enter a valid email address.");
+           setLoading(false);
+           return;
+         }
+    
+         if (!validatePassword(password)) {
+           setPassowordError(
+             "Password must be at least 6 characters long and contain at least one letter and one number."
+           );
+           setLoading(false);
+           return;
+         }
+    
 
     if (email.trim().length === 0 || password.trim().length === 0) {
       toast.error("Fields can not be empty");
@@ -58,8 +83,8 @@ export default function SignInPage() {
         console.error(err);
         setLoading(false);
         toast.error("An error occured, Please try again");
-                 setEmail("");
-                 setPassword("");
+        setEmail("");
+        setPassword("");
       }
     }
   };
@@ -79,6 +104,7 @@ export default function SignInPage() {
               Type="email"
               onChange={(e) => setEmail(e.target.value)}
               value={email}
+              error={emailError}
             />
           </section>
           <section className="flex">
@@ -87,10 +113,11 @@ export default function SignInPage() {
               Type="password"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
+              error={passowordError}
             />
           </section>
 
-          <section>
+          <section className={`${passowordError && 'pt-10'}`}>
             <CustomButton
               color="black"
               width={"30em"}
