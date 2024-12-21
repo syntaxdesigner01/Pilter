@@ -4,7 +4,7 @@ import "./styles.css";
 export default function TestimonieCard() {
   return (
     <section className="flex justify-center items-center w-full pt-20 md:pb-20 pb-10 z-50">
-      <section className="md:w-[500px] w-[22em] border-2  rounded-3xl shadow-md rotate">
+      <section className="md:w-[500px] w-[89vw] border-2  rounded-3xl shadow-md rotate">
         <section className="bg-[#1E1E1E] text-white flex items-center h-[7em] md:h-40 rounded-t-3xl px-10">
           <section className="relative">
             <Image
@@ -36,7 +36,7 @@ export default function TestimonieCard() {
             alt="avatar1"
             width={80}
             height={80}
-            className="rounded-full md:w-[80px] md:h-[80px] w-[70px] h-[70px]"
+            className="rounded-full md:w-[80px] md:h-[80px] w-[50px] h-[50px]"
           />
           <section>
             <h4 className="font-bold text-lg md:text-xl">Mary Cliont</h4>
