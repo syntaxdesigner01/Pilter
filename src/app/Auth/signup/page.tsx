@@ -8,9 +8,10 @@ import {
   signUpWithCredential,
   userData,
 } from "@/utils/AuthProviders/appAuthCredentials";
+import { validateEmail, validatePassword } from "@/validators";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 interface SignInResponse {
@@ -23,18 +24,42 @@ export default function SignupPage() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [passowordError, setPassowordError] = useState<string | null>(null);
+  const [acceptTerms, setAccepTerms] = useState<string | null>(null);
   const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setEmailError(null);
+      setPassowordError(null);
+      setAccepTerms(null);
+    }, 6000);
+  }, [emailError, passowordError, termsAccepted]);
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+
     if (!termsAccepted) {
-      setError("You must accept the terms and conditions.");
+      setAccepTerms("You must accept the terms and conditions.");
       return;
     }
 
     setLoading(true);
-    setError(null);
+    setAccepTerms(null);
+
+    if (!validateEmail(email)) {
+      setEmailError("Please enter a valid email address.");
+
+      setLoading(false);
+      return;
+    }
+
+    if(!validatePassword(password)) {
+      setPassowordError("Password must be at least 6 characters long and contain at least one letter and one number.");
+      setLoading(false);
+      return;
+    }
 
     if (
       email.trim().length === 0 ||
@@ -50,6 +75,8 @@ export default function SignupPage() {
           const data: SignInResponse = JSON.parse(response as string);
           console.log(data);
           setLoading(false);
+          setPassowordError(null)
+          setEmailError(null)
           toast.success(data?.message);
         } catch (err) {
           setLoading(false);
@@ -86,6 +113,7 @@ export default function SignupPage() {
               Type="email"
               onChange={(e) => setEmail(e.target.value)}
               value={email}
+              error={emailError}
             />
           </section>
           <section className="flex">
@@ -94,11 +122,14 @@ export default function SignupPage() {
               Type="password"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
+              error={passowordError}
             />
           </section>
 
           <section className="relative left-[-14vw] md:left-24 top-[-20px] flex items-center justify-center w-full">
-            <section className="md:w-1/2 flex gap-2 text-sm font-bold capitalize">
+            <section
+              className={` md:w-1/2 flex gap-2 text-sm font-bold capitalize ${passowordError && 'pt-20'}`}
+            >
               <input
                 type="checkbox"
                 height={20}
@@ -112,7 +143,7 @@ export default function SignupPage() {
             </section>
           </section>
 
-          {error && <p className="text-red-500">{error}</p>}
+          {acceptTerms && <p className="text-red-500">{acceptTerms}</p>}
 
           <section>
             <CustomButton

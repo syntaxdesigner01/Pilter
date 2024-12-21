@@ -21,54 +21,65 @@ interface TextBoxType {
   PlaceHolder?: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: string |null;
 }
 
-export default function TextBox({ Title, Type, PlaceHolder, value, onChange }: TextBoxType) {
+export default function TextBox({
+  Title,
+  Type,
+  PlaceHolder,
+  value,
+  onChange,
+  error,
+}: TextBoxType) {
   const [isFocused, setIsFocused] = useState(false);
   const [show, setShow] = useState(false);
 
   return (
-    <section className="flex flex-col w-[90vw] md:w-[30em] relative md:mt-10 mt-10">
-      <label
-        htmlFor="input"
-        className={`absolute transition-all duration-200 transform ${
-          isFocused || value
-            ? "top-[-44px] left-2 text-xl font-bold text-black px-6 mt-4  bg-white py-2 flex justify-center items-center "
-            : "top-5 md:top-3 left-10 text-md font-bold text-black "
-        }`}
-      >
-        {Title}
-      </label>
+    <>
+      <section className="flex flex-col w-[90vw] md:w-[30em] relative md:mt-10 mt-10">
+      <span className="text-end text-[14px] text-red-500 absolute right-0 top-[5em] sm:top-[10vh] md:top-12">{error}</span>
+        <label
+          htmlFor="input"
+          className={`absolute transition-all duration-200 transform ${
+            isFocused || value
+              ? "top-[-44px] left-2 text-xl font-bold text-black px-6 mt-4  bg-white py-2 flex justify-center items-center "
+              : "top-5 md:top-3 left-10 text-md font-bold text-black "
+          }`}
+        >
+          {Title}
+        </label>
 
-      <input
-        id="input"
-        type={Type === "password" && show ? "text" : Type}
-        placeholder={PlaceHolder}
-        value={value}
-        onChange={onChange}
-        autoComplete="off"
-        className={`
+        <input
+          id="input"
+          type={Type === "password" && show ? "text" : Type}
+          placeholder={PlaceHolder}
+          value={value}
+          onChange={onChange}
+          autoComplete="off"
+          className={`
          xl:h-12  h-16 px-8 bg-white border-2 border-black w-full ring-0 rounded-xl 
-          ${isFocused && " shadow-xl"}
+          ${isFocused && " shadow-xl"} ${error && "border-red-500"}
           `}
-        required
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-      />
+          required
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+        />
 
-      {Type === "password" && (
-        <section className="flex justify-end items-end relative top-[-2.7em] right-4 ">
-          <VscEye
-            className={`text-2xl ${show && "hidden"}`}
-            onClick={() => setShow(true)}
-          />
+        {Type === "password" && (
+          <section className="flex justify-end items-end relative top-[-2.7em] right-4 ">
+            <VscEye
+              className={`text-2xl ${show && "hidden"}`}
+              onClick={() => setShow(true)}
+            />
 
-          <VscEyeClosed
-            className={`text-2xl ${!show && "hidden"}`}
-            onClick={() => setShow(false)}
-          />
-        </section>
-      )}
-    </section>
+            <VscEyeClosed
+              className={`text-2xl ${!show && "hidden"}`}
+              onClick={() => setShow(false)}
+            />
+          </section>
+        )}
+      </section>
+    </>
   );
 }
