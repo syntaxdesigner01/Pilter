@@ -54,7 +54,7 @@ export default function SignupPage() {
         } catch (err) {
           setLoading(false);
           console.error(err);
-          toast.error("An error occured, Please try again");
+          toast.error(`An error occured, Please try again`);
           setEmail("");
           setPassword("");
         }

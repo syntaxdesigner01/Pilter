@@ -37,7 +37,7 @@ export default function TextBox({
         htmlFor="input"
         className={`absolute transition-all duration-200 transform ${
           isFocused || value
-            ? "top-[-44px] left-2 text-xl font-bold text-black px-6 bg-white py-2 flex justify-center items-center "
+            ? "top-[-44px] left-2 text-xl font-bold text-black px-6 mt-4  bg-white py-2 flex justify-center items-center "
             : "top-5 md:top-3 left-10 text-md font-bold text-black "
         }`}
       >
@@ -50,6 +50,7 @@ export default function TextBox({
         placeholder={PlaceHolder}
         value={value}
         onChange={onChange}
+        autoComplete="off"
         className={`
          xl:h-12  h-16 px-8 bg-white border-2 border-black w-full ring-0 rounded-xl 
           ${isFocused && " shadow-xl"}

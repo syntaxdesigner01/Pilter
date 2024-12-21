@@ -1,3 +1,4 @@
+'use client'
 import Image from 'next/image';
 
 export default function SwiperCard({ title, baseText }: { title: string; baseText: string }) {
@@ -12,7 +13,7 @@ export default function SwiperCard({ title, baseText }: { title: string; baseTex
               width={300}
               height={300}
               alt="Image 1"
-              className=" md:w-[300px] md:h-[300px] w-[150px] h-[150px] rounded-md shadow-lg z-50"
+              className=" md:w-[300px] md:h-[300px] w-[100vw]  rounded-md shadow-lg z-50"
               key={img}
             />
           );

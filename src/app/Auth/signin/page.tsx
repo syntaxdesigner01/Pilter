@@ -72,7 +72,7 @@ export default function SignInPage() {
           Sign-in to your account
         </h1>
 
-        <form className="flex flex-col justify-center items-center w-full gap-4 ">
+        <form className="flex flex-col justify-center items-center w-full gap-4 mt-2">
           <section className="flex ">
             <TextBox
               Title="Email"

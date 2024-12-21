@@ -5,9 +5,13 @@ import CustomButton from "../GeneralComponents/CustomButton";
 import { HiOutlineArrowLongRight } from "react-icons/hi2";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { useRouter } from "next/navigation";
+import { routeLinks } from "@/utils/routerLinks";
 export default function HomeBodyComponent() {
   const [showArrowButton1, setShowArrowButton1] = useState<boolean>(false);
   const [showArrowButton2, setShowArrowButton2] = useState<boolean>(false);
+
+  const router = useRouter()
 
   useEffect(() => {
     AOS.init({
@@ -52,6 +56,7 @@ export default function HomeBodyComponent() {
             onMouseEnter={() => setShowArrowButton1(true)}
             onMouseLeave={() => setShowArrowButton1(false)}
             hover
+            click={() => router.push(routeLinks.signup)}
           >
             Explore {showArrowButton1 && <HiOutlineArrowLongRight />}
           </CustomButton>
@@ -85,6 +90,7 @@ export default function HomeBodyComponent() {
             onMouseEnter={() => setShowArrowButton2(true)}
             onMouseLeave={() => setShowArrowButton2(false)}
             hover
+            click={() => router.push(routeLinks.signin)}
           >
             Explore Kitty
             {showArrowButton2 && <HiOutlineArrowLongRight />}

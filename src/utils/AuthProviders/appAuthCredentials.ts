@@ -38,7 +38,7 @@ export async function signUpWithCredential({ email, password }: { email: string,
         const existingUser = await User.findOne({ email })
 
         if (existingUser) {
-            console.log({ body: existingUser, message: 'User already exists' })
+            console.log({ user: existingUser, message: 'User already exists' })
             return JSON.stringify({ message: 'User already exists!.Try Signing-In with your email address', status: 401 });
         } else {
             let id;
@@ -67,11 +67,10 @@ export async function signUpWithCredential({ email, password }: { email: string,
         console.log("Error in creating data: " + error, { status: 500 });
 
         return JSON.stringify({
-            message:
-                "Error in Signing-up user. Please check your Internet connection and try again.",
-            error: error,
-        }),
-            { status: 500 }
+            message: "Error in Signing-up user. Please check your Internet connection and try again.", error: error,
+            status:500
+        })
+
     }
 }
 
@@ -88,11 +87,11 @@ export async function signInWithUserCredential({ email, password }: { email: str
                 console.log({ user: existingUser, message: 'Welcome Back!' })
                 return JSON.stringify({ user: existingUser, message: 'Welcome Back!', status: 200 });
             } else return JSON.stringify({ message: 'Invalid username or password', status: 404 })
-        } else{
+        } else {
             return JSON.stringify({ message: 'User not found Try again by creating an account', status: 404 })
         }
-            
-        
+
+
     } catch (error) {
         return (
             JSON.stringify({

@@ -93,7 +93,7 @@ export default function NavBar() {
       {showMenu && (
         <section
           className="fixed top-0 right-0 w-[60%] h-screen bg-black   z-50 "
-          // onMouseLeave={() => setShowMenu(false)}
+          onMouseLeave={() => setShowMenu(false)}
         >
           <section className="fixed right-[-2em] top-4">
             <CustomButton
@@ -101,7 +101,7 @@ export default function NavBar() {
               rounded={"20px"}
               click={() => setShowMenu(false)}
             >
-              <IoMdClose size={"30px"} className="text-red-700" />
+              <IoMdClose size={50}  className="text-red-700 text-3xl" />
             </CustomButton>
           </section>
           <section className="flex flex-col gap-10 pt-40 px-4 min-h-screen">

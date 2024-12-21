@@ -7,6 +7,7 @@ import { routeLinks } from "@/utils/routerLinks";
 import { useRouter } from "next/navigation";
 import { getSession } from "next-auth/react";
 
+
 interface CustomSession {
   user?: {
     name: string;
@@ -45,17 +46,19 @@ export default function AuthWithGoogle() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      await signInWithGoogle();
-    } catch (error) {
-      console.error("Authentication error:", error);
-    }
+  if(window.navigator.onLine){
+      try {
+        await signInWithGoogle();
+      } catch (error) {
+        console.error("Authentication error:", error);
+      }
+  }
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <Button
-        className="border-2 w-[90vw] md:w-[22em] py-6 rounded-xl text-xl font-bold border-black"
+        className="border-2 w-[90vw] md:w-[22em] py-6 rounded-xl text-base md:text-xl font-bold border-black"
         type="submit"
       >
         <Image

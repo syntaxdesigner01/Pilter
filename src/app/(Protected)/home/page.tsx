@@ -20,7 +20,7 @@ console.log(session)
 
   return (
     <div className="flex flex-col justify-center items-center w-screen h-screen">
-      <p>Welcome, {session && session.user?.email}</p>
+      <p>Welcome {session && session.user?.email}</p>
       <LogoutWithGooglr />
     </div>
   );
