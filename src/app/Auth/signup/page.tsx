@@ -35,40 +35,32 @@ export default function SignupPage() {
       setPassowordError(null);
       setAccepTerms(null);
     }, 6000);
-  }, [emailError, passowordError, termsAccepted]);
+  }, [emailError, passowordError, acceptTerms]);
+
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    
+    setLoading(true);
+     if (!validateEmail(email)) {
+       setEmailError("Please enter a valid email address.");
+       setLoading(false);
+       return;
+     }
+
+     if (!validatePassword(password)) {
+       setPassowordError(
+         "Password must be at least 6 characters long and contain at least one letter and one number."
+       );
+       setLoading(false);
+       return;
+     }
 
     if (!termsAccepted) {
       setAccepTerms("You must accept the terms and conditions.");
       return;
     }
 
-    setLoading(true);
-    setAccepTerms(null);
-
-    if (!validateEmail(email)) {
-      setEmailError("Please enter a valid email address.");
-
-      setLoading(false);
-      return;
-    }
-
-    if(!validatePassword(password)) {
-      setPassowordError("Password must be at least 6 characters long and contain at least one letter and one number.");
-      setLoading(false);
-      return;
-    }
-
-    if (
-      email.trim().length === 0 ||
-      password.trim().length === 0 ||
-      !termsAccepted
-    ) {
-      toast.error("Field cannot be empty");
-      setLoading(false);
-    } else {
       if (window.navigator.onLine) {
         try {
           const response = await signUpWithCredential({ email, password });
@@ -86,13 +78,13 @@ export default function SignupPage() {
           setPassword("");
         }
       } else {
-        toast.error("Network Error - Please try again when you stable network");
+        toast.error("Network Error - Please try again when you have stable network");
         setLoading(false);
         setEmail("");
         setPassword("");
       }
     }
-  };
+  
 
   return (
     <main>
