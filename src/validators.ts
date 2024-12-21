@@ -6,6 +6,5 @@ export const validateEmail = (email: string): boolean => {
 };
 
 export const validatePassword = (password: string): boolean => {
-    // Password must be at least 6 characters long, contain at least one letter and one number
     return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(password);
 };

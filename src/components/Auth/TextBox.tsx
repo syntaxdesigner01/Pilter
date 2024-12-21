@@ -15,19 +15,15 @@ import { VscEye, VscEyeClosed } from "react-icons/vsc";
  * @returns - A React component for the TextBox.
  */
 
-export default function TextBox({
-  Title,
-  Type,
-  PlaceHolder,
-  value,
-  onChange,
-}: {
+interface TextBoxType {
   Title: string;
   Type: string;
   PlaceHolder?: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}) {
+}
+
+export default function TextBox({ Title, Type, PlaceHolder, value, onChange }: TextBoxType) {
   const [isFocused, setIsFocused] = useState(false);
   const [show, setShow] = useState(false);
 
