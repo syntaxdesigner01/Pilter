@@ -50,7 +50,7 @@ export default function SignInPage() {
           }
         } else {
           toast.error(
-            "Network Error - Please try again when you stable network"
+            "Network Error - Please try again when you have a stable network"
           );
           setLoading(false);
         }
@@ -58,6 +58,8 @@ export default function SignInPage() {
         console.error(err);
         setLoading(false);
         toast.error("An error occured, Please try again");
+                 setEmail("");
+                 setPassword("");
       }
     }
   };

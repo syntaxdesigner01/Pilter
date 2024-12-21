@@ -4,11 +4,20 @@ import AuthWithGoogle from "@/components/Auth/AuthWithGoogle";
 import TextBox from "@/components/Auth/TextBox";
 import CustomButton from "@/components/GeneralComponents/CustomButton";
 import Footer from "@/components/GeneralComponents/Footer";
-import { signUpWithCredential } from "@/utils/AuthProviders/appAuthCredentials";
+import {
+  signUpWithCredential,
+  userData,
+} from "@/utils/AuthProviders/appAuthCredentials";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+
+interface SignInResponse {
+  message: string;
+  status: number;
+  user: userData;
+}
 
 export default function SignupPage() {
   const [email, setEmail] = useState<string>("");
@@ -38,14 +47,22 @@ export default function SignupPage() {
       if (window.navigator.onLine) {
         try {
           const response = await signUpWithCredential({ email, password });
-          console.log(response);
+          const data: SignInResponse = JSON.parse(response as string);
+          console.log(data);
+          setLoading(false);
+          toast.success(data?.message);
         } catch (err) {
           setLoading(false);
-          console.log(err);
+          console.error(err);
+          toast.error("An error occured, Please try again");
+          setEmail("");
+          setPassword("");
         }
       } else {
         toast.error("Network Error - Please try again when you stable network");
         setLoading(false);
+        setEmail("");
+        setPassword("");
       }
     }
   };
@@ -80,8 +97,8 @@ export default function SignupPage() {
             />
           </section>
 
-          <section className="relative left-24 top-[-20px] flex items-center justify-center w-full">
-            <section className="w-1/2 flex gap-2 text-sm font-bold capitalize">
+          <section className="relative left-[-14vw] md:left-24 top-[-20px] flex items-center justify-center w-full">
+            <section className="md:w-1/2 flex gap-2 text-sm font-bold capitalize">
               <input
                 type="checkbox"
                 height={20}
@@ -133,7 +150,7 @@ export default function SignupPage() {
           </Link>
         </section>
       </section>
-      <Toaster position="top-right" toastOptions={{ duration: 30000 }} />
+      <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
       <Footer />
     </main>
   );

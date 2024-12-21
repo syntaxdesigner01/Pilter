@@ -63,7 +63,7 @@ export default function Footer() {
 
       <section className="relative top-10 pb-10">
         <p className="text-center text-sm md:text-lg">
-          Built with by Syntax Designer ❤ . copyright @2024. All right resvered{" "}
+          Built with by Syntax Designer ❤ . copyright @2024. All right resvered
         </p>
       </section>
     </footer>
