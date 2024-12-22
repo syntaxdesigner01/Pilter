@@ -80,7 +80,7 @@ export async function signInWithUserCredential({ email, password }: { email: str
                 return JSON.stringify({ user: existingUser, message: 'Welcome Back!', status: 200 });
             } else return JSON.stringify({ message: 'Invalid username or password', status: 404 })
         } else {
-            return JSON.stringify({ message: 'User not found Try again by creating an account', status: 404 })
+            return JSON.stringify({ message: 'Invalid credentials. Try again by creating an account', status: 404 })
         }
 
 

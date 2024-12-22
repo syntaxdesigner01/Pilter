@@ -15,6 +15,8 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { validateEmail, validatePassword } from "@/utils/validators";
+import Spinner from "@/components/GeneralComponents/Spinner";
+
 
 interface SignInResponse {
   message: string;
@@ -121,7 +123,7 @@ export default function SignInPage() {
               click={handleSubmit}
               smWidth={"90vw"}
             >
-              Sign In
+             {loading ? <Spinner /> : "Sign In"}
             </CustomButton>
           </section>
         </form>
