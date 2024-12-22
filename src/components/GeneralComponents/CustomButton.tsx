@@ -7,6 +7,7 @@ import React from "react";
 
 interface CustomButtonProps extends ChakraButtonProps {
   color: string;
+  smWidth?: number | string;
   width?: number | string;
   hover?: boolean;
   hoverColor?: string;
@@ -14,14 +15,17 @@ interface CustomButtonProps extends ChakraButtonProps {
   loadingText?: React.ReactNode;
   click?: (
     event: React.SyntheticEvent) => void | Promise<void>;
+    extraClass?:string;
 }
 
 
 const CustomButton: React.FC<CustomButtonProps> = ({
   children,
+  extraClass,
   color,
   width,
   hover,
+  smWidth,
   click,
   ...rest
 }) => {
@@ -38,12 +42,12 @@ const CustomButton: React.FC<CustomButtonProps> = ({
     <ChakraButton
       size="md"
       bg={color}
-      w={width ? width : "150px"}
+      w={[smWidth? smWidth : '8em', width ? width : "150px"]}
       color="white"
       rounded="full"
       onClick={handleClick}
-      {...rest} 
-      className={`${
+      {...rest}
+      className={`${extraClass} ${
         hover &&
         "hover:border-2 hover:bg-white hover:text-black hover:border-black"
       }`}

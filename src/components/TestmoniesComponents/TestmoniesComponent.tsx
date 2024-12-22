@@ -41,7 +41,7 @@ export default function TestmoniesComponent() {
 
   return (
     <section
-      className="px-10 py-20 main pb-[6em]"
+      className="px-2 md:px-10 md:py-20 main py-[2em] md:pb-[6em]"
       data-aos="fade-up"
       data-aos-easing="ease-in-out"
       data-aos-duration="1000"
@@ -53,22 +53,29 @@ export default function TestmoniesComponent() {
       data-aos-group-delay="0s"
       data-aos-once="false"
     >
-      <section className="carousel-container relative ">
+      <section className="carousel-container relative  ">
         <AliceCarousel
           ref={carouselRef}
           mouseTracking
           items={items}
           autoPlay
           autoPlayInterval={3000}
-          disableButtonsControls
+          disableDotsControls={true}
+          disableButtonsControls={true}
           infinite
           animationType="slide"
           animationDuration={1000}
         />
-        <button className="carousel-control left" onClick={handlePrev}>
+        <button
+          className="carousel-control left hidden lg:block"
+          onClick={handlePrev}
+        >
           <FaAngleLeft />
         </button>
-        <button className="carousel-control right" onClick={handleNext}>
+        <button
+          className="carousel-control right hidden lg:block"
+          onClick={handleNext}
+        >
           <FaAngleRight />
         </button>
       </section>

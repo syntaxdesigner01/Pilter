@@ -31,29 +31,36 @@ export default function ChooseInterest() {
     }
   };
 
+  const handleContinue=()=>{
+    if(selected.length ===0){
+      toast.error("Please select an Intrest")
+    }else{
+      route.push(routeLinks.mainApHome)
+    }
+  }
   
 
   return (
     <>
       <AuthNavBar />
 
-      <main className="py-[10%] px-20">
-        <section className="flex items-center justify-end font-extrabold text-2xl">
+      <main className="pt-[10em] py-[6em] md:py-[10%] md:px-10 px-4">
+        <section className="flex items-center justify-end font-extrabold text-xl md:text-2xl">
           <span>{selected.length}</span>
-          <RxSlash className="text-3xl" />
+          <RxSlash className="text-xl md:text-3xl" />
           <span>5</span>
         </section>
 
-        <section className="pt-10 text-center font-extrabold text-2xl">
+        <section className="pt-10 text-center font-extrabold text-xl md:text-2xl">
           <h1>Let’s know your interest</h1>
         </section>
 
-        <section className="grid grid-cols-4 pt-10 w-full justify-center items-center gap-6">
+        <section className="grid grid-cols-3 md:grid-cols-4 pt-10 w-full justify-center items-center gap-6">
           {all_interest.map((interest) => {
             return (
-              <div key={interest} className="flex justify-center items-center">
+              <div key={interest} className="flex justify-center items-center w-full">
                 <Button
-                  className={`w-[14em] p-6 border-[0.2px] border-black rounded-xl font-bold hover:bg-black hover:text-white ${
+                  className={`w-[30vw] md:w-[20vw] p-6 border-[0.2px] text-sm md:text-xl border-black rounded-xl font-bold hover:bg-black hover:text-white ${
                     selected.includes(interest) ? "bg-black text-white" : ""
                   }`}
                   variant={"solid"}
@@ -68,7 +75,15 @@ export default function ChooseInterest() {
         </section>
 
         <section className="flex justify-center items-center mt-20">
-          <CustomButton color="black" hover rounded={'md'} w={'20em'} click={()=>route.push(routeLinks.mainApHome)}>Continue</CustomButton>
+          <CustomButton
+            color="black"
+            hover
+            rounded={"md"}
+            w={"20em"}
+            click={() => handleContinue()}
+          >
+            Continue
+          </CustomButton>
         </section>
       </main>
       <Footer />

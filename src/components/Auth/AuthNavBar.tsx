@@ -6,8 +6,15 @@ import React from 'react'
 export default function AuthNavBar() {
   const router =useRouter()
   return (
- <nav className='absolute top-10 left-10'>
-    <Image src={'/logo.svg'} alt='logo' width={70} height={70} onClick={()=> router.push(routeLinks.home)} /> 
- </nav>
-  )
+    <nav className="absolute top-10 md:left-10 left-[38vw]  ">
+      <Image
+        src={"/logo.svg"}
+        alt="logo"
+        width={70}
+        height={70}
+        className="w-[100] md:w-[70] cursor-pointer"
+        onClick={() => router.push(routeLinks.home)}
+      />
+    </nav>
+  );
 }
