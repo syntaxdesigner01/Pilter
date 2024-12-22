@@ -14,7 +14,7 @@ export default function Footer() {
               alt="logo"
               width={100}
               height={100}
-              className="w-[90] md:w-[20vw]"
+              className="w-[90] md:w-[10vw]"
             />
           </section>
           <section className="flex w-full justify-evenly lg:justify-between  gap-4 md:text-lg text-[12px]">
