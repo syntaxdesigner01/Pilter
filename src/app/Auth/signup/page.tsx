@@ -4,6 +4,7 @@ import AuthWithGoogle from "@/components/Auth/AuthWithGoogle";
 import TextBox from "@/components/Auth/TextBox";
 import CustomButton from "@/components/GeneralComponents/CustomButton";
 import Footer from "@/components/GeneralComponents/Footer";
+import Spinner from "@/components/GeneralComponents/Spinner";
 import {
   signUpWithCredential,
   userData,
@@ -151,7 +152,7 @@ export default function SignupPage() {
               click={handleSubmit}
               smWidth={"90vw"}
             >
-              {loading ? "Creating Account..." : "Create Account"}
+              {loading ? <Spinner/> : "Create Account"}
             </CustomButton>
           </section>
         </form>

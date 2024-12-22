@@ -6,6 +6,7 @@ import { signInWithGoogle } from "@/utils/AuthProviders/appAuthCredentials";
 import { routeLinks } from "@/utils/routerLinks";
 import { useRouter } from "next/navigation";
 import { getSession } from "next-auth/react";
+import Spinner from "../GeneralComponents/Spinner";
 
 
 interface CustomSession {
@@ -28,6 +29,7 @@ interface CustomSession {
 export default function AuthWithGoogle() {
   const router = useRouter();
   const [session, setSession] = useState<CustomSession | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -46,11 +48,14 @@ export default function AuthWithGoogle() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
+
   if(window.navigator.onLine){
       try {
         await signInWithGoogle();
       } catch (error) {
         console.error("Authentication error:", error);
+        setLoading(false);
       }
   }
   };
@@ -58,16 +63,23 @@ export default function AuthWithGoogle() {
   return (
     <form onSubmit={handleSubmit}>
       <Button
-        className="border-2 w-[90vw] md:w-[22em] py-6 rounded-xl text-base md:text-xl font-bold border-black"
+        className={`border-2 w-[90vw] md:w-[22em] py-6 rounded-xl text-base md:text-xl font-bold border-black ${loading && 'cursor-not-allowed '}`}
         type="submit"
+        disabled={loading}
       >
-        <Image
-          src={"/icons/google.svg"}
-          alt={"Google logo"}
-          height={30}
-          width={30}
-        />
-        <span>Continue with Google</span>
+        {loading ? (
+          <Spinner color="black" />
+        ) : (
+          <>
+            <Image
+              src={"/icons/google.svg"}
+              alt={"Google logo"}
+              height={30}
+              width={30}
+            />
+            <span>Continue with Google</span>
+          </>
+        )}
       </Button>
     </form>
   );
