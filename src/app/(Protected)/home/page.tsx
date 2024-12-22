@@ -1,22 +1,16 @@
-
 // import SignInPage from "@/app/Auth/signin/page"
 // import SignupPage from "@/app/Auth/signup/page"
-import { auth } from "@/auth"
-import LogoutWithGooglr from "@/components/Auth/LogoutWithGooglr"
-
-
-
+import { auth } from "@/utils/auth";
+import LogoutWithGooglr from "@/components/Auth/LogoutWithGooglr";
 
 export default async function HomePage() {
-    const session = await auth()
- 
-    if (!session) {
-        // return <SignInPage/>
-    }
+  const session = await auth();
 
+  if (!session) {
+    // return <SignInPage/>
+  }
 
-console.log(session)
-
+  console.log(session);
 
   return (
     <div className="flex flex-col justify-center items-center w-screen h-screen">

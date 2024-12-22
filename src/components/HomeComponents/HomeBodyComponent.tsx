@@ -22,7 +22,7 @@ export default function HomeBodyComponent() {
   }, []);
 
   return (
-    <section className="px-4 md:px-10 pt-20 flex flex-col gap-20 justify-center items-center w-full">
+    <section className="px-4 lg:px-10 pt-20 flex flex-col gap-20 justify-center items-center w-full">
       <aside
         className="grid gap-10 md:gap-0 md:grid-cols-2 md:justify-between justify-center items-center w-full"
         data-aos="fade-up"
@@ -64,7 +64,7 @@ export default function HomeBodyComponent() {
       </aside>
 
       <aside
-        className="text-left leading-relaxed flex flex-col-reverse md:flex-row gap-4 justify-center items-center"
+        className="text-left leading-relaxed flex flex-col-reverse lg:flex-row gap-4 justify-center items-center"
         data-aos="fade-up"
         data-aos-easing="ease-in-out"
         data-aos-duration="600"

@@ -8,7 +8,7 @@ import {
   signUpWithCredential,
   userData,
 } from "@/utils/AuthProviders/appAuthCredentials";
-import { validateEmail, validatePassword } from "@/validators";
+import { validateEmail, validatePassword } from "@/utils/validators";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -37,54 +37,54 @@ export default function SignupPage() {
     }, 6000);
   }, [emailError, passowordError, acceptTerms]);
 
-
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    
-    setLoading(true);
-     if (!validateEmail(email)) {
-       setEmailError("Please enter a valid email address.");
-       setLoading(false);
-       return;
-     }
 
-     if (!validatePassword(password)) {
-       setPassowordError(
-         "Password must be at least 6 characters long and contain at least one letter and one number."
-       );
-       setLoading(false);
-       return;
-     }
+    setLoading(true);
+    if (!validateEmail(email)) {
+      setEmailError("Please enter a valid email address.");
+      setLoading(false);
+      return;
+    }
+
+    if (!validatePassword(password)) {
+      setPassowordError(
+        "Password must be at least 6 characters long and contain at least one letter and one number."
+      );
+      setLoading(false);
+      return;
+    }
 
     if (!termsAccepted) {
       setAccepTerms("You must accept the terms and conditions.");
       return;
     }
 
-      if (window.navigator.onLine) {
-        try {
-          const response = await signUpWithCredential({ email, password });
-          const data: SignInResponse = JSON.parse(response as string);
-          console.log(data);
-          setLoading(false);
-          setPassowordError(null)
-          setEmailError(null)
-          toast.success(data?.message);
-        } catch (err) {
-          setLoading(false);
-          console.error(err);
-          toast.error(`An error occured, Please try again`);
-          setEmail("");
-          setPassword("");
-        }
-      } else {
-        toast.error("Network Error - Please try again when you have stable network");
+    if (window.navigator.onLine) {
+      try {
+        const response = await signUpWithCredential({ email, password });
+        const data: SignInResponse = JSON.parse(response as string);
+        console.log(data);
         setLoading(false);
+        setPassowordError(null);
+        setEmailError(null);
+        toast.success(data?.message);
+      } catch (err) {
+        setLoading(false);
+        console.error(err);
+        toast.error(`An error occured, Please try again`);
         setEmail("");
         setPassword("");
       }
+    } else {
+      toast.error(
+        "Network Error - Please try again when you have stable network"
+      );
+      setLoading(false);
+      setEmail("");
+      setPassword("");
     }
-  
+  };
 
   return (
     <main>
@@ -120,7 +120,9 @@ export default function SignupPage() {
 
           <section className="relative left-[-14vw] md:left-24 top-[-20px] flex items-center justify-center w-full">
             <section
-              className={` md:w-1/2 flex gap-2 text-sm font-bold capitalize ${passowordError && 'pt-20'}`}
+              className={` md:w-1/2 flex gap-2 text-sm font-bold capitalize ${
+                passowordError && "pt-20"
+              }`}
             >
               <input
                 type="checkbox"

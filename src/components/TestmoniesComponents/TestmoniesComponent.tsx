@@ -41,17 +41,17 @@ export default function TestmoniesComponent() {
 
   return (
     <section
-      className="px-2 md:px-10 py-20 main pb-[6em]"
-      // data-aos="fade-up"
-      // data-aos-easing="ease-in-out"
-      // data-aos-duration="1000"
-      // data-aos-delay="200"
-      // data-aos-anchor-placement="top-bottom"
-      // data-aos-offset="0"
-      // data-aos-mirror="false"
-      // data-aos-repeat="false"
-      // data-aos-group-delay="0s"
-      // data-aos-once="false"
+      className="px-2 md:px-10 md:py-20 main py-[2em] md:pb-[6em]"
+      data-aos="fade-up"
+      data-aos-easing="ease-in-out"
+      data-aos-duration="1000"
+      data-aos-delay="200"
+      data-aos-anchor-placement="top-bottom"
+      data-aos-offset="0"
+      data-aos-mirror="false"
+      data-aos-repeat="false"
+      data-aos-group-delay="0s"
+      data-aos-once="false"
     >
       <section className="carousel-container relative  ">
         <AliceCarousel
@@ -60,19 +60,20 @@ export default function TestmoniesComponent() {
           items={items}
           autoPlay
           autoPlayInterval={3000}
-          disableButtonsControls
+          disableDotsControls={true}
+          disableButtonsControls={true}
           infinite
-          animationType="fadeout"
+          animationType="slide"
           animationDuration={1000}
         />
         <button
-          className="carousel-control left hidden md:block"
+          className="carousel-control left hidden lg:block"
           onClick={handlePrev}
         >
           <FaAngleLeft />
         </button>
         <button
-          className="carousel-control right hidden md:block"
+          className="carousel-control right hidden lg:block"
           onClick={handleNext}
         >
           <FaAngleRight />

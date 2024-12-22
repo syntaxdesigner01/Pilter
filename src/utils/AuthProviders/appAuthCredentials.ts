@@ -1,6 +1,6 @@
 "use server";
 
-import { signIn, signOut } from '@/auth';
+import { signIn, signOut } from '@/utils/auth';
 import generateId from '../../../lib/generateId';
 import User from '../../../lib/models/dbSchema';
 import connectdb from '../../../lib/db';
@@ -13,14 +13,6 @@ export interface userData {
     password: string
 }
 
-// const users = [
-//     {
-//         id: '1',
-//         name: 'Joseph Akpan',
-//         email: 'akpanjoseph2021@gmail.com',
-//         password: '1111'
-//     }
-// ];
 
 export async function signInWithGoogle() {
     await signIn("google");
@@ -68,7 +60,7 @@ export async function signUpWithCredential({ email, password }: { email: string,
 
         return JSON.stringify({
             message: "Error in Signing-up user. Please check your Internet connection and try again.", error: error,
-            status:500
+            status: 500
         })
 
     }

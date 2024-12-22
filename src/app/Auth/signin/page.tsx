@@ -14,7 +14,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { validateEmail, validatePassword } from "@/validators";
+import { validateEmail, validatePassword } from "@/utils/validators";
 
 interface SignInResponse {
   message: string;
@@ -31,67 +31,59 @@ export default function SignInPage() {
 
   const router = useRouter();
 
-    useEffect(() => {
-      setTimeout(() => {
-        setEmailError(null);
-        setPassowordError(null);
-      }, 6000);
-    }, [emailError, passowordError]);
+  useEffect(() => {
+    setTimeout(() => {
+      setEmailError(null);
+      setPassowordError(null);
+    }, 6000);
+  }, [emailError, passowordError]);
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     setLoading(true);
 
-     if (!validateEmail(email)) {
-           setEmailError("Please enter a valid email address.");
-           setLoading(false);
-           return;
-         }
-    
-         if (!validatePassword(password)) {
-           setPassowordError(
-             "Password must be at least 6 characters long and contain at least one letter and one number."
-           );
-           setLoading(false);
-           return;
-         }
-    
-
-    if (email.trim().length === 0 || password.trim().length === 0) {
-      toast.error("Fields can not be empty");
+    if (!validateEmail(email)) {
+      setEmailError("Please enter a valid email address.");
       setLoading(false);
-    } else {
+      return;
+    }
+
+    if (!validatePassword(password)) {
+      setPassowordError(
+        "Password must be at least 6 characters long and contain at least one letter and one number."
+      );
+      setLoading(false);
+      return;
+    }
+
+    if (window.navigator.onLine) {
       try {
-        //check user is online
-        if (window.navigator.onLine) {
-          const response = await signInWithUserCredential({ email, password });
-          const data: SignInResponse = JSON.parse(response as string);
-          console.log(data);
-          toast.error(data.message);
-          setLoading(false);
-          if (data?.status === 200) {
-            router.push(routeLinks.mainApHome);
-            console.log("yes");
-          }
-        } else {
-          toast.error(
-            "Network Error - Please try again when you have a stable network"
-          );
-          setLoading(false);
-        }
+        const response = await signInWithUserCredential({ email, password });
+        const data: SignInResponse = JSON.parse(response as string);
+        setLoading(false);
+        
+        if (data?.status === 200) {
+          router.push(routeLinks.mainApHome);
+        } else toast.error(data.message);
+        
       } catch (err) {
         console.error(err);
         setLoading(false);
-        toast.error("An error occured, Please try again");
+        toast.error("An error occurred, Please try again");
         setEmail("");
         setPassword("");
       }
+    } else {
+      toast.error(
+        "Network Error - Please try again when you have a stable network"
+      );
+      setLoading(false);
     }
   };
+
   return (
     <main>
-      <AuthNavBar />
-
+      <AuthNavBar /> 
       <section className="flex justify-center items-center w-full h-full  flex-col pt-[10em] py-[6em] md:py-[10%]">
         <h1 className="capitalize md:text-3xl text-xl font-extrabold ">
           Sign-in to your account
@@ -117,7 +109,7 @@ export default function SignInPage() {
             />
           </section>
 
-          <section className={`${passowordError && 'pt-10'}`}>
+          <section className={`${passowordError && "pt-10"}`}>
             <CustomButton
               color="black"
               width={"30em"}
