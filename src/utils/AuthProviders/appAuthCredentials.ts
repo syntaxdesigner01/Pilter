@@ -5,6 +5,7 @@ import generateId from '../../../lib/generateId';
 import User from '../../../lib/models/dbSchema';
 import connectdb from '../../../lib/db';
 import bcrypt from 'bcrypt';
+import { sign_Jwt_Token } from '../../../lib/tokenGenerator';
 
 export interface userData {
     id: string;
@@ -49,11 +50,12 @@ export async function signUpWithCredential({ email, password }: { email: string,
 
             const newUser = new User(userData)
             await newUser.save()
-
+            
+            const token = sign_Jwt_Token(newUser);
             console.log('New user created');
-            console.log(newUser)
+            console.log({ user: newUser, token: token, message: 'Account created successfully', status: 200 })
 
-            return JSON.stringify({ user: newUser, message: 'Account created successfully', status: 200 });
+            return JSON.stringify({ user: newUser,token:token, message: 'Account created successfully', status: 200 });
         }
     } catch (error) {
         console.log("Error in creating data: " + error, { status: 500 });
@@ -80,7 +82,7 @@ export async function signInWithUserCredential({ email, password }: { email: str
                 return JSON.stringify({ user: existingUser, message: 'Welcome Back!', status: 200 });
             } else return JSON.stringify({ message: 'Invalid username or password', status: 404 })
         } else {
-            return JSON.stringify({ message: 'User not found Try again by creating an account', status: 404 })
+            return JSON.stringify({ message: 'Invalid credentials. Try again by creating an account', status: 404 })
         }
 
 

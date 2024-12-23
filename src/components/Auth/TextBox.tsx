@@ -38,7 +38,9 @@ export default function TextBox({
   return (
     <>
       <section className="flex flex-col w-[90vw] md:w-[30em] relative md:mt-10 mt-10">
-      <span className="text-end text-[14px] text-red-500 absolute right-0 top-[5em] sm:top-[10vh] md:top-12">{error}</span>
+        <span className="text-end text-[14px] text-red-500 absolute right-0 top-[5em] sm:top-[10vh] md:top-12">
+          {error}
+        </span>
         <label
           htmlFor="input"
           className={`absolute transition-all duration-200 transform ${
@@ -67,7 +69,7 @@ export default function TextBox({
         />
 
         {Type === "password" && (
-          <section className="flex justify-end items-end relative top-[-2.7em] right-4 ">
+          <section className="flex justify-end items-end relative top-[-2.7em] md:top-[-2.2em] right-4 ">
             <VscEye
               className={`text-2xl ${show && "hidden"}`}
               onClick={() => setShow(true)}
