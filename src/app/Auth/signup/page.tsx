@@ -19,6 +19,7 @@ interface SignInResponse {
   message: string;
   status: number;
   user: userData;
+  error: { message: string };
 }
 
 export default function SignupPage() {
@@ -58,6 +59,7 @@ export default function SignupPage() {
 
     if (!termsAccepted) {
       setAccepTerms("You must accept the terms and conditions.");
+      setLoading(false);
       return;
     }
 
@@ -69,7 +71,24 @@ export default function SignupPage() {
         setLoading(false);
         setPassowordError(null);
         setEmailError(null);
-        toast.success(data?.message);
+
+        if (data?.status === 200) {
+          toast.success(data.message);
+        } else {
+          let errormessage: string = "";
+          const message = data?.error?.message;
+
+          if (message && message.includes(":")) {
+            errormessage = message.split(":").at(-1)?.trim() || message;
+            toast.error(errormessage as string);
+          } else {
+            errormessage = message;
+            toast.error(errormessage as string);
+          }
+        if(!message) {
+          toast.error(data.message);
+        }
+        }
       } catch (err) {
         setLoading(false);
         console.error(err);
@@ -152,7 +171,7 @@ export default function SignupPage() {
               click={handleSubmit}
               smWidth={"90vw"}
             >
-              {loading ? <Spinner/> : "Create Account"}
+              {loading ? <Spinner /> : "Create Account"}
             </CustomButton>
           </section>
         </form>
