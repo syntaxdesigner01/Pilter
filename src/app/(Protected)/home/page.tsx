@@ -1,7 +1,8 @@
 // import SignInPage from "@/app/Auth/signin/page"
 // import SignupPage from "@/app/Auth/signup/page"
 import { auth } from "@/utils/auth";
-import LogoutWithGooglr from "@/components/Auth/LogoutWithGooglr";
+// import LogoutWithGooglr from "@/components/Auth/LogoutWithGooglr";
+import KittyAi from "../kittyAi/page";
 
 export default async function HomePage() {
   const session = await auth();
@@ -13,9 +14,6 @@ export default async function HomePage() {
   console.log(session);
 
   return (
-    <div className="flex flex-col justify-center items-center w-screen h-screen">
-      <p>Welcome {session && session.user?.email}</p>
-      <LogoutWithGooglr />
-    </div>
+   <KittyAi/>
   );
 }

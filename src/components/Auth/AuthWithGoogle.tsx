@@ -7,6 +7,8 @@ import { routeLinks } from "@/utils/routerLinks";
 import { useRouter } from "next/navigation";
 import { getSession } from "next-auth/react";
 import Spinner from "../GeneralComponents/Spinner";
+// import ErrorPage from "@/app/404/page";
+
 
 
 interface CustomSession {
@@ -57,30 +59,39 @@ export default function AuthWithGoogle() {
         console.error("Authentication error:", error);
         setLoading(false);
       }
+  }else {
+    setLoading(false);
+    router.push(routeLinks.errorPage)
+    // return <ErrorPage redirectLink={routeLinks?.signup} />
   }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Button
-        className={`border-2 w-[90vw] md:w-[22em] py-6 rounded-xl text-base md:text-xl font-bold border-black ${loading && 'cursor-not-allowed '}`}
-        type="submit"
-        disabled={loading}
-      >
-        {loading ? (
-          <Spinner color="black" />
-        ) : (
-          <>
-            <Image
-              src={"/icons/google.svg"}
-              alt={"Google logo"}
-              height={30}
-              width={30}
-            />
-            <span>Continue with Google</span>
-          </>
-        )}
-      </Button>
-    </form>
+    <>
+
+      <form onSubmit={handleSubmit}>
+        <Button
+          className={`border-2 w-[90vw] md:w-[22em] py-6 rounded-xl text-base md:text-xl font-bold border-black ${
+            loading && "cursor-not-allowed "
+          }`}
+          type="submit"
+          disabled={loading}
+        >
+          {loading ? (
+            <Spinner color="black" />
+          ) : (
+            <>
+              <Image
+                src={"/icons/google.png"}
+                alt={"Google logo"}
+                height={30}
+                width={30}
+              />
+              <span>Continue with Google</span>
+            </>
+          )}
+        </Button>
+      </form>
+    </>
   );
 }

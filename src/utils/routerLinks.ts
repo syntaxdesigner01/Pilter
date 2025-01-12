@@ -2,6 +2,7 @@
 export const routeLinks ={
     home: '/',
     mainApHome: '/home',
+    errorPage: '/404',
     about: '/about',
     contact: '/contact',
     services: '/services',
