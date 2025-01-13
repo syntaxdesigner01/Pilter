@@ -65,7 +65,6 @@ export default function AsideLeftComponent() {
                 <section className="bg-dark text-white p-3">
                   {seasonPrompts}
                 </section>
-             
               </section>
             );
           })}
