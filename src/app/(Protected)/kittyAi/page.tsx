@@ -1,10 +1,12 @@
 import HomeNavbar from '@/components/Protected/HomeNavbar'
+import Divider from '@/components/Protected/KittyAiPage/Divider'
 import React from 'react'
 
 export default function KittyAi() {
   return (
-   <section className='px-10 pt-4'>
+   <section className=''>
     <HomeNavbar/>
+    <Divider/>
    </section>
   )
 }
