@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function KittyAi() {
   return (
-   <section className=''>
+   <section className='w-full'>
     <HomeNavbar/>
     <Divider/>
    </section>

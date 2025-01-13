@@ -34,13 +34,11 @@ export default function AsideLeftComponent() {
     <section className="w-full relative left-[-4em] h-screen overflow-y-auto">
       <h1 className="text-left text-sm font-semibold">Prompt suggestion: </h1>
 
-      <form
-        className="mt-2"
-        onSubmit={(e) => handleSubmit(e)}
-      >
+      <form className="mt-2" onSubmit={(e) => handleSubmit(e)}>
         <Input
           className="border-2 border-black px-2 w-full h-12 rounded-md"
-          placeholder="Keyword: Art" onChange={(e) => setKeyword(e.target.value)}
+          placeholder="Keyword: Art"
+          onChange={(e) => setKeyword(e.target.value)}
         />
       </form>
 
@@ -48,26 +46,30 @@ export default function AsideLeftComponent() {
         Type in a keyword to unlock a curated list of top-notch prompt
         suggestions tailored just for you
       </p>
-<hr />
+      <hr />
 
-      {dataset.length > 0 && dataset.map((seasonPrompts, index) => {
-        return (
-          <section
-            key={index}
-            className="mt-4 border-2 border-black  rounded-md  leading-relaxed tracking-wider  text-sm"
-          >
-            <section className="flex justify-end items-center">
-              <button className='bg-black text-white'>Copy text</button>
-            </section>
+      <section className='pb-20'>
+        {dataset.length > 0 &&
+          dataset.map((seasonPrompts, index) => {
+            return (
+              <section
+                key={index}
+                className="mt-4 border-2 border-black  rounded-xl  leading-relaxed tracking-wider  text-sm"
+              >
+                <section className="flex justify-end items-center mb-[0.7px] rounded-tr-xl">
+                  <button className="bg-black text-white px-4">
+                    Copy text
+                  </button>
+                </section>
 
-            <section className="bg-black text-white p-3">
-              {seasonPrompts}
-            </section>
-            {/* <br /> */}
-          </section>
-        );
-})}
-
+                <section className="bg-dark text-white p-3">
+                  {seasonPrompts}
+                </section>
+             
+              </section>
+            );
+          })}
+      </section>
     </section>
   );
 }
