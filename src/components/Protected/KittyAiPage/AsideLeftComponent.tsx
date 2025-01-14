@@ -73,7 +73,7 @@ export default function AsideLeftComponent() {
       <hr />
       {dataset.length > 0 ? (
         <Stack className="mt-2 ">
-          <Stack gap={2}>
+          <Stack gap={4}>
             {paginatedItems.length > 0 ? (
               paginatedItems.map((seasonPrompts, index) => {
                 return (
@@ -131,7 +131,7 @@ export default function AsideLeftComponent() {
         </Stack>
       ) : (
         <section className="flex w-full h-full flex-col justify-center items-center relative top-32">
-          <IoLogoOctocat className="text-[50px] text-gray-400" />
+          <IoLogoOctocat className="text-[70px] text-gray-400" />
           {/* <h1>Could not suggestions on {keyword} try other words</h1> */}
         </section>
       )}

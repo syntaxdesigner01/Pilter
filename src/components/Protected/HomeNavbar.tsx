@@ -8,11 +8,15 @@ export default function HomeNavbar() {
       <section>
         <Image src={"/logo.svg"} width={60} height={60} alt="" />
       </section>
-
+<section>
+  <h1 className="font-extrabold text-3xl leading-loose">
+    Kitty AI Studio
+  </h1>
+</section>
       <section className="flex items-center gap-10 ">
-        <FaBell className="text-xl" />
+        <FaBell className="text-2xl" />
 
-        <section className="border-2 p-4 text-xl font-bold flex justify-center items-center bg-pink-500 h-10 w-10 rounded-full">
+        <section className="border-2 p-6 text-2xl font-bold flex justify-center items-center bg-pink-500 h-10 w-10 rounded-full">
           <span>s</span>
         </section>
       </section>
