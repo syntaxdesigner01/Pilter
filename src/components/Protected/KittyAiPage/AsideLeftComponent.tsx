@@ -18,10 +18,13 @@ export default function AsideLeftComponent() {
   const [page, setPage] = useState(1);
   const [viewText, setViewText] = useState<{ [key: number]: boolean }>({});
 
-  const itemsPerPage = 2; // Define the number of items per page
+  const itemsPerPage = 3;
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = page * itemsPerPage;
+  const paginatedItems = dataset.slice(startIndex, endIndex);
 
   const viewTextHandler = (index: number) => {
-    setViewText((prev) => ({ ...prev, [index]: !prev[index] }));
+    setViewText((prev) => ({ [index]: !prev[index] }));
   };
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -29,20 +32,24 @@ export default function AsideLeftComponent() {
 
     const findWords: string[][] = [];
 
-    Object.values(Seasons).forEach((season) => {
-      const filteredData = season.filter((prompt) => prompt.includes(keyword));
-      if (!findWords.includes(filteredData) && filteredData.length > 0) {
-        findWords.push(filteredData);
-      }
-    });
+    if (keyword.trim().length < 3 || keyword.trim().length === 0) {
+      alert("Please enter a keyword with at least 3 characters");
+    }
 
-    setDataset(findWords);
-    console.log(findWords);
+    if (keyword.trim().length >= 3) {
+      Object.values(Seasons).forEach((season) => {
+        const filteredData = season.filter((prompt) =>
+          prompt.includes(keyword)
+        );
+        if (!findWords.includes(filteredData) && filteredData.length > 0) {
+          findWords.push(filteredData);
+        }
+      });
+
+      setDataset(findWords);
+      console.log(findWords);
+    }
   }
-
-  const startIndex = (page - 1) * itemsPerPage;
-  const endIndex = page * itemsPerPage;
-  const paginatedItems = dataset.slice(startIndex, endIndex);
 
   return (
     <section className="w-full relative left-[-4em] ">
@@ -62,31 +69,38 @@ export default function AsideLeftComponent() {
       </p>
       <hr />
 
-      <Stack className="mt-2">
-        <Stack gap={2}>
+      <Stack className="mt-2 ">
+        <Stack gap={2} >
           {paginatedItems.length > 0 &&
             paginatedItems.map((seasonPrompts, index) => {
               return (
                 <section
                   key={index}
-                  className="mt-1 border-2 border-black  rounded-xl  leading-relaxed tracking-wider  text-[12px] shadow-xl mx-2 flex flex-row-reverse items-start justify-evenly"
+                  className="mt-1 border-2 border-black  rounded-xl  leading-relaxed tracking-wider  text-[12px] shadow-xl mx-2 flex flex-row-reverse items-start justify-evenly  overflow-y-auto "
                 >
-                  <section className="flex justify-end items-center  ">
+                  <section className="flex justify-end items-center relative  ">
                     <Clipboard.Root
                       value={seasonPrompts.join(" ")}
                       timeout={1000}
                       className=" text-dark w-10 bg-white rounded-tr-xl p-1"
                     >
-                      <Clipboard.Trigger asChild className="cursor-pointer"> 
+                      <Clipboard.Trigger asChild className="cursor-pointer">
                         <IconButton size={"xs"} aria-label="Copy to clipboard">
-                          <Clipboard.Indicator copied={<LuCheck />} className="flex">
-                            <LuClipboard /> 
+                          <Clipboard.Indicator
+                            copied={<LuCheck />}
+                            className="flex"
+                          >
+                            <LuClipboard />
                           </Clipboard.Indicator>
                         </IconButton>
                       </Clipboard.Trigger>
                     </Clipboard.Root>
                   </section>
-                  <section className="bg-white text-dark font-medium rounded-xl p-3">
+                  <section
+                    className={`bg-white text-dark font-medium rounded-xl p-3 ${
+                      viewText[index] && "h-40 p-4"
+                    }`}
+                  >
                     {viewText[index]
                       ? seasonPrompts.join(" ")
                       : seasonPrompts.join(" ").slice(0, 70) + "..."}
@@ -104,20 +118,27 @@ export default function AsideLeftComponent() {
         </Stack>
       </Stack>
 
-      {dataset.length > 0 && (
-        <PaginationRoot
-          count={Math.ceil(dataset.length / itemsPerPage)}
-          pageSize={1}
-          page={page}
-          onPageChange={(e) => setPage(e.page)}
-        >
-          <HStack>
-            <PaginationPrevTrigger />
-            <PaginationItems />
-            <PaginationNextTrigger />
-          </HStack>
-        </PaginationRoot>
-      )}
+      <section className="flex justify-center items-center">
+        {dataset.length > 0 && (
+          <PaginationRoot
+            count={Math.ceil(dataset.length / itemsPerPage)}
+            pageSize={1}
+            page={page}
+            onPageChange={(e) => setPage(e.page)}
+            className="fixed bottom-4"
+            variant="solid"
+          >
+            <HStack>
+              <PaginationPrevTrigger />
+              <PaginationItems
+                className={`border-2 border-black rounded-xl bg-white `}
+              />
+              <PaginationNextTrigger />
+            </HStack>
+          </PaginationRoot>
+        )}
+
+      </section>
     </section>
   );
 }
