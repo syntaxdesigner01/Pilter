@@ -70,7 +70,7 @@ export default function AsideLeftComponent() {
       <hr />
 
       <Stack className="mt-2 ">
-        <Stack gap={2} >
+        <Stack gap={2}>
           {paginatedItems.length > 0 &&
             paginatedItems.map((seasonPrompts, index) => {
               return (
@@ -131,13 +131,12 @@ export default function AsideLeftComponent() {
             <HStack>
               <PaginationPrevTrigger />
               <PaginationItems
-                className={`border-2 border-black rounded-xl bg-white `}
+                className={`border-2 border-black rounded-xl bg-white hover:bg-dark hover:text-white `}
               />
               <PaginationNextTrigger />
             </HStack>
           </PaginationRoot>
         )}
-
       </section>
     </section>
   );
