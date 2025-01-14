@@ -89,18 +89,20 @@ export default function AsideLeftComponent() {
         </Stack>
       </Stack>
 
-      <PaginationRoot
-        count={3}
-        pageSize={1}
-        page={page}
-        onPageChange={(e) => setPage(e.page)}
-      >
-        <HStack>
-          <PaginationPrevTrigger />
-          <PaginationItems />
-          <PaginationNextTrigger />
-        </HStack>
-      </PaginationRoot>
+      {dataset.length > 0 && (
+        <PaginationRoot
+          count={3}
+          pageSize={1}
+          page={page}
+          onPageChange={(e) => setPage(e.page)}
+        >
+          <HStack>
+            <PaginationPrevTrigger />
+            <PaginationItems />
+            <PaginationNextTrigger />
+          </HStack>
+        </PaginationRoot>
+      )}
     </section>
   );
 }
