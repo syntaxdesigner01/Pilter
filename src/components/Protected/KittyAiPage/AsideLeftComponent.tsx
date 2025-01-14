@@ -16,6 +16,8 @@ export default function AsideLeftComponent() {
   const [page, setPage] = useState(1);
   const [viewText, setViewText] = useState<{ [key: number]: boolean }>({});
 
+  const itemsPerPage = 2; // Define the number of items per page
+
   const viewTextHandler = (index: number) => {
     setViewText((prev) => ({ ...prev, [index]: !prev[index] }));
   };
@@ -36,6 +38,10 @@ export default function AsideLeftComponent() {
     console.log(findWords);
   }
 
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = page * itemsPerPage;
+  const paginatedItems = dataset.slice(startIndex, endIndex);
+
   return (
     <section className="w-full relative left-[-4em] ">
       <h1 className="text-left text-sm font-semibold">Prompt suggestion: </h1>
@@ -54,44 +60,42 @@ export default function AsideLeftComponent() {
       </p>
       <hr />
 
-      <Stack className="overflow-y-scroll">
-        <Stack gap={4}>
-          {dataset.length > 0 &&
-            dataset
-              .slice((page - 1) * 2, page * 3)
-              .map((seasonPrompts, index) => {
-                return (
-                  <section
-                    key={index}
-                    className="mt-4 border-2 border-black  rounded-xl  leading-relaxed tracking-wider  text-sm"
-                  >
-                    <section className="flex justify-end items-center mb-[0.7px] rounded-tr-xl">
-                      <button className="bg-black text-white px-4">
-                        Copy text
-                      </button>
-                    </section>
-                    <section className="bg-dark text-white p-3 text-sm">
-                      {viewText[index]
-                        ? seasonPrompts.join(" ")
-                        : seasonPrompts.join(" ").slice(0, 50) + "..."}
-                      <section className="flex justify-end items-center mt-[0.7px] ">
-                        <button
-                          className="bg-redTheme text-white px-4 rounded-md"
-                          onClick={() => viewTextHandler(index)}
-                        >
-                          See more
-                        </button>
-                      </section>
-                    </section>
+      <Stack className="mt-2">
+        <Stack gap={2}>
+          {paginatedItems.length > 0 &&
+            paginatedItems.map((seasonPrompts, index) => {
+              return (
+                <section
+                  key={index}
+                  className="mt-1 border-2 border-black  rounded-xl  leading-relaxed tracking-wider  text-[12px] shadow-xl mx-2"
+                >
+                  <section className="flex justify-end items-center mb-[0.7px]  rounded-tr-xl">
+                    <button className="bg-black text-white px-4 rounded-tr-xl">
+                      Copy
+                    </button>
                   </section>
-                );
-              })}
+                  <section className="bg-white text-dark font-medium rounded-xl p-3">
+                    {viewText[index]
+                      ? seasonPrompts.join(" ")
+                      : seasonPrompts.join(" ").slice(0, 50) + "..."}
+                    {/* <section className="flex justify-end items-center mt-[0.7px] "> */}
+                    <span
+                      className="cursor-pointer underline text-redTheme px-2 rounded-sm font-bold"
+                      onClick={() => viewTextHandler(index)}
+                    >
+                      {viewText[index] ? "Read less" : "Expand"}
+                    </span>
+                    {/* </section> */}
+                  </section>
+                </section>
+              );
+            })}
         </Stack>
       </Stack>
 
       {dataset.length > 0 && (
         <PaginationRoot
-          count={3}
+          count={Math.ceil(dataset.length / itemsPerPage)}
           pageSize={1}
           page={page}
           onPageChange={(e) => setPage(e.page)}
