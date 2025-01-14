@@ -9,7 +9,9 @@ import {
   PaginationPrevTrigger,
   PaginationRoot,
 } from "@/components/ui/pagination";
-
+import { Clipboard, IconButton } from "@chakra-ui/react";
+import { LuClipboard } from "react-icons/lu";
+import { LuCheck } from "react-icons/lu";
 export default function AsideLeftComponent() {
   const [keyword, setKeyword] = useState<string>("");
   const [dataset, setDataset] = useState<string[][]>([]);
@@ -67,25 +69,34 @@ export default function AsideLeftComponent() {
               return (
                 <section
                   key={index}
-                  className="mt-1 border-2 border-black  rounded-xl  leading-relaxed tracking-wider  text-[12px] shadow-xl mx-2"
+                  className="mt-1 border-2 border-black  rounded-xl  leading-relaxed tracking-wider  text-[12px] shadow-xl mx-2 flex flex-row-reverse items-start justify-evenly"
                 >
-                  <section className="flex justify-end items-center mb-[0.7px]  rounded-tr-xl">
-                    <button className="bg-black text-white px-4 rounded-tr-xl">
-                      Copy
-                    </button>
+                  <section className="flex justify-end items-center  ">
+                    <Clipboard.Root
+                      value={seasonPrompts.join(" ")}
+                      timeout={1000}
+                      className=" text-dark w-10 bg-white rounded-tr-xl p-1"
+                    >
+                      <Clipboard.Trigger asChild className="cursor-pointer"> 
+                        <IconButton size={"xs"} aria-label="Copy to clipboard">
+                          <Clipboard.Indicator copied={<LuCheck />} className="flex">
+                            <LuClipboard /> 
+                          </Clipboard.Indicator>
+                        </IconButton>
+                      </Clipboard.Trigger>
+                    </Clipboard.Root>
                   </section>
                   <section className="bg-white text-dark font-medium rounded-xl p-3">
                     {viewText[index]
                       ? seasonPrompts.join(" ")
-                      : seasonPrompts.join(" ").slice(0, 50) + "..."}
-                    {/* <section className="flex justify-end items-center mt-[0.7px] "> */}
+                      : seasonPrompts.join(" ").slice(0, 70) + "..."}
+
                     <span
                       className="cursor-pointer underline text-redTheme px-2 rounded-sm font-bold"
                       onClick={() => viewTextHandler(index)}
                     >
                       {viewText[index] ? "Read less" : "Expand"}
                     </span>
-                    {/* </section> */}
                   </section>
                 </section>
               );
