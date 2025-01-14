@@ -85,9 +85,9 @@ export default function SignupPage() {
             errormessage = message;
             toast.error(errormessage as string);
           }
-        if(!message) {
-          toast.error(data.message);
-        }
+          if (!message) {
+            toast.error(data.message);
+          }
         }
       } catch (err) {
         setLoading(false);
@@ -176,12 +176,24 @@ export default function SignupPage() {
           </section>
         </form>
 
-        <section className="mt-4 flex gap-4 font-bold text-2xl">
-          <Image src="/icons/lineIcone.svg" alt="line" height={2} width={150} />
+        <section className="mt-4 flex gap-4 items-center font-bold text-xl">
+          <Image
+            src="/icons/lineIcone.png"
+            alt="line"
+            height={0}
+            width={0}
+            className="md:w-[10vw] w-[20vw] h-1"
+          />
 
           <span>OR</span>
 
-          <Image src="/icons/lineIcone.svg" alt="line" height={2} width={150} />
+          <Image
+            src="/icons/lineIcone.png"
+            alt="line"
+            height={0}
+            width={0}
+            className="md:w-[10vw] w-[20vw] h-1"
+          />
         </section>
 
         <section className="py-4">

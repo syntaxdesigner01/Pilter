@@ -6,6 +6,7 @@ import User from '../../../lib/models/dbSchema';
 import connectdb from '../../../lib/db';
 import bcrypt from 'bcrypt';
 import { sign_Jwt_Token } from '../../../lib/tokenGenerator';
+import { NextResponse } from 'next/server';
 
 export interface userData {
     id: string;
@@ -55,7 +56,18 @@ export async function signUpWithCredential({ email, password }: { email: string,
             console.log('New user created');
             console.log({ user: newUser, token: token, message: 'Account created successfully', status: 200 })
 
-            return JSON.stringify({ user: newUser,token:token, message: 'Account created successfully', status: 200 });
+            // return JSON.stringify({ user: newUser,token:token, message: 'Account created successfully', status: 200 });
+            const response = NextResponse.json({ user: newUser, message: 'Account created successfully' });
+            response.cookies.set('token', token, {
+                httpOnly: true,
+                path: '/',
+                maxAge: 30 * 24 * 60 * 60,
+                sameSite: 'strict',
+                secure: process.env.NODE_ENV === 'production'
+            });
+
+            return response;
+
         }
     } catch (error) {
         console.log("Error in creating data: " + error, { status: 500 });

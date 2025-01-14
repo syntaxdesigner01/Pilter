@@ -9,7 +9,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        redTheme: "#CC1414"
+        redTheme: "#CC1414",
+        dark: "#1E1E1E",
       },
     },
   },

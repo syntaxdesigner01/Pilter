@@ -85,7 +85,7 @@ export default function SignInPage() {
 
   return (
     <main>
-      <AuthNavBar /> 
+      <AuthNavBar />
       <section className="flex justify-center items-center w-full h-full  flex-col pt-[10em] py-[6em] md:py-[10%]">
         <h1 className="capitalize md:text-3xl text-xl font-extrabold ">
           Sign-in to your account
@@ -123,26 +123,28 @@ export default function SignInPage() {
               click={handleSubmit}
               smWidth={"90vw"}
             >
-             {loading ? <Spinner /> : "Sign In"}
+              {loading ? <Spinner /> : "Sign In"}
             </CustomButton>
           </section>
         </form>
 
-        <section className="mt-4 flex  gap-4 font-bold text-2xl">
+        <section className="mt-4 flex items-center  gap-4 font-bold text-xl">
           <Image
-            src={"/icons/lineIcone.svg"}
+            src={"/icons/lineIcone.png"}
             alt={"line"}
-            height={2}
-            width={150}
+            height={0}
+            width={0}
+            className="w-[10vw] h-1"
           />
 
           <span>OR</span>
 
           <Image
-            src={"/icons/lineIcone.svg"}
+            src={"/icons/lineIcone.png"}
             alt={"line"}
-            height={2}
-            width={150}
+            height={0}
+            width={0}
+            className="w-[10vw] h-1"
           />
         </section>
 

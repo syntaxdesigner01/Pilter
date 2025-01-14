@@ -37,7 +37,7 @@ export default function TextBox({
 
   return (
     <>
-      <section className="flex flex-col w-[90vw] md:w-[30em] relative md:mt-10 mt-10">
+      <section className="flex  flex-col w-[90vw] md:w-[30em] relative md:mt-10 mt-10">
         <span className="text-end text-[14px] text-red-500 absolute right-0 top-[5em] sm:top-[10vh] md:top-12">
           {error}
         </span>
@@ -68,19 +68,21 @@ export default function TextBox({
           onBlur={() => setIsFocused(false)}
         />
 
-        {Type === "password" && (
-          <section className="flex justify-end items-end relative top-[-2.7em] md:top-[-2.2em] right-4 ">
-            <VscEye
-              className={`text-2xl ${show && "hidden"}`}
-              onClick={() => setShow(true)}
-            />
+        <section className="flex justify-end">
+          {Type === "password" && (
+            <section className="flex justify-end items-end relative top-[-2.7em] md:top-[-2.2em] right-4 w-6 ">
+              <VscEye
+                className={`text-2xl ${show && "hidden"}`}
+                onClick={() => setShow(true)}
+              />
 
-            <VscEyeClosed
-              className={`text-2xl ${!show && "hidden"}`}
-              onClick={() => setShow(false)}
-            />
-          </section>
-        )}
+              <VscEyeClosed
+                className={`text-2xl ${!show && "hidden"}`}
+                onClick={() => setShow(false)}
+              />
+            </section>
+          )}
+        </section>
       </section>
     </>
   );
