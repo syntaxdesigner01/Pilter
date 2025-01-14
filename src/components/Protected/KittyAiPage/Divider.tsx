@@ -5,7 +5,7 @@ export default function Divider() {
   return (
     <section className="w-full flex items-center pt-10">
       <section className="w-full flex justify-evenly items-center shadow-lg z-50 ">
-        <section className="w-[23vw] h-screen border-r-4 border-black ">
+        <section className="w-[25vw] h-screen  ">
           <AsideLeftComponent/>
         </section>
 
