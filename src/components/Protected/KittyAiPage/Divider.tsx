@@ -5,8 +5,8 @@ export default function Divider() {
   return (
     <section className="w-full flex items-center pt-10">
       <section className="w-full flex justify-evenly items-center shadow-lg z-50 ">
-        <section className="w-[25vw] h-screen  ">
-          <AsideLeftComponent/>
+        <section className="w-[25vw] h-screen ">
+          <AsideLeftComponent />
         </section>
 
         <section className="w-[50vw] h-screen">
