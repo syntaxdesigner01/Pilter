@@ -4,7 +4,7 @@ import { FaBell } from "react-icons/fa6";
 
 export default function HomeNavbar() {
   return (
-    <nav className="flex justify-between items-center w-full px-10 pt-4">
+    <nav className="flex justify-between items-center w-full px-10 py-4 shadow-md border-b-2 border-slate-300">
       <section>
         <Image src={"/logo.svg"} width={60} height={60} alt="" />
       </section>

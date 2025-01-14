@@ -3,6 +3,8 @@ import { Seasons } from "@/utils/data";
 import { Input, Stack } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { HStack } from "@chakra-ui/react";
+import { CiFileOff } from "react-icons/ci";
+import { IoLogoOctocat } from "react-icons/io5";
 import {
   PaginationItems,
   PaginationNextTrigger,
@@ -60,6 +62,7 @@ export default function AsideLeftComponent() {
           className="border-2 border-black px-2 w-full h-12 rounded-md"
           placeholder="Keyword: Art"
           onChange={(e) => setKeyword(e.target.value)}
+          type="search"
         />
       </form>
 
@@ -68,55 +71,70 @@ export default function AsideLeftComponent() {
         suggestions tailored just for you
       </p>
       <hr />
-
-      <Stack className="mt-2 ">
-        <Stack gap={2}>
-          {paginatedItems.length > 0 &&
-            paginatedItems.map((seasonPrompts, index) => {
-              return (
-                <section
-                  key={index}
-                  className="mt-1 border-2 border-black  rounded-xl  leading-relaxed tracking-wider  text-[12px] shadow-xl mx-2 flex flex-row-reverse items-start justify-evenly  overflow-y-auto "
-                >
-                  <section className="flex justify-end items-center relative  ">
-                    <Clipboard.Root
-                      value={seasonPrompts.join(" ")}
-                      timeout={1000}
-                      className=" text-dark w-10 bg-white rounded-tr-xl p-1"
-                    >
-                      <Clipboard.Trigger asChild className="cursor-pointer">
-                        <IconButton size={"xs"} aria-label="Copy to clipboard">
-                          <Clipboard.Indicator
-                            copied={<LuCheck />}
-                            className="flex"
-                          >
-                            <LuClipboard />
-                          </Clipboard.Indicator>
-                        </IconButton>
-                      </Clipboard.Trigger>
-                    </Clipboard.Root>
-                  </section>
+      {dataset.length > 0 ? (
+        <Stack className="mt-2 ">
+          <Stack gap={2}>
+            {paginatedItems.length > 0 ? (
+              paginatedItems.map((seasonPrompts, index) => {
+                return (
                   <section
-                    className={`bg-white text-dark font-medium rounded-xl p-3 ${
-                      viewText[index] && "h-40 p-4"
-                    }`}
+                    key={index}
+                    className="mt-1 border-2 border-black  rounded-xl  leading-relaxed tracking-wider  text-[13px] shadow-xl mx-2 flex flex-row-reverse items-start justify-evenly  overflow-y-auto "
                   >
-                    {viewText[index]
-                      ? seasonPrompts.join(" ")
-                      : seasonPrompts.join(" ").slice(0, 70) + "..."}
-
-                    <span
-                      className="cursor-pointer underline text-redTheme px-2 rounded-sm font-bold"
-                      onClick={() => viewTextHandler(index)}
+                    <section className="flex justify-end items-center relative  ">
+                      <Clipboard.Root
+                        value={seasonPrompts.join(" ")}
+                        timeout={1000}
+                        className=" text-dark w-10 bg-white rounded-tr-xl p-1"
+                      >
+                        <Clipboard.Trigger asChild className="cursor-pointer">
+                          <IconButton
+                            size={"xs"}
+                            aria-label="Copy to clipboard"
+                          >
+                            <Clipboard.Indicator
+                              copied={<LuCheck />}
+                              className="flex"
+                            >
+                              <LuClipboard />
+                            </Clipboard.Indicator>
+                          </IconButton>
+                        </Clipboard.Trigger>
+                      </Clipboard.Root>
+                    </section>
+                    <section
+                      className={`bg-white text-dark font-medium rounded-xl p-3 ${
+                        viewText[index] && "h-40 p-4"
+                      }`}
                     >
-                      {viewText[index] ? "Read less" : "Expand"}
-                    </span>
+                      {viewText[index]
+                        ? seasonPrompts.join(" ")
+                        : seasonPrompts.join(" ").slice(0, 70) + "..."}
+
+                      <span
+                        className="cursor-pointer underline text-redTheme px-2 rounded-sm font-bold"
+                        onClick={() => viewTextHandler(index)}
+                      >
+                        {viewText[index] ? "Read less" : "Expand"}
+                      </span>
+                    </section>
                   </section>
-                </section>
-              );
-            })}
+                );
+              })
+            ) : (
+              <section className="text-center flex flex-col w-full justify-center items-center pt-20 text-sm font-medium">
+                <CiFileOff className="text-[40px]" />
+                <h1>Could not suggestions on {keyword} try other words</h1>
+              </section>
+            )}
+          </Stack>
         </Stack>
-      </Stack>
+      ) : (
+        <section className="flex w-full h-full flex-col justify-center items-center relative top-32">
+          <IoLogoOctocat className="text-[50px] text-gray-400" />
+          {/* <h1>Could not suggestions on {keyword} try other words</h1> */}
+        </section>
+      )}
 
       <section className="flex justify-center items-center">
         {dataset.length > 0 && (
