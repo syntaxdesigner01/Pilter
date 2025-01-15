@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { HStack } from "@chakra-ui/react";
 import { CiFileOff } from "react-icons/ci";
 import { IoLogoOctocat } from "react-icons/io5";
+import { Tooltip } from "@/components/ui/tooltip";
 import {
   PaginationItems,
   PaginationNextTrigger,
@@ -12,7 +13,8 @@ import {
   PaginationRoot,
 } from "@/components/ui/pagination";
 import { Clipboard, IconButton } from "@chakra-ui/react";
-import { LuClipboard } from "react-icons/lu";
+import { TbPlaylistAdd } from "react-icons/tb";
+import { IoCopyOutline } from "react-icons/io5";
 import { LuCheck } from "react-icons/lu";
 export default function AsideLeftComponent() {
   const [keyword, setKeyword] = useState<string>("");
@@ -87,20 +89,28 @@ export default function AsideLeftComponent() {
                         timeout={1000}
                         className=" text-dark w-10 bg-white rounded-tr-xl p-1"
                       >
-                        <Clipboard.Trigger asChild className="cursor-pointer">
-                          <IconButton
-                            size={"xs"}
-                            aria-label="Copy to clipboard"
-                          >
-                            <Clipboard.Indicator
-                              copied={<LuCheck />}
-                              className="flex"
+                        <Tooltip content="Copy suggestion">
+                          <Clipboard.Trigger asChild className="cursor-pointer">
+                            <IconButton
+                              size={"xs"}
+                              aria-label="Copy to clipboard"
                             >
-                              <LuClipboard />
-                            </Clipboard.Indicator>
-                          </IconButton>
-                        </Clipboard.Trigger>
+                              <Clipboard.Indicator
+                                copied={<LuCheck />}
+                                className="flex"
+                              >
+                                <IoCopyOutline />
+                              </Clipboard.Indicator>
+                            </IconButton>
+                          </Clipboard.Trigger>
+                        </Tooltip>
                       </Clipboard.Root>
+                      <Tooltip content="Insert suggestion to pannel">
+                        <TbPlaylistAdd
+                          size={"22px"}
+                          aria-label="Insert suggestion to pannel"
+                        />
+                      </Tooltip>
                     </section>
                     <section
                       className={`bg-white text-dark font-medium rounded-xl p-3 ${
