@@ -5,6 +5,7 @@ import { Stack } from "@chakra-ui/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { GoPaste } from "react-icons/go";
+import { Tooltip } from "@/components/ui/tooltip";
 
 export default function AsideRightComponent() {
   const [prompt, setPrompt] = useState<string>("");
@@ -19,14 +20,15 @@ export default function AsideRightComponent() {
     }
   }, [prompt]);
 
-    async function handlePaste(){
-        try {
-            const text = await navigator.clipboard.readText();
-            setPrompt(text);
-        } catch (err) {
-            console.error("Failed to read clipboard contents: ", err);
-        }
+  async function handlePaste() {
+    try {
+      const text = await navigator.clipboard.readText();
+      setPrompt(text);
+    } catch (err) {
+        console.log(err)
+      alert("Nothing to paste");
     }
+  }
 
   return (
     <section>
@@ -34,7 +36,9 @@ export default function AsideRightComponent() {
         <form>
           <Stack>
             <section className=" flex justify-end absolute right-[10vw] mt-4">
-              <GoPaste onClick={handlePaste} />
+              <Tooltip content="Paste Prompt">
+                <GoPaste onClick={handlePaste} />
+              </Tooltip>
             </section>
             <textarea
               maxLength={500}
