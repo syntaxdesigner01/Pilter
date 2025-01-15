@@ -16,6 +16,9 @@ import { Clipboard, IconButton } from "@chakra-ui/react";
 import { TbPlaylistAdd } from "react-icons/tb";
 import { IoCopyOutline } from "react-icons/io5";
 import { LuCheck } from "react-icons/lu";
+
+
+
 export default function AsideLeftComponent() {
   const [keyword, setKeyword] = useState<string>("");
   const [dataset, setDataset] = useState<string[][]>([]);
@@ -26,6 +29,7 @@ export default function AsideLeftComponent() {
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = page * itemsPerPage;
   const paginatedItems = dataset.slice(startIndex, endIndex);
+
 
   const viewTextHandler = (index: number) => {
     setViewText((prev) => ({ [index]: !prev[index] }));
@@ -54,6 +58,8 @@ export default function AsideLeftComponent() {
       console.log(findWords);
     }
   }
+
+  
 
   return (
     <section className="w-full relative left-[-4em] ">
@@ -142,7 +148,6 @@ export default function AsideLeftComponent() {
       ) : (
         <section className="flex w-full h-full flex-col justify-center items-center relative top-32">
           <IoLogoOctocat className="text-[70px] text-gray-400" />
-          {/* <h1>Could not suggestions on {keyword} try other words</h1> */}
         </section>
       )}
 
