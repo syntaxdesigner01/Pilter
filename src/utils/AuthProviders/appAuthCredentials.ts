@@ -84,10 +84,55 @@ export async function signUpWithCredential({ email, password }: { email: string;
     }
 }
 
-export async function signInWithUserCredential({ email, password }: { email: string, password: string }) {
+// export async function signInWithUserCredential({ email, password }: { email: string, password: string }) {
+//     try {
+//         await connectdb();
+//         const existingUser = await User.findOne({ email })
+
+//         if (existingUser) {
+//             const isPasswordValid = await bcrypt.compare(password, existingUser.password);
+
+//             if (isPasswordValid) {
+//                 const plainUser = {
+//                     id: existingUser.id,
+//                     name: existingUser.name,
+//                     email: existingUser.email,
+//                 };
+
+//                 const token = sign_Jwt_Token(plainUser);
+//                 console.log({ token, message: 'Welcome Back!' })
+
+//                 return {
+//                     token,
+//                     message: 'Account created successfully',
+//                     status: 200,
+//                 };
+
+//                 // return JSON.stringify({ user: existingUser, message: 'Welcome Back!', status: 200 });
+
+
+//             } else return JSON.stringify({ message: 'Invalid username or password', status: 404 })
+//         } else {
+//             return JSON.stringify({ message: 'Invalid credentials. Try again by creating an account', status: 404 })
+//         }
+
+
+//     } catch (error) {
+//         return (
+//             JSON.stringify({
+//                 message:
+//                     "Error in Signing-up user. Please check your Internet connection and try again.",
+//                 error: error,
+//             }),
+//             { status: 500 }
+//         );
+//     }
+// }
+
+export async function signInWithUserCredential({ email, password }: { email: string; password: string }) {
     try {
         await connectdb();
-        const existingUser = await User.findOne({ email })
+        const existingUser = await User.findOne({ email });
 
         if (existingUser) {
             const isPasswordValid = await bcrypt.compare(password, existingUser.password);
@@ -100,31 +145,31 @@ export async function signInWithUserCredential({ email, password }: { email: str
                 };
 
                 const token = sign_Jwt_Token(plainUser);
-                console.log({ token, message: 'Welcome Back!' })
+                console.log({ token, message: 'Welcome Back!' });
 
                 return {
                     token,
-                    message: 'Account created successfully',
+                    message: 'Welcome Back!',
                     status: 200,
                 };
-
-                // return JSON.stringify({ user: existingUser, message: 'Welcome Back!', status: 200 });
-
-
-            } else return JSON.stringify({ message: 'Invalid username or password', status: 404 })
+            } else {
+                return {
+                    message: 'Invalid username or password',
+                    status: 401, // Use 401 for unauthorized access
+                };
+            }
         } else {
-            return JSON.stringify({ message: 'Invalid credentials. Try again by creating an account', status: 404 })
+            return {
+                message: 'Invalid credentials. Try again by creating an account',
+                status: 404, // Not found
+            };
         }
-
-
     } catch (error) {
-        return (
-            JSON.stringify({
-                message:
-                    "Error in Signing-up user. Please check your Internet connection and try again.",
-                error: error,
-            }),
-            { status: 500 }
-        );
+        console.error("Error during sign-in:", error);
+        return {
+            message: "Error in signing in user. Please check your Internet connection and try again.",
+            error: (error as Error).message || error,
+            status: 500,
+        };
     }
 }

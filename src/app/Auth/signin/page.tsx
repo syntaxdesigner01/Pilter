@@ -22,6 +22,7 @@ interface SignInResponse {
   message: string;
   status: number;
   user: userData;
+  token: string;
 }
 
 export default function SignInPage() {
@@ -40,49 +41,92 @@ export default function SignInPage() {
     }, 6000);
   }, [emailError, passowordError]);
 
+
+  // const handleSubmit = async (e: React.SyntheticEvent) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+
+  //   if (!validateEmail(email)) {
+  //     setEmailError("Please enter a valid email address.");
+  //     setLoading(false);
+  //     return;
+  //   }
+
+  //   if (!validatePassword(password)) {
+  //     setPassowordError(
+  //       "Password must be at least 6 characters long and contain at least one letter and one number."
+  //     );
+  //     setLoading(false);
+  //     return;
+  //   }
+
+  //   if (window.navigator.onLine) {
+  //     try {
+  //       const response = await signInWithUserCredential({ email, password });
+  //       const data: SignInResponse = JSON.parse(response as string);
+  //       setLoading(false);
+        
+  //       if (data?.status === 200) {
+  //         router.push(routeLinks.mainApHome);
+  //       } else toast.error(data.message);
+        
+  //     } catch (err) {
+  //       console.error(err);
+  //       setLoading(false);
+  //       toast.error("An error occurred, Please try again");
+  //       setEmail("");
+  //       setPassword("");
+  //     }
+  //   } else {
+  //     toast.error(
+  //       "Network Error - Please try again when you have a stable network"
+  //     );
+  //     setLoading(false);
+  //   }
+  // };
+
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     setLoading(true);
 
     if (!validateEmail(email)) {
-      setEmailError("Please enter a valid email address.");
-      setLoading(false);
-      return;
+        setEmailError("Please enter a valid email address.");
+        setLoading(false);
+        return;
     }
 
     if (!validatePassword(password)) {
-      setPassowordError(
-        "Password must be at least 6 characters long and contain at least one letter and one number."
-      );
-      setLoading(false);
-      return;
+        setPassowordError("Password must be at least 6 characters long and contain at least one letter and one number.");
+        setLoading(false);
+        return;
     }
 
     if (window.navigator.onLine) {
-      try {
-        const response = await signInWithUserCredential({ email, password });
-        const data: SignInResponse = JSON.parse(response as string);
-        setLoading(false);
-        
-        if (data?.status === 200) {
-          router.push(routeLinks.mainApHome);
-        } else toast.error(data.message);
-        
-      } catch (err) {
-        console.error(err);
-        setLoading(false);
-        toast.error("An error occurred, Please try again");
-        setEmail("");
-        setPassword("");
-      }
-    } else {
-      toast.error(
-        "Network Error - Please try again when you have a stable network"
-      );
-      setLoading(false);
-    }
-  };
+        try {
+            const response = await signInWithUserCredential({ email, password });
 
+            const data: SignInResponse = typeof response === 'string' ? JSON.parse(response) : response;
+            if (data.status === 200) {
+                console.log(data)
+                toast.success(data.message);
+                localStorage.setItem('token', data.token)
+                router.push(routeLinks.mainApHome);
+            } else {
+                toast.error(response.message);
+            }
+        } catch (err) {
+            console.error(err);
+            toast.error("An error occurred, Please try again");
+            setEmail("");
+            setPassword("");
+        } finally {
+            setLoading(false);
+        }
+    } else {
+        toast.error("Network Error - Please try again when you have a stable network");
+        setLoading(false);
+    }
+};
   return (
     <main>
       <AuthNavBar />
