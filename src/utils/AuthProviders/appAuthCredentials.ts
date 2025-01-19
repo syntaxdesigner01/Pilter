@@ -6,7 +6,7 @@ import User from '../../../lib/models/dbSchema';
 import connectdb from '../../../lib/db';
 import bcrypt from 'bcrypt';
 import { sign_Jwt_Token } from '../../../lib/tokenGenerator';
-import { NextResponse } from 'next/server';
+// import { NextResponse } from 'next/server';
 
 export interface userData {
     id: string;
@@ -25,60 +25,7 @@ export async function signOutWithGoogle() {
     console.log("Signed out");
 }
 
-// export async function signUpWithCredential({ email, password }: { email: string, password: string }) {
 
-//     try {
-//         await connectdb();
-//         const existingUser = await User.findOne({ email })
-
-//         if (existingUser) {
-//             console.log({ user: existingUser, message: 'User already exists' })
-//             return JSON.stringify({ message: 'User already exists!.Try Signing-In with your email address', status: 401 });
-//         } else {
-//             let id;
-//             let existingUserId;
-//             do {
-//                 id = generateId();
-//                 existingUserId = await User.findOne({ id: id });
-//             } while (existingUserId);
-
-//             const userData = {
-//                 id: id,
-//                 name: email.split('@')[0],
-//                 email,
-//                 password
-//             } as userData
-
-//             const newUser = new User(userData)
-//             await newUser.save()
-            
-//             const token = sign_Jwt_Token(newUser);
-//             console.log('New user created');
-//             console.log({ user: newUser, token: token, message: 'Account created successfully', status: 200 })
-
-//             // return JSON.stringify({ user: newUser,token:token, message: 'Account created successfully', status: 200 });
-//             const response = NextResponse.json({ user: newUser, message: 'Account created successfully' });
-//             response.cookies.set('token', token, {
-//                 httpOnly: true,
-//                 path: '/',
-//                 maxAge: 30 * 24 * 60 * 60,
-//                 sameSite: 'strict',
-//                 secure: process.env.NODE_ENV === 'production'
-//             });
-
-//             return response;
-
-//         }
-//     } catch (error) {
-//         console.log("Error in creating data: " + error, { status: 500 });
-
-//         return JSON.stringify({
-//             message: "Error in Signing-up user. Please check your Internet connection and try again.", error: error,
-//             status: 500
-//         })
-
-//     }
-// }
 
 
 export async function signUpWithCredential({ email, password }: { email: string; password: string }) {
@@ -88,10 +35,10 @@ export async function signUpWithCredential({ email, password }: { email: string;
 
         if (existingUser) {
             console.log({ user: existingUser, message: 'User  already exists' });
-            return NextResponse.json({
-                message: 'User  already exists! Try signing in with your email address.',
-                status: 401
-            });
+            return {
+                message: 'User already exists! Try signing up with another email address.',
+                status: 401,
+            };
         } else {
             let id;
             let existingUserId;
@@ -101,43 +48,39 @@ export async function signUpWithCredential({ email, password }: { email: string;
             } while (existingUserId);
 
 
-
-            const userData: userData = {
+            const userData = {
                 id,
                 name: email.split('@')[0],
                 email,
-                password: password // Store the hashed password
+                password: password, 
             };
 
             const newUser = new User(userData);
             await newUser.save();
 
-            const token = sign_Jwt_Token(newUser);
-            console.log('New user created:', { user: newUser, token, message: 'Account created successfully', status: 200 });
+            const plainUser = {
+                id: newUser.id,
+                name: newUser.name,
+                email: newUser.email,
+            };
 
-            const response = NextResponse.json({
-                user: { id: newUser.id, name: newUser.name, email: newUser.email }, // Exclude password from response
-                message: 'Account created successfully'
-            });
+            const token = sign_Jwt_Token(plainUser);
 
-            response.cookies.set('token', token, {
-                // httpOnly: true,
-                httpOnly: false,
-                path: '/',
-                maxAge: 30 * 24 * 60 * 60, // 30 days
-                sameSite: 'strict',
-                secure: process.env.NODE_ENV === 'production'
-            });
+            console.log('New user created:', { token, message: 'Account created successfully', status: 200 });
 
-            return response;
+            return {
+                token,
+                message: 'Account created successfully',
+                status: 200,
+            };
         }
     } catch (error) {
         console.error("Error in creating data:", error);
-        return NextResponse.json({
+        return {
             message: "Error in signing up user. Please check your Internet connection and try again.",
             error: (error as Error).message || error,
-            status: 500
-        });
+            status: 500,
+        };
     }
 }
 
