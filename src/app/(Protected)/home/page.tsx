@@ -12,7 +12,9 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState<string | null>(null); // Initialize as null
 
-  useEffect(() => {}, [token, session]);
+    useEffect(() => {
+  
+    }, [token,session]);
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -38,6 +40,7 @@ export default function HomePage() {
       </section>
     );
   }
+
 
   if (session || token) {
     return <KittyAi />;

@@ -33,6 +33,7 @@ export default function SignInPage() {
   const [passowordError, setPassowordError] = useState<string | null>(null);
 
   const router = useRouter();
+const currentPath = window.location.pathname;
 
   useEffect(() => {
     setTimeout(() => {
@@ -110,7 +111,12 @@ export default function SignInPage() {
                 console.log(data)
                 toast.success(data.message);
                 localStorage.setItem('token', data.token)
-                router.push(routeLinks.mainApHome);
+                if (currentPath === "/home") {
+                     window.location.reload();
+                  router.push(routeLinks.mainApHome);
+                }else{
+                   router.push(routeLinks.mainApHome);
+                }
             } else {
                 toast.error(response.message);
             }
