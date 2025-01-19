@@ -60,19 +60,6 @@ export default function AsideRightComponent() {
           </Stack>
 
           <section className="flex w-full justify-center items-center gap-20 font-bold">
-            {/* <section className="flex cursor-pointer gap-2">
-              <span>Qunatity</span>
-              <input
-                type="number"
-                name=""
-                id=""
-                max={6}
-                min={0}
-              
-                className="text-black pl-4 w-[9em] cursor-pointer border-2 border-black bg-white"
-              />
-            </section> */}
-
             <section className="flex cursor-pointer gap-2">
               <input
                 type="checkbox"
