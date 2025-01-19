@@ -41,9 +41,9 @@ export default function AuthWithGoogle() {
       if (sessionData) {
         router.push(routeLinks.chooseInterest);
         console.log(session);}
-       else {
-        router.push(routeLinks.signin);
-      }
+      //  else {
+      //   router.push(routeLinks.signin);
+      // }
     };
     fetchSession();
   }, [router,session]);
