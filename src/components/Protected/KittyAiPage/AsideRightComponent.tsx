@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Stack } from "@chakra-ui/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { GoPaste } from "react-icons/go";
+import { Tooltip } from "@/components/ui/tooltip";
 
 export default function AsideRightComponent() {
   const [prompt, setPrompt] = useState<string>("");
@@ -18,15 +20,34 @@ export default function AsideRightComponent() {
     }
   }, [prompt]);
 
+  async function handlePaste() {
+    try {
+      const text = await navigator.clipboard.readText();
+      setPrompt(text);
+    } catch (err) {
+      console.log(err);
+      alert("Nothing to paste");
+    }
+  }
+
   return (
     <section>
       <section>
         <form>
           <Stack>
+            <section className=" flex justify-end absolute right-[10vw] mt-4">
+              <Tooltip content="Paste Prompt">
+                <section className="flex items-center gap-1">
+                  <span>Paste</span>
+                  <GoPaste onClick={handlePaste} />
+                </section>
+              </Tooltip>
+            </section>
             <textarea
               maxLength={500}
               cols={40}
               rows={60}
+              value={prompt}
               placeholder="Create me a cat image on a white background"
               className={`border-4 rounded-xl p-4 w-full py-6 h-[10em] cursor-text bg-white placeholder:italic outline-double ${
                 error ? "border-redTheme" : "border-black "
@@ -51,7 +72,7 @@ export default function AsideRightComponent() {
                 className="text-black pl-4 w-[9em] cursor-pointer border-2 border-black bg-white"
               />
             </section> */}
-            
+
             <section className="flex cursor-pointer gap-2">
               <input
                 type="checkbox"
