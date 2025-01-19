@@ -52,7 +52,7 @@ export async function signUpWithCredential({ email, password }: { email: string;
                 id,
                 name: email.split('@')[0],
                 email,
-                password: password, 
+                password: password,
             };
 
             const newUser = new User(userData);
@@ -64,7 +64,7 @@ export async function signUpWithCredential({ email, password }: { email: string;
                 email: newUser.email,
             };
 
-            const token = sign_Jwt_Token(plainUser);
+            const token: string = sign_Jwt_Token(plainUser);
 
             console.log('New user created:', { token, message: 'Account created successfully', status: 200 });
 
@@ -93,8 +93,24 @@ export async function signInWithUserCredential({ email, password }: { email: str
             const isPasswordValid = await bcrypt.compare(password, existingUser.password);
 
             if (isPasswordValid) {
-                console.log({ user: existingUser, message: 'Welcome Back!' })
-                return JSON.stringify({ user: existingUser, message: 'Welcome Back!', status: 200 });
+                const plainUser = {
+                    id: existingUser.id,
+                    name: existingUser.name,
+                    email: existingUser.email,
+                };
+
+                const token = sign_Jwt_Token(plainUser);
+                console.log({ token, message: 'Welcome Back!' })
+
+                return {
+                    token,
+                    message: 'Account created successfully',
+                    status: 200,
+                };
+
+                // return JSON.stringify({ user: existingUser, message: 'Welcome Back!', status: 200 });
+
+
             } else return JSON.stringify({ message: 'Invalid username or password', status: 404 })
         } else {
             return JSON.stringify({ message: 'Invalid credentials. Try again by creating an account', status: 404 })
