@@ -66,7 +66,7 @@ export default function SignupPage() {
     if (window.navigator.onLine) {
       try {
         const response = await signUpWithCredential({ email, password });
-        const data: SignInResponse = JSON.parse(response as string);
+        const data: SignInResponse = JSON.parse(response as unknown as string);
         console.log(data);
         setLoading(false);
         setPassowordError(null);
