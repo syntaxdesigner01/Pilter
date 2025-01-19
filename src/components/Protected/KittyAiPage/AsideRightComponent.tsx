@@ -25,7 +25,7 @@ export default function AsideRightComponent() {
       const text = await navigator.clipboard.readText();
       setPrompt(text);
     } catch (err) {
-        console.log(err)
+      console.log(err);
       alert("Nothing to paste");
     }
   }
@@ -37,7 +37,10 @@ export default function AsideRightComponent() {
           <Stack>
             <section className=" flex justify-end absolute right-[10vw] mt-4">
               <Tooltip content="Paste Prompt">
-                <GoPaste onClick={handlePaste} />
+                <section className="flex items-center gap-1">
+                  <span>Paste</span>
+                  <GoPaste onClick={handlePaste} />
+                </section>
               </Tooltip>
             </section>
             <textarea
