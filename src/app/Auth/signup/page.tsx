@@ -21,6 +21,7 @@ interface SignInResponse {
   message: string;
   status: number;
   user: userData;
+  token: string;
   error: { message: string };
 }
 
@@ -79,7 +80,7 @@ export default function SignupPage() {
 
           if (data?.status === 200) {
             toast.success(data.message);
-            // Redirect to dashboard
+            localStorage.setItem("token", data?.token);
             router.push(routeLinks.mainApHome);
           } else {
             let errormessage: string = "";
