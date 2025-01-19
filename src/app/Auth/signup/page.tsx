@@ -14,6 +14,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { routeLinks } from "@/utils/routerLinks";
 
 interface SignInResponse {
   message: string;
@@ -23,6 +25,7 @@ interface SignInResponse {
 }
 
 export default function SignupPage() {
+  const router = useRouter();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -38,74 +41,6 @@ export default function SignupPage() {
       setAccepTerms(null);
     }, 6000);
   }, [emailError, passowordError, acceptTerms]);
-
-  // const handleSubmit = async (e: React.SyntheticEvent) => {
-  //   e.preventDefault();
-
-  //   setLoading(true);
-  //   if (!validateEmail(email)) {
-  //     setEmailError("Please enter a valid email address.");
-  //     setLoading(false);
-  //     return;
-  //   }
-
-  //   if (!validatePassword(password)) {
-  //     setPassowordError(
-  //       "Password must be at least 6 characters long and contain at least one letter and one number."
-  //     );
-  //     setLoading(false);
-  //     return;
-  //   }
-
-  //   if (!termsAccepted) {
-  //     setAccepTerms("You must accept the terms and conditions.");
-  //     setLoading(false);
-  //     return;
-  //   }
-
-  //   if (window.navigator.onLine) {
-  //     try {
-  //       const response = await signUpWithCredential({ email, password });
-  //       const data: SignInResponse = JSON.parse(response as unknown as string);
-  //       console.log(data);
-  //       setLoading(false);
-  //       setPassowordError(null);
-  //       setEmailError(null);
-
-  //       if (data?.status === 200) {
-  //         toast.success(data.message);
-  //       } else {
-  //         let errormessage: string = "";
-  //         const message = data?.error?.message;
-
-  //         if (message && message.includes(":")) {
-  //           errormessage = message.split(":").at(-1)?.trim() || message;
-  //           toast.error(errormessage as string);
-  //         } else {
-  //           errormessage = message;
-  //           toast.error(errormessage as string);
-  //         }
-  //         if (!message) {
-  //           toast.error(data.message);
-  //         }
-  //       }
-  //     } catch (err) {
-  //       setLoading(false);
-  //       console.error(err);
-  //       toast.error(`An error occured, Please try again`);
-  //       setEmail("");
-  //       setPassword("");
-  //     }
-  //   } else {
-  //     toast.error(
-  //       "Network Error - Please try again when you have stable network"
-  //     );
-  //     setLoading(false);
-  //     setEmail("");
-  //     setPassword("");
-  //   }
-  // };
-
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -144,6 +79,8 @@ export default function SignupPage() {
 
           if (data?.status === 200) {
             toast.success(data.message);
+            // Redirect to dashboard
+            router.push(routeLinks.mainApHome);
           } else {
             let errormessage: string = "";
             const message = data?.error?.message;
