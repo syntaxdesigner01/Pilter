@@ -12,33 +12,32 @@ import { routeLinks } from "@/utils/routerLinks";
 
 export default function ChooseInterest() {
   const [selected, setSelected] = useState<string[]>([]);
+  const [showIcon, setShowIcon] = useState<string | false>(false);
 
-  const route = useRouter()
+  const route = useRouter();
 
   const handleSelectItems = (item: string) => {
     if (selected.includes(item)) {
       setSelected(selected.filter((i) => i !== item));
     } else {
-    
-      if (selected.length === 5){
+      if (selected.length === 5) {
         toast.error("You can't select more than 5 interests", {
           duration: 2000,
         });
         return;
-      }else{
-          setSelected([...selected, item]);
+      } else {
+        setSelected([...selected, item]);
       }
     }
   };
 
-  const handleContinue=()=>{
-    if(selected.length ===0){
-      toast.error("Please select an Intrest")
-    }else{
-      route.push(routeLinks.mainApHome)
+  const handleContinue = () => {
+    if (selected.length === 0) {
+      toast.error("Please select an Intrest");
+    } else {
+      route.push(routeLinks.mainApHome);
     }
-  }
-  
+  };
 
   return (
     <>
@@ -58,15 +57,25 @@ export default function ChooseInterest() {
         <section className="grid grid-cols-3 md:grid-cols-4 pt-10 w-full justify-center items-center gap-6">
           {all_interest.map((interest) => {
             return (
-              <div key={interest} className="flex justify-center items-center w-full">
+              <div
+                key={interest.text}
+                className="flex justify-center items-center w-full"
+              >
                 <Button
-                  className={`w-[30vw] md:w-[20vw] p-6 border-[0.2px] text-sm md:text-xl border-black rounded-xl font-bold hover:bg-black hover:text-white ${
-                    selected.includes(interest) ? "bg-black text-white" : ""
-                  }`}
+                  onMouseEnter={() => setShowIcon(interest.text)}
+                  onMouseLeave={() => setShowIcon(false)}
+                  className={`w-[30vw] md:w-[20vw] p-6 border-[0.2px] text-sm md:text-xl border-black rounded-xl font-bold hover:bg-redTheme 
+                      hover:text-white ${
+                        selected.includes(interest.text)
+                          ? "bg-black text-white"
+                          : ""
+                      }`}
                   variant={"solid"}
-                  onClick={() => handleSelectItems(interest)}
+                  onClick={() => handleSelectItems(interest.text)}
                 >
-                  {interest}
+                  {interest.text}
+                  {showIcon === interest.text && <interest.iconName />}
+                  {/* <interest.iconName /> */}
                 </Button>
               </div>
             );
