@@ -94,13 +94,13 @@ export default function ChooseInterest() {
                   variant={"solid"}
                   onClick={() => handleSelectItems(interest.text)}
                 >
-                  <span
-                    className={` ${
+                    <span
+                    className={`transition ease-in-out ${
                       selected.includes(interest.text) && "hidden"
                     }`}
-                  >
+                    >
                     {showIcon === interest.text && <interest.iconName />}
-                  </span>
+                    </span>
                   {selected.includes(interest.text) && <interest.iconName />}
                   {interest.text}
                 </Button>
