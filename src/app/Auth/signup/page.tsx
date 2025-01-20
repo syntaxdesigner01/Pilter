@@ -81,7 +81,7 @@ export default function SignupPage() {
           if (data?.status === 200) {
             toast.success(data.message);
             localStorage.setItem("token", data?.token);
-            router.push(routeLinks.mainApHome);
+            router.push(routeLinks.chooseInterest);
           } else {
             let errormessage: string = "";
             const message = data?.error?.message;

@@ -10,6 +10,27 @@ import CustomButton from "@/components/GeneralComponents/CustomButton";
 import { useRouter } from "next/navigation";
 import { routeLinks } from "@/utils/routerLinks";
 
+/**
+ * The `ChooseInterest` component allows users to select their interests from a predefined list.
+ * Users can select up to 5 interests, and the selected interests are visually highlighted.
+ * If a user tries to select more than 5 interests, an error message is displayed.
+ * The component includes a navigation bar, a footer, and a button to continue to the next step.
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <ChooseInterest />
+ * ```
+ * 
+ * @returns {JSX.Element} The rendered component.
+ * 
+ * @remarks
+ * - Uses `useState` to manage the selected interests and the icon visibility.
+ * - Uses `useRouter` to navigate to the main application home page.
+ * - Displays a toast message for errors.
+ * - Renders a list of interests as buttons, which can be selected or deselected.
+ * - Includes a continue button to proceed after selecting interests.
+ */
 export default function ChooseInterest() {
   const [selected, setSelected] = useState<string[]>([]);
   const [showIcon, setShowIcon] = useState<string | false>(false);
@@ -73,9 +94,15 @@ export default function ChooseInterest() {
                   variant={"solid"}
                   onClick={() => handleSelectItems(interest.text)}
                 >
+                  <span
+                    className={` ${
+                      selected.includes(interest.text) && "hidden"
+                    }`}
+                  >
+                    {showIcon === interest.text && <interest.iconName />}
+                  </span>
+                  {selected.includes(interest.text) && <interest.iconName />}
                   {interest.text}
-                  {showIcon === interest.text && <interest.iconName />}
-                  {/* <interest.iconName /> */}
                 </Button>
               </div>
             );
