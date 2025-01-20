@@ -12,7 +12,7 @@ import { routeLinks } from "@/utils/routerLinks";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { validateEmail, validatePassword } from "@/utils/validators";
 import Spinner from "@/components/GeneralComponents/Spinner";
@@ -33,9 +33,10 @@ export default function SignInPage() {
   const [passowordError, setPassowordError] = useState<string | null>(null);
 
   const router = useRouter();
-const currentPath = window.location.pathname;
+const currentPath = useRef<string>("");
 
   useEffect(() => {
+     currentPath.current = window.location.pathname;
     setTimeout(() => {
       setEmailError(null);
       setPassowordError(null);
@@ -43,7 +44,6 @@ const currentPath = window.location.pathname;
   }, [emailError, passowordError]);
 
 
-  // const handleSubmit = async (e: React.SyntheticEvent) => {
   //   e.preventDefault();
   //   setLoading(true);
 
@@ -111,7 +111,7 @@ const currentPath = window.location.pathname;
                 console.log(data)
                 toast.success(data.message);
                 localStorage.setItem('token', data.token)
-                if (currentPath === "/home") {
+                if (currentPath.current === "/home") {
                      window.location.reload();
                   router.push(routeLinks.mainApHome);
                 }else{
