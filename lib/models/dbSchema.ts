@@ -18,7 +18,7 @@ const userSchema = new Schema({
         required: true,
         validate: {
             validator: function (v: string) {
-                return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(v);
+                return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\W]{6,}$/.test(v);
             },
             message: () => 'Password must be at least 6 characters long and contain at least one letter and one number.'
         }

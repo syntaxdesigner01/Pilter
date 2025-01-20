@@ -14,15 +14,19 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { routeLinks } from "@/utils/routerLinks";
 
 interface SignInResponse {
   message: string;
   status: number;
   user: userData;
+  token: string;
   error: { message: string };
 }
 
 export default function SignupPage() {
+  const router = useRouter();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -41,8 +45,8 @@ export default function SignupPage() {
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-
     setLoading(true);
+
     if (!validateEmail(email)) {
       setEmailError("Please enter a valid email address.");
       setLoading(false);
@@ -66,46 +70,62 @@ export default function SignupPage() {
     if (window.navigator.onLine) {
       try {
         const response = await signUpWithCredential({ email, password });
-        const data: SignInResponse = JSON.parse(response as string);
-        console.log(data);
-        setLoading(false);
-        setPassowordError(null);
-        setEmailError(null);
+        // Check if response is a plain object
+        if (response && typeof response === "object") {
+          const data: SignInResponse = response as unknown as SignInResponse; // Type assertion
+          console.log(data);
+          setLoading(false);
+          setPassowordError(null);
+          setEmailError(null);
 
-        if (data?.status === 200) {
-          toast.success(data.message);
-        } else {
-          let errormessage: string = "";
-          const message = data?.error?.message;
-
-          if (message && message.includes(":")) {
-            errormessage = message.split(":").at(-1)?.trim() || message;
-            toast.error(errormessage as string);
+          if (data?.status === 200) {
+            toast.success(data.message);
+            localStorage.setItem("token", data?.token);
+            router.push(routeLinks.mainApHome);
           } else {
-            errormessage = message;
-            toast.error(errormessage as string);
+            let errormessage: string = "";
+            const message = data?.error?.message;
+
+            if (message && message.includes(":")) {
+              errormessage = message.split(":").at(-1)?.trim() || message;
+              toast.error(errormessage as string);
+            } else {
+              errormessage = message;
+              toast.error(errormessage as string);
+            }
+            if (!message) {
+              toast.error(data.message);
+            }
           }
-          if (!message) {
-            toast.error(data.message);
-          }
+        } else {
+          throw new Error("Invalid response from the server.");
         }
       } catch (err) {
         setLoading(false);
-        console.error(err);
-        toast.error(`An error occured, Please try again`);
+        console.error("Error during signup:", err);
+
+        if (err instanceof Error) {
+          toast.error(
+            err.message || "An unexpected error occurred. Please try again."
+          );
+        } else if (typeof err === "string") {
+          toast.error(err);
+        } else {
+          toast.error("An error occurred, Please try again");
+        }
+
         setEmail("");
         setPassword("");
       }
     } else {
       toast.error(
-        "Network Error - Please try again when you have stable network"
+        "Network Error - Please try again when you have a stable network"
       );
       setLoading(false);
       setEmail("");
       setPassword("");
     }
   };
-
   return (
     <main>
       <AuthNavBar />

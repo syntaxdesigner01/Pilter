@@ -1,4 +1,4 @@
-function generateId(length = 8) {
+function generateId(length = 20) {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
 

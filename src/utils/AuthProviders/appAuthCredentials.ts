@@ -6,7 +6,7 @@ import User from '../../../lib/models/dbSchema';
 import connectdb from '../../../lib/db';
 import bcrypt from 'bcrypt';
 import { sign_Jwt_Token } from '../../../lib/tokenGenerator';
-import { NextResponse } from 'next/server';
+// import { NextResponse } from 'next/server';
 
 export interface userData {
     id: string;
@@ -25,87 +25,106 @@ export async function signOutWithGoogle() {
     console.log("Signed out");
 }
 
-export async function signUpWithCredential({ email, password }: { email: string, password: string }) {
 
+
+
+export async function signUpWithCredential({ email, password }: { email: string; password: string }) {
     try {
         await connectdb();
-        const existingUser = await User.findOne({ email })
+        const existingUser = await User.findOne({ email });
 
         if (existingUser) {
-            console.log({ user: existingUser, message: 'User already exists' })
-            return JSON.stringify({ message: 'User already exists!.Try Signing-In with your email address', status: 401 });
+            console.log({ user: existingUser, message: 'User  already exists' });
+            return {
+                message: 'User already exists! Try signing up with another email address.',
+                status: 401,
+            };
         } else {
             let id;
             let existingUserId;
             do {
                 id = generateId();
-                existingUserId = await User.findOne({ id: id });
+                existingUserId = await User.findOne({ id });
             } while (existingUserId);
 
+
             const userData = {
-                id: id,
+                id,
                 name: email.split('@')[0],
                 email,
-                password
-            } as userData
+                password: password,
+            };
 
-            const newUser = new User(userData)
-            await newUser.save()
-            
-            const token = sign_Jwt_Token(newUser);
-            console.log('New user created');
-            console.log({ user: newUser, token: token, message: 'Account created successfully', status: 200 })
+            const newUser = new User(userData);
+            await newUser.save();
 
-            // return JSON.stringify({ user: newUser,token:token, message: 'Account created successfully', status: 200 });
-            const response = NextResponse.json({ user: newUser, message: 'Account created successfully' });
-            response.cookies.set('token', token, {
-                httpOnly: true,
-                path: '/',
-                maxAge: 30 * 24 * 60 * 60,
-                sameSite: 'strict',
-                secure: process.env.NODE_ENV === 'production'
-            });
+            const plainUser = {
+                id: newUser.id,
+                name: newUser.name,
+                email: newUser.email,
+            };
 
-            return response;
+            const token: string = sign_Jwt_Token(plainUser);
 
+            console.log('New user created:', { token, message: 'Account created successfully', status: 200 });
+
+            return {
+                token,
+                message: 'Account created successfully',
+                status: 200,
+            };
         }
     } catch (error) {
-        console.log("Error in creating data: " + error, { status: 500 });
-
-        return JSON.stringify({
-            message: "Error in Signing-up user. Please check your Internet connection and try again.", error: error,
-            status: 500
-        })
-
+        console.error("Error in creating data:", error);
+        return {
+            message: "Error in signing up user. Please check your Internet connection and try again.",
+            error: (error as Error).message || error,
+            status: 500,
+        };
     }
 }
 
-
-export async function signInWithUserCredential({ email, password }: { email: string, password: string }) {
+export async function signInWithUserCredential({ email, password }: { email: string; password: string }) {
     try {
         await connectdb();
-        const existingUser = await User.findOne({ email })
+        const existingUser = await User.findOne({ email });
 
         if (existingUser) {
             const isPasswordValid = await bcrypt.compare(password, existingUser.password);
 
             if (isPasswordValid) {
-                console.log({ user: existingUser, message: 'Welcome Back!' })
-                return JSON.stringify({ user: existingUser, message: 'Welcome Back!', status: 200 });
-            } else return JSON.stringify({ message: 'Invalid username or password', status: 404 })
+                const plainUser = {
+                    id: existingUser.id,
+                    name: existingUser.name,
+                    email: existingUser.email,
+                };
+
+                const token = sign_Jwt_Token(plainUser);
+                console.log({ token, message: 'Welcome Back!' });
+
+                return {
+                    token,
+                    message: 'Welcome Back!',
+                    status: 200,
+                };
+            } else {
+                return {
+                    message: 'Invalid username or password',
+                    status: 401, 
+                };
+            }
         } else {
-            return JSON.stringify({ message: 'Invalid credentials. Try again by creating an account', status: 404 })
+            return {
+                message: 'Invalid credentials. Try again by creating an account',
+                status: 404, 
+            };
         }
-
-
     } catch (error) {
-        return (
-            JSON.stringify({
-                message:
-                    "Error in Signing-up user. Please check your Internet connection and try again.",
-                error: error,
-            }),
-            { status: 500 }
-        );
+        console.error("Error during sign-in:", error);
+        return {
+            message: "Error in signing in user. Please check your Internet connection and try again.",
+            error: (error as Error).message || error,
+            status: 500,
+        };
     }
 }
