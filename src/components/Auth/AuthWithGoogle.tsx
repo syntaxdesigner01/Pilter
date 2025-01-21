@@ -10,6 +10,7 @@ import { routeLinks } from "@/utils/routerLinks";
 import { useRouter } from "next/navigation";
 import { getSession } from "next-auth/react";
 import Spinner from "../GeneralComponents/Spinner";
+import toast from "react-hot-toast";
 // import ErrorPage from "@/app/404/page";
 
 interface CustomSession {
@@ -34,41 +35,56 @@ export default function AuthWithGoogle() {
   const router = useRouter();
   const [session, setSession] = useState<CustomSession | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [token, setToken] = useState<string | null>(null);
+
 
   useEffect(() => {
     const fetchSession = async () => {
       const sessionData = await getSession();
       setSession(sessionData as CustomSession);
-      const tokenData = localStorage.getItem("token");
-      if (tokenData) {
-        setToken(tokenData);
-      }
     };
     fetchSession();
   }, [router]);
 
+
+
   useEffect(() => {
     const handleUser = async () => {
       setLoading(true);
-      if (session?.user) {
-        const result = await registerGoogleUser({
-          ...session?.user,
-          image: session?.user?.image || "",
-        });
-        // router.push(routeLinks.mainApHome);
-        console.log(result);
+      try {
+        if (session?.user) {
+          const result = await registerGoogleUser({
+            ...session?.user,
+            image: session?.user?.image || "",
+          });
 
+          if (result.accountType === "existingUser") {
+            toast.success(result.message);
+            router.push(routeLinks.mainApHome);
+          }
+
+          if (result.accountType === "newUser") {
+            toast.success(result.message);
+            if (result.status === 200) {
+              router.push(routeLinks.chooseInterest);
+            }
+          }
+          setLoading(false);
+        }
+
+      } catch (error) {
         setLoading(false);
-      } else {
-        // router.push(routeLinks.home);
-           setLoading(false);
+        console.error("Error:", error);
+        if (error instanceof Error) {
+          toast.error(error.message);
+        } else {
+          toast.error("An unknown error occurred");
+        }
       }
     };
-
     handleUser();
   }, [session]);
 
+  
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -78,6 +94,7 @@ export default function AuthWithGoogle() {
         await signInWithGoogle();
       } catch (error) {
         console.error("Authentication error:", error);
+        toast.error("An error occurred. Please try again.");
         setLoading(false);
       }
     } else {
