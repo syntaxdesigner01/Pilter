@@ -28,25 +28,40 @@ interface CustomSession {
  *
  * @returns {JSX.Element} A form with a button for Google authentication.
  */
+
 export default function AuthWithGoogle() {
   const router = useRouter();
   const [session, setSession] = useState<CustomSession | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+    const [token, setToken] = useState<string | null>(null); 
 
   useEffect(() => {
     const fetchSession = async () => {
       const sessionData = await getSession();
       setSession(sessionData as CustomSession);
+       const tokenData = localStorage.getItem("token");
+       if (tokenData) {
+         setToken(tokenData);
+       }
 
-      if (sessionData) {
-        router.push(routeLinks.chooseInterest);
-        console.log(session);}
+      if (sessionData || token) {
+        // router.push(routeLinks.chooseInterest);
+        console.log('user loged in');}
       //  else {
       //   router.push(routeLinks.signin);
       // }
     };
+      
     fetchSession();
-  }, [router,session]);
+  }, [router]);
+
+
+  if (session) {
+    console.log(session);
+  }
+  if (token) {
+    console.log("token data");
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -54,7 +69,8 @@ export default function AuthWithGoogle() {
 
   if(window.navigator.onLine){
       try {
-        await signInWithGoogle();
+       await signInWithGoogle();
+       
       } catch (error) {
         console.error("Authentication error:", error);
         setLoading(false);
@@ -62,7 +78,6 @@ export default function AuthWithGoogle() {
   }else {
     setLoading(false);
     router.push(routeLinks.errorPage)
-    // return <ErrorPage redirectLink={routeLinks?.signup} />
   }
   };
 

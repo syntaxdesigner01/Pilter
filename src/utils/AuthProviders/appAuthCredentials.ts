@@ -17,7 +17,7 @@ export interface userData {
 
 
 export async function signInWithGoogle() {
-    await signIn("google");
+ await signIn("google");
 }
 
 export async function signOutWithGoogle() {
