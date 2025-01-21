@@ -2,14 +2,15 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "../ui/button";
 import Image from "next/image";
-import { signInWithGoogle } from "@/utils/AuthProviders/appAuthCredentials";
+import {
+  registerGoogleUser,
+  signInWithGoogle,
+} from "@/utils/AuthProviders/appAuthCredentials";
 import { routeLinks } from "@/utils/routerLinks";
 import { useRouter } from "next/navigation";
 import { getSession } from "next-auth/react";
 import Spinner from "../GeneralComponents/Spinner";
 // import ErrorPage from "@/app/404/page";
-
-
 
 interface CustomSession {
   user?: {
@@ -33,57 +34,60 @@ export default function AuthWithGoogle() {
   const router = useRouter();
   const [session, setSession] = useState<CustomSession | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-    const [token, setToken] = useState<string | null>(null); 
+  const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchSession = async () => {
       const sessionData = await getSession();
       setSession(sessionData as CustomSession);
-       const tokenData = localStorage.getItem("token");
-       if (tokenData) {
-         setToken(tokenData);
-       }
-
-      if (sessionData || token) {
-        // router.push(routeLinks.chooseInterest);
-        console.log('user loged in');}
-      //  else {
-      //   router.push(routeLinks.signin);
-      // }
+      const tokenData = localStorage.getItem("token");
+      if (tokenData) {
+        setToken(tokenData);
+      }
     };
-      
     fetchSession();
   }, [router]);
 
+  useEffect(() => {
+    const handleUser = async () => {
+      setLoading(true);
+      if (session?.user) {
+        const result = await registerGoogleUser({
+          ...session?.user,
+          image: session?.user?.image || "",
+        });
+        // router.push(routeLinks.mainApHome);
+        console.log(result);
 
-  if (session) {
-    console.log(session);
-  }
-  if (token) {
-    console.log("token data");
-  }
+        setLoading(false);
+      } else {
+        // router.push(routeLinks.home);
+           setLoading(false);
+      }
+    };
+
+    handleUser();
+  }, [session]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
 
-  if(window.navigator.onLine){
+    if (window.navigator.onLine) {
       try {
-       await signInWithGoogle();
-       
+        await signInWithGoogle();
       } catch (error) {
         console.error("Authentication error:", error);
         setLoading(false);
       }
-  }else {
-    setLoading(false);
-    router.push(routeLinks.errorPage)
-  }
+    } else {
+      setLoading(false);
+      router.push(routeLinks.errorPage);
+    }
   };
 
   return (
     <>
-
       <form onSubmit={handleSubmit}>
         <Button
           className={`border-2 w-[90vw] md:w-[22em] py-6 rounded-xl text-base md:text-xl font-bold border-black ${

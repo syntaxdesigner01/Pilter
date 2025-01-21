@@ -10,16 +10,22 @@ import GoogleUser from '../../../lib/models/dbSchemaGoogleAuth';
 // import { NextResponse } from 'next/server';
 
 export interface userData {
-    id: string;
+    id?: string;
     name: string;
     email: string;
-    password: string
+    password?: string
     image: string
 }
 
+export interface googleUserData {
+    name: string;
+    email: string;
+    image: string
+}
 
 export async function signInWithGoogle() {
-    await signIn("google");
+    const result = await signIn("google")
+    return result;
 }
 
 export async function signOutWithGoogle() {
@@ -28,7 +34,7 @@ export async function signOutWithGoogle() {
 }
 
 
-export async function registerGoogleUser(user: userData) {
+export async function registerGoogleUser(user: googleUserData) {
     try {
         await connectdb();
         const existingUser = await GoogleUser.findOne({ email: user.email });
