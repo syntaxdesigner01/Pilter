@@ -6,6 +6,7 @@ import User from '../../../lib/models/dbSchema';
 import connectdb from '../../../lib/db';
 import bcrypt from 'bcrypt';
 import { sign_Jwt_Token } from '../../../lib/tokenGenerator';
+import GoogleUser from '../../../lib/models/dbSchemaGoogleAuth';
 // import { NextResponse } from 'next/server';
 
 export interface userData {
@@ -13,11 +14,12 @@ export interface userData {
     name: string;
     email: string;
     password: string
+    image: string
 }
 
 
 export async function signInWithGoogle() {
- await signIn("google");
+    await signIn("google");
 }
 
 export async function signOutWithGoogle() {
@@ -26,7 +28,42 @@ export async function signOutWithGoogle() {
 }
 
 
+export async function registerGoogleUser(user: userData) {
+    try {
+        await connectdb();
+        const existingUser = await GoogleUser.findOne({ email: user.email });
+        if (existingUser) {
+            return {
+                message: 'User Signed in successfully',
+                status: 200,
+            };
+        } else {
+            let id;
+            let existingUserId;
+            do {
+                id = generateId();
+                existingUserId = await User.findOne({ id });
+            } while (existingUserId);
 
+            const userData = {
+                id,
+                name: user.name,
+                email: user.email,
+                image: user.image,
+            };
+            const newUser = new GoogleUser(userData);
+            await newUser.save();
+            console.log('New user created:', { message: 'Account created successfully', status: 200 });
+            return {
+                message: 'Account created successfully',
+                status: 200,
+            };
+
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 export async function signUpWithCredential({ email, password }: { email: string; password: string }) {
     try {
@@ -110,13 +147,13 @@ export async function signInWithUserCredential({ email, password }: { email: str
             } else {
                 return {
                     message: 'Invalid username or password',
-                    status: 401, 
+                    status: 401,
                 };
             }
         } else {
             return {
                 message: 'Invalid credentials. Try again by creating an account',
-                status: 404, 
+                status: 404,
             };
         }
     } catch (error) {
