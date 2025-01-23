@@ -13,7 +13,7 @@ import Spinner from "../GeneralComponents/Spinner";
 import toast from "react-hot-toast";
 // import ErrorPage from "@/app/404/page";
 
-interface CustomSession {
+export interface CustomSession {
   user?: {
     name: string;
     email: string;
@@ -49,9 +49,9 @@ export default function AuthWithGoogle() {
 
   useEffect(() => {
     const handleUser = async () => {
-      setLoading(true);
       try {
         if (session?.user) {
+          setLoading(true);
           const result = await registerGoogleUser({
             ...session?.user,
             image: session?.user?.image || "",

@@ -7,6 +7,10 @@ import connectdb from '../../../lib/db';
 import bcrypt from 'bcrypt';
 import { sign_Jwt_Token } from '../../../lib/tokenGenerator';
 import GoogleUser from '../../../lib/models/dbSchemaGoogleAuth';
+import toast from 'react-hot-toast';
+import { redirect } from 'next/navigation';
+
+
 
 
 export interface userData {
@@ -31,6 +35,9 @@ export async function signInWithGoogle() {
 export async function signOutWithGoogle() {
     await signOut();
     console.log("Signed out");
+    toast.success("Signed out")
+    redirect('/')
+
 }
 
 

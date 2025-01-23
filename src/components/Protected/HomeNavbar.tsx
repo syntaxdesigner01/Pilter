@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { FaBell } from "react-icons/fa6";
+import LoginUser from "./LoginUser";
 
 export default function HomeNavbar() {
   return (
@@ -16,9 +17,9 @@ export default function HomeNavbar() {
       <section className="flex items-center gap-10 ">
         <FaBell className="text-2xl" />
 
-        <section className="border-2 p-6 text-2xl font-bold flex justify-center items-center bg-pink-500 h-10 w-10 rounded-full">
-          <span>s</span>
-        </section>
+      
+
+        <LoginUser/>
       </section>
     </nav>
   );
